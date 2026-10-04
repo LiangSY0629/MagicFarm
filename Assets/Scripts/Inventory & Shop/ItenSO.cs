@@ -5,7 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item")]
 public class ItemSO: ScriptableObject
 {
+    public int ID;
     public string itemName;
-    [TextArea]public string itemDescription;
     public Sprite icon;
+    public int itemQuality;
+    public int itemLevel;
+
+    [TextArea] public string itemDescription;
+
+}
+
+
+[CreateAssetMenu(fileName ="New ItemLibrary")]
+public class ItemLibrarySO: ScriptableObject
+{
+    public List<ItemSO> plantItems;
+    public List<ItemSO> animalItems;
+
 }

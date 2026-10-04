@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: A ItemLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::ItemLibrarySO
+  plantItems:
+  - {fileID: 11400000, guid: bd48b9f2f62326b4cb01d6244760a6b8, type: 2}
+  - {fileID: 11400000, guid: c756bcc7ce098854c91b6a6357b8a0f9, type: 2}
+  animalItems:
+  - {fileID: 11400000, guid: ce565cd3d482297418aa8cd90da3e10a, type: 2}
