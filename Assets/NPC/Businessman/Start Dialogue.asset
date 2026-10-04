@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca12db8697324364d975d4f44e30df8a, type: 3}
+  m_Name: Start Dialogue
+  m_EditorClassIdentifier: 
+  npcName: "\u5C3C\u83AB"
+  npcSprite: {fileID: 7629635659963492676, guid: 82820ceaa8ef4204191f1dbdd2605d39, type: 3}
+  dialogueLines:
+  - "\u67A3\u5C1A\u869D\uFF0C\u6930\u6C41\u57CE\uFF0C\u4ECA\u5929\u4E5F\u8981\u52AA\u529B\u6D3B\u4E0B\u53BB\u5462"
+  - "\u4F60\u96BE\u9053\u6CA1\u4E8B\u60C5\u505A\u5417\uFF1F\u8FD8\u4E0D\u5FEB\u53BB\u79CD\u5730\uFF0C\u4F60\u60F3\u8BA9\u4F60\u7684\u8001\u677F\u5F00\u4E0D\u4E0A\u8FC8\u5DF4\u8D6B\u5417\uFF1F"
+  - "\u73B0\u5728\uFF0C\u7ACB\u523B\uFF0C\u9A6C\u4E0A\uFF01\uFF01\uFF01"
+  autoDialogue: 1
+  autoProgressLines: 010100
+  autoProgressDelay: 1.5
+  TypingSpeed: 0.05
+  voiceSound: {fileID: 8300000, guid: 6d7ded1c3665f5f4d88ee1ed83c7e1e7, type: 3}

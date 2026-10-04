@@ -1,0 +1,258 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Light cow animations_0
+      m_Hash: 866750739
+      m_Sprite: {fileID: -2049508187, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2049508187, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_1
+      m_Hash: 78553477
+      m_Sprite: {fileID: 1796910465, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1796910465, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_2
+      m_Hash: 497545279
+      m_Sprite: {fileID: 431743510, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 431743510, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 3
+  - m_Name: Walk
+    m_Hash: 765711723
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Light cow animations_3
+      m_Hash: 715178153
+      m_Sprite: {fileID: 1173070942, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1173070942, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_4
+      m_Hash: 885282058
+      m_Sprite: {fileID: -1450300490, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1450300490, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_5
+      m_Hash: 63137180
+      m_Sprite: {fileID: -2069004578, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2069004578, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_6
+      m_Hash: 449459238
+      m_Sprite: {fileID: -1220952840, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1220952840, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_7
+      m_Hash: 768410800
+      m_Sprite: {fileID: 1772453300, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1772453300, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_8
+      m_Hash: 1030887713
+      m_Sprite: {fileID: 661611222, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 661611222, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_9
+      m_Hash: 175450551
+      m_Sprite: {fileID: -150050125, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -150050125, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_10
+      m_Hash: 701302319
+      m_Sprite: {fileID: -776248385, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -776248385, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 8
+  - m_Name: Lie
+    m_Hash: 254208143
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Light cow animations_11
+      m_Hash: 516568761
+      m_Sprite: {fileID: -1850543424, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1850543424, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_12
+      m_Hash: 130246403
+      m_Sprite: {fileID: -1287216512, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1287216512, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_13
+      m_Hash: 818173845
+      m_Sprite: {fileID: -508189893, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -508189893, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_14
+      m_Hash: 782287414
+      m_Sprite: {fileID: 1247885732, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1247885732, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_18
+      m_Hash: 655789597
+      m_Sprite: {fileID: 1073236039, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1073236039, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_19
+      m_Hash: 269598347
+      m_Sprite: {fileID: -1652212406, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1652212406, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_20
+      m_Hash: 48256492
+      m_Sprite: {fileID: 1730199822, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1730199822, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_21
+      m_Hash: 904357242
+      m_Sprite: {fileID: -853922710, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -853922710, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_22
+      m_Hash: 753808576
+      m_Sprite: {fileID: -1440075802, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1440075802, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_23
+      m_Hash: 468255830
+      m_Sprite: {fileID: -508357851, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -508357851, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_24
+      m_Hash: 93164021
+      m_Sprite: {fileID: 956581577, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 956581577, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_15
+      m_Hash: 430437024
+      m_Sprite: {fileID: 2037802723, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2037802723, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_16
+      m_Hash: 11445018
+      m_Sprite: {fileID: 748904122, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 748904122, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_17
+      m_Hash: 933860236
+      m_Sprite: {fileID: 1155763601, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1155763601, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 14
+  - m_Name: Eat
+    m_Hash: 580811258
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Light cow animations_25
+      m_Hash: 847946083
+      m_Sprite: {fileID: 1413383933, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1413383933, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_26
+      m_Hash: 730067161
+      m_Sprite: {fileID: 1667847030, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1667847030, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_27
+      m_Hash: 478462031
+      m_Sprite: {fileID: -273111647, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -273111647, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_28
+      m_Hash: 205250014
+      m_Sprite: {fileID: 1650283694, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1650283694, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_29
+      m_Hash: 993848648
+      m_Sprite: {fileID: -509535056, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -509535056, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_30
+      m_Hash: 469460141
+      m_Sprite: {fileID: -1644495159, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1644495159, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_31
+      m_Hash: 754734139
+      m_Sprite: {fileID: 414944550, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 414944550, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_32
+      m_Hash: 905250177
+      m_Sprite: {fileID: -1034498437, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1034498437, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_33
+      m_Hash: 49427735
+      m_Sprite: {fileID: -963217390, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -963217390, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_34
+      m_Hash: 479633588
+      m_Sprite: {fileID: -187878542, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -187878542, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_35
+      m_Hash: 730959906
+      m_Sprite: {fileID: -1384970626, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1384970626, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 11
+  - m_Name: Happy
+    m_Hash: 1059892429
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Light cow animations_36
+      m_Hash: 848871832
+      m_Sprite: {fileID: 1341560162, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1341560162, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_37
+      m_Hash: 94368014
+      m_Sprite: {fileID: -1574083560, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1574083560, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_38
+      m_Hash: 354479263
+      m_Sprite: {fileID: 1676690296, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1676690296, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_39
+      m_Hash: 573037577
+      m_Sprite: {fileID: -958258628, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -958258628, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_40
+      m_Hash: 347796074
+      m_Sprite: {fileID: 15639365, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 15639365, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    - m_Name: Light cow animations_41
+      m_Hash: 599638780
+      m_Sprite: {fileID: 263890192, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 263890192, guid: 73f0f8fca95546a45be492bbee029974, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 6
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 639259741440611735
+  m_Version: 1
