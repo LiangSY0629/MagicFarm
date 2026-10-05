@@ -166,7 +166,7 @@ public class InventoryController : MonoBehaviour
 
 
 
-    //从队列中加载itemID，slotID
+    //List从中加载itemID，slotID
     public void SetInventoryData(List<InventorySaveData> inventorySaveData)
     {
         List<Slot> slotList = new List<Slot>();
@@ -188,15 +188,15 @@ public class InventoryController : MonoBehaviour
             {
                 Slot slot = slotList[inventoryData.slotIndex];
 
-                GameObject itemPrefab = itemDictionary.GetItemPrefabs(inventoryData.itemID);
-                if (itemPrefab != null)
-                {
-                    GameObject item = Instantiate(itemPrefab, slot.transform);
-                    item.GetComponent<Item>().number = inventoryData.itemNum;
-                    item.GetComponent<Item>().AddNumber();
-                    item.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                    slot.currentItem = item;
-                }
+                //GameObject itemPrefab = itemDictionary.GetItemPrefabs(inventoryData.itemID);
+                //if (itemPrefab != null)
+                //{
+                //    GameObject item = Instantiate(itemPrefab, slot.transform);
+                //    item.GetComponent<Item>().number = inventoryData.itemNum;
+                //    item.GetComponent<Item>().AddNumber();
+                //    item.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                //    slot.currentItem = item;
+                //}
             }
         }
 

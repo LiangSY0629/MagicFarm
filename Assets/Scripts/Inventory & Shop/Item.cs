@@ -9,6 +9,10 @@ public class Item : MonoBehaviour
 {
     public int ID;
     public string Name;
+    public int level;
+    public int quality;
+    public Image image;
+    public Sprite Sprite;
     public int number = 1;
     public int pickNumber;
     public bool isFlying = false;
@@ -21,6 +25,19 @@ public class Item : MonoBehaviour
     private void Start()
     {
         inventoryController = FindObjectOfType<InventoryController>();
+        image = GetComponent<Image>();
+        Sprite = GetComponent<SpriteRenderer>().sprite;
+    }
+
+
+    public void CreateItem(ItemSO itemSO, int itemQuality)
+    {
+        ID = itemSO.ID;
+        Name = itemSO.itemName;
+        image.sprite = itemSO.icon;
+        Sprite = itemSO.icon;
+        level = itemSO.itemLevel;
+        quality = itemQuality;
     }
 
 /// <summary>

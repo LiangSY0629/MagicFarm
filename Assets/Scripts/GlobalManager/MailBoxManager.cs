@@ -368,7 +368,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             Mail mail = Instantiate(mailPrefab, mailTransform).GetComponent<Mail>();
 
             mail.itemID = mailData.itemID;
-            mail.needImage1.sprite = itemDictionary.GetItemPrefabs(mailData.itemID).GetComponent<Image>().sprite;
+            //mail.needImage1.sprite = itemDictionary.GetItemPrefab(mailData.itemID).GetComponent<Image>().sprite;
             mail.titleText.text = mailData.titleText;
             mail.goldNumber.text = mailData.goldNumber;
             mail.starNumber = mailData.starNumber;

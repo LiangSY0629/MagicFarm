@@ -113,7 +113,7 @@ public class Plant : MonoBehaviour
 
     public void HarvestCrop()
     {
-        GameObject item = Instantiate(itemDictionary.GetItemPrefabs(ID), items.transform);
+        GameObject item = Instantiate(itemDictionary.GetItemPrefab(StatsManager.ItemTypes.Crop,ID,1), items.transform);
         item.transform.position = transform.position;
         item.GetComponent<Item>().Harvest(jumpTime);
         Destroy(gameObject);

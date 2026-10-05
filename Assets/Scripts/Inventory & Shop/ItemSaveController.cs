@@ -40,16 +40,16 @@ public class ItemSaveController : MonoBehaviour
             }
 
 
-            foreach(ItemSaveData itemData in itemSaveData)
-            {
-                GameObject itemPrefab = itemDictionary.GetItemPrefabs(itemData.itemID);
-                if (itemPrefab != null)
-                {
-                    GameObject newItem = Instantiate(itemPrefab, transform);
-                    newItem.transform.position = itemData.itemPosition;
-                }
+            //foreach(ItemSaveData itemData in itemSaveData)
+            //{
+            //GameObject itemPrefab = itemDictionary.GetItemPrefab(itemData.itemID);
+            //if (itemPrefab != null)
+            //{
+            //    GameObject newItem = Instantiate(itemPrefab, transform);
+            //    newItem.transform.position = itemData.itemPosition;
+            //}
 
-            }
+            //}
         }
     }
 }

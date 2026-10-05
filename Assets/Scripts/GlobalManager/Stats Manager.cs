@@ -42,6 +42,11 @@ public class StatsManager : MonoBehaviour
         Seed,
     }
 
+    public enum ItemTypes
+    {
+        Crop,
+        Animal,
+    }
 
     private void Awake()
     {
