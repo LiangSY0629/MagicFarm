@@ -110,7 +110,7 @@ MonoBehaviour:
   - {fileID: 1276217990, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
   - {fileID: 269879499, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
   ID: 2
-  growth: 1
+  growth: 0
   waterSprite: {fileID: 4834868375027741771}
   currentGrowTime: 0
   currentWaterTime: 0

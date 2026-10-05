@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class ItemDictionary : MonoBehaviour
 {
-    public static ItemDictionary Instance;
+    public static ItemDictionary Instance { get; set; }
 
     public int itemMaxQuality = 3;
     public GameObject itemPublicPrefab;
@@ -19,7 +19,7 @@ public class ItemDictionary : MonoBehaviour
     //掉落物种类，ID，品质 查询当前库存；
     public Dictionary<(StatsManager.ItemTypes, int, int), int> itemNumberDictionary;
     //掉落物种类，掉落物等级和当前等级的掉落物总数；
-    public Dictionary<StatsManager.ItemTypes, Dictionary<int, int>> itemLevelDictionary;
+    public Dictionary<StatsManager.ItemTypes, Dictionary<int, List<ItemSO>>> itemLevelDictionary;
     public Dictionary<int, int> itemNumDictionary;
 
 
@@ -34,7 +34,7 @@ public class ItemDictionary : MonoBehaviour
         //初始化字典
         itemDictionary = new Dictionary<(StatsManager.ItemTypes, int), ItemSO>();
         itemNumberDictionary = new Dictionary<(StatsManager.ItemTypes, int, int), int>();
-        itemLevelDictionary = new Dictionary<StatsManager.ItemTypes, Dictionary<int, int>>();
+        itemLevelDictionary = new Dictionary<StatsManager.ItemTypes, Dictionary<int, List<ItemSO>>>();
 
         //遍历队列，按顺序赋值List里的元素，并将元素添加到字典中
         for (int i = 0; i < itemlibrarySO.plantItems.Count; i++)
@@ -43,12 +43,6 @@ public class ItemDictionary : MonoBehaviour
             {
                 itemlibrarySO.plantItems[i].ID = i + 1;
                 itemDictionary[(StatsManager.ItemTypes.Crop, i + 1)] = itemlibrarySO.plantItems[i];
-
-                //循环quality，将所有id的所有quality置为0；
-                for(int j = 1; j <= itemMaxQuality; j++)
-                {
-                    itemNumberDictionary[(StatsManager.ItemTypes.Crop, i + 1, j)] = 0;
-                }
 
             }
         }
@@ -61,17 +55,12 @@ public class ItemDictionary : MonoBehaviour
                 itemlibrarySO.animalItems[i].ID = i + 1;
                 itemDictionary[(StatsManager.ItemTypes.Animal, i + 1)] = itemlibrarySO.animalItems[i];
 
-                //循环quality，将所有id的所有quality置为0；
-                for (int j = 1; j <= itemMaxQuality; j++)
-                {
-                    itemNumberDictionary[(StatsManager.ItemTypes.Crop, i + 1, j)] = 0;
-                }
             }
         }
 
         //使用LINQ指令，将原有List里的元素按照Level分组，再根据每组的个数添加为字典；
-        itemLevelDictionary[StatsManager.ItemTypes.Crop] = itemlibrarySO.plantItems.GroupBy(x => x.itemLevel).ToDictionary(y => y.Key, y => y.Count());
-        itemLevelDictionary[StatsManager.ItemTypes.Animal] = itemlibrarySO.animalItems.GroupBy(x => x.itemLevel).ToDictionary(y => y.Key, y => y.Count());
+        itemLevelDictionary[StatsManager.ItemTypes.Crop] = itemlibrarySO.plantItems.GroupBy(x => x.itemLevel).ToDictionary(y => y.Key, y => y.ToList());
+        itemLevelDictionary[StatsManager.ItemTypes.Animal] = itemlibrarySO.animalItems.GroupBy(x => x.itemLevel).ToDictionary(y => y.Key, y => y.ToList());
 
     }
 
@@ -91,7 +80,7 @@ public class ItemDictionary : MonoBehaviour
         }
         GameObject itemPrefab = itemPublicPrefab;
         Item item = itemPrefab.GetComponent<Item>();
-        item.CreateItem(itemSO, itemQuality);
+        item.CreateItem(itemType, itemSO, itemQuality);
 
         return itemPrefab;
     }

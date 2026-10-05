@@ -32,7 +32,9 @@ public class SaveData
 [System.Serializable]
 public class InventorySaveData
 {
+    public StatsManager.ItemTypes itemType;
     public int itemID;
+    public int itemQuality;
     public int slotIndex;
     public int itemNum;
 
@@ -41,7 +43,9 @@ public class InventorySaveData
 [System.Serializable]
 public class AllItemNumberSaveData
 {
+    public StatsManager.ItemTypes itemType;
     public int itemID;
+    public int itemQuality;
     public int allItemNumber;
 }
 

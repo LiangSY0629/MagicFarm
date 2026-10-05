@@ -300,7 +300,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             {
                 SoundEffectManager.Instance.PlayAudio("Confirm");
 
-                inventoryController.LessItem(currentMail.itemID, currentMail.itemNeedNumber);
+                //inventoryController.LessItem(currentMail.itemType, currentMail.itemID, currentMail.itemNeedNumber);
                 TimeController.Instance.SetGold(currentMail.rewardNumber);
                 TipsPopupControler.Instance.SetTipsText("种了么订单提交成功！");
                 mails.Remove(currentMail);

@@ -12,12 +12,12 @@ public class Plant : MonoBehaviour
     public List<Sprite> plantSprite;
     public int ID;
     //public string Name;
-    public int growth;
+    public int growth = 0;
     public GameObject waterSprite;
 
     [Header("不要改这个")]
-    public float currentGrowTime;
-    public float currentWaterTime;
+    public float currentGrowTime = 0;
+    public float currentWaterTime = 0;
     public bool water;
     public bool mature = false;
 
@@ -35,9 +35,6 @@ public class Plant : MonoBehaviour
         itemDictionary = FindObjectOfType<ItemDictionary>();
         items = FindObjectOfType<ItemSaveController>();
 
-        currentGrowTime = 0;
-        currentWaterTime = 0;
-        growth = 0;
         water = false;
     }
 
@@ -113,7 +110,7 @@ public class Plant : MonoBehaviour
 
     public void HarvestCrop()
     {
-        GameObject item = Instantiate(itemDictionary.GetItemPrefab(StatsManager.ItemTypes.Crop,ID,1), items.transform);
+        GameObject item = Instantiate(itemDictionary.GetItemPrefab(StatsManager.ItemTypes.Crop, ID, 1), items.transform);
         item.transform.position = transform.position;
         item.GetComponent<Item>().Harvest(jumpTime);
         Destroy(gameObject);

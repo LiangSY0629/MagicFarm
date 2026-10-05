@@ -7,16 +7,20 @@ using static UnityEditor.Progress;
 
 public class Item : MonoBehaviour
 {
+    //由Item SO进行赋值的变量
     public int ID;
     public string Name;
     public int level;
     public int quality;
-    public Image image;
+    public Sprite image;
     public Sprite Sprite;
+    public StatsManager.ItemTypes Type;
+
+    //后期再生成的变量；
     public int number = 1;
     public int pickNumber;
-    public bool isFlying = false;
 
+    public bool isFlying = false;
     float flyTime = .6f;
     float jumpHeight = 1f;
 
@@ -25,24 +29,30 @@ public class Item : MonoBehaviour
     private void Start()
     {
         inventoryController = FindObjectOfType<InventoryController>();
-        image = GetComponent<Image>();
+        image = GetComponent<Image>().sprite;
         Sprite = GetComponent<SpriteRenderer>().sprite;
     }
 
-
-    public void CreateItem(ItemSO itemSO, int itemQuality)
+    /// <summary>
+    /// 传入Item SO和quality，对item执行赋值操作；
+    /// </summary>
+    /// <param name="itemType"></param>
+    /// <param name="itemSO"></param>
+    /// <param name="itemQuality"></param>
+    public void CreateItem(StatsManager.ItemTypes itemType, ItemSO itemSO, int itemQuality)
     {
         ID = itemSO.ID;
         Name = itemSO.itemName;
-        image.sprite = itemSO.icon;
+        image = itemSO.icon;
         Sprite = itemSO.icon;
         level = itemSO.itemLevel;
         quality = itemQuality;
+        Type = itemType;
     }
 
-/// <summary>
-/// 更新物品栏的数量图标显示；
-/// </summary>
+    /// <summary>
+    /// 更新物品栏的数量图标显示；
+    /// </summary>
     public void AddNumber()
     {
         GetComponentInChildren<TMP_Text>().text = "" + number;
@@ -51,7 +61,7 @@ public class Item : MonoBehaviour
     //拾取时随机数量
     public void RandomPickNum()
     {
-        pickNumber = Random.Range(1, 4);
+        pickNumber = Random.Range(1, StatsManager.Instance.maxPickNumber);
     }
 
     //调用ui弹窗，将物品信息返回ui弹窗函数
@@ -60,7 +70,7 @@ public class Item : MonoBehaviour
         Sprite sprite = GetComponent<Image>().sprite;
         if (ItemPickUpController.Instance != null)
         {
-            ItemPickUpController.Instance.ShowItemPickUp(Name, sprite, pickNumber);
+            ItemPickUpController.Instance.ShowItemPickUp(Name, sprite, pickNumber, quality);
             SoundEffectManager.Instance.PlayAudio("PickUp");
         }
     }
@@ -97,7 +107,9 @@ public class Item : MonoBehaviour
            
         }
 
+        //调用库存添加函数，传入Game Object作为库存面板中显示的game object；
         bool itemAdded = inventoryController.AddItem(collision);
+
         if (itemAdded)
         {
             PickUp();
@@ -105,11 +117,12 @@ public class Item : MonoBehaviour
         }
     }
 
+
+
     public void Harvest(float jumpTime)
     {
         StartCoroutine(ItemJumpFormPlant(jumpTime));
     }
-
 
 
     IEnumerator ItemJumpFormPlant(float jumpTime)
@@ -133,9 +146,6 @@ public class Item : MonoBehaviour
 
         isFlying = false;
     }
-
-
-
 
 
 

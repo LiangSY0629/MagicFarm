@@ -15,8 +15,12 @@ public class StatsManager : MonoBehaviour
     public float speed;
     public int square = 1;
 
+    [Header("Item Stats")]
+    public int maxPickNumber = 2;
+    public int maxPileNumber = 99;
+
     [Header("Animals Stats")]
-    public int currentAnimalTypes = 3;
+    public int currentAnimalTypes;
     public int animalNumber;
     public int maxAnimalTypes;
 

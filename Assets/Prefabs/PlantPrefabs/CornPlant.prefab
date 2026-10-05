@@ -200,14 +200,14 @@ MonoBehaviour:
   - {fileID: -1341338387, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
   - {fileID: 1508617167, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
   ID: 1
-  growth: 1
+  growth: 0
   waterSprite: {fileID: 2320180746311320694}
   currentGrowTime: 0
   currentWaterTime: 0
   water: 0
   mature: 0
-  growTime: 30
-  waterTime: 20
+  growTime: 10
+  waterTime: 5
   jumpTime: 0.5
 --- !u!58 &7573708170979461164
 CircleCollider2D:
