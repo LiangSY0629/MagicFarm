@@ -27,15 +27,21 @@ public class Plant : MonoBehaviour
     public float jumpTime = 0.5f;
 
     ItemSaveController items;
-    
-    
+
+
+    private void Awake()
+    {
+        growth = 0;
+        currentGrowTime = 0;
+        currentWaterTime = 0;
+
+        water = false;
+    }
 
     private void Start()
     {
         itemDictionary = FindObjectOfType<ItemDictionary>();
         items = FindObjectOfType<ItemSaveController>();
-
-        water = false;
     }
 
     public void PlantGrowth()
@@ -110,7 +116,8 @@ public class Plant : MonoBehaviour
 
     public void HarvestCrop()
     {
-        GameObject item = Instantiate(itemDictionary.GetItemPrefab(StatsManager.ItemTypes.Crop, ID, 1), items.transform);
+        int itemQuality = Random.Range(1, StatsManager.Instance.maxQuality + 1);
+        GameObject item = Instantiate(itemDictionary.GetItemPrefab(StatsManager.ItemTypes.Crop, ID, itemQuality), items.transform);
         item.transform.position = transform.position;
         item.GetComponent<Item>().Harvest(jumpTime);
         Destroy(gameObject);

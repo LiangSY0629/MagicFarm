@@ -61,7 +61,7 @@ public class Item : MonoBehaviour
     //拾取时随机数量
     public void RandomPickNum()
     {
-        pickNumber = Random.Range(1, StatsManager.Instance.maxPickNumber);
+        pickNumber = Random.Range(1, StatsManager.Instance.maxPickNumber + 1);
     }
 
     //调用ui弹窗，将物品信息返回ui弹窗函数

@@ -13,6 +13,7 @@ public class PlantController : MonoBehaviour
         plantDictionary = FindObjectOfType<PlantDictionary>();
     }
 
+    //保存当前的植物
     public List<PlantSaveData> GetSaveData()
     {
         List<PlantSaveData> plantData = new List<PlantSaveData>();
@@ -40,7 +41,7 @@ public class PlantController : MonoBehaviour
 
     }
 
-
+    //加载植物到地图中；
     public void SetPlant(List<PlantSaveData> plantSaveData)
     {
         if (plantSaveData == null)

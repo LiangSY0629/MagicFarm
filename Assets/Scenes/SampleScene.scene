@@ -184098,6 +184098,8 @@ MonoBehaviour:
   current_tool: 1
   speed: 5
   square: 3
+  maxPickNumber: 1
+  maxPileNumber: 99
   currentAnimalTypes: 5
   animalNumber: 2
   maxAnimalTypes: 5

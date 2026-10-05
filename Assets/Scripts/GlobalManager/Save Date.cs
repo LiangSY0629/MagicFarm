@@ -53,7 +53,9 @@ public class AllItemNumberSaveData
 [System.Serializable]
 public class ItemSaveData
 {
+    public StatsManager.ItemTypes itemType;
     public int itemID;
+    public int itemQuality;
     public Vector3 itemPosition;
 
 }

@@ -122,7 +122,6 @@ public class MailBoxManager : MonoBehaviour, IInteractable
 
     }
 
-
     /// <summary>
     /// 生成一个随机的可获取的掉落物，一个随机的数量，并计算它的总价值
     /// </summary>
@@ -231,7 +230,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         }
         else levelName = "高级";
 
-        mail.titleText.text = itemName + "的" + levelName + "订单";
+        mail.titleText.text = item.quality + "阶" + itemName + "的" + levelName + "订单";
         mail.rewardNumber = rewardNumber;
         mail.goldNumber.text = $"{rewardNumber}";
         mail.needImage1.sprite = item.GetComponent<Image>().sprite;

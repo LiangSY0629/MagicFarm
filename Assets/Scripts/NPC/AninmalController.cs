@@ -16,8 +16,6 @@ public class AnimalController : MonoBehaviour,IInteractable
     public GameObject chest;
     public int animalType;
 
-    ItemDictionary itemDictionary;
-
     [Header("设置动物所需营养系数和产物系数")]
     public GameObject[] productPrefab;
     public int need = 2;
@@ -36,8 +34,6 @@ public class AnimalController : MonoBehaviour,IInteractable
         {
             animals.Add(transform.gameObject);
         }
-
-        itemDictionary = FindObjectOfType<ItemDictionary>();
 
     }
 
@@ -142,6 +138,8 @@ public class AnimalController : MonoBehaviour,IInteractable
     /// <summary>
     /// 根据当前饲料种类来判断提供的营养，消耗需要的时间，最终的产物；
     /// </summary>
+    /// <param name="feed"></param>
+    /// <param name="nutrition"></param>
     public void SetFeed(FeedInformation feed , int nutrition)
     {
 
@@ -165,6 +163,9 @@ public class AnimalController : MonoBehaviour,IInteractable
 
     }
 
+    /// <summary>
+    /// 生成动物产物；
+    /// </summary>
     private void SetProduct()
     {
 
@@ -177,10 +178,12 @@ public class AnimalController : MonoBehaviour,IInteractable
 
         for(int i = 0; i < finalProduct; i++ )
         {
-            GameObject milkPrefab = Instantiate(productPrefab[animalType], itemDictionary.transform);
-            milkPrefab.transform.position = chest.transform.position;
-            Item milk = milkPrefab.GetComponent<Item>();
-            milk.Harvest(0.3f);
+            int itemQuality = Random.Range(1, StatsManager.Instance.maxQuality + 1);
+            int itemID = ( ID + 1 ) + animalType * StatsManager.Instance.animalNumber;
+            GameObject productPrefab = ItemDictionary.Instance.GetItemPrefab(StatsManager.ItemTypes.Animal, itemID, itemQuality);
+            Instantiate(productPrefab, ItemDictionary.Instance.transform);
+            productPrefab.transform.position = chest.transform.position;
+            productPrefab.GetComponent<Item>().Harvest(0.3f);
         }
 
         eating = false;
@@ -188,6 +191,10 @@ public class AnimalController : MonoBehaviour,IInteractable
     }
 
 
+    /// <summary>
+    /// 返回当前控制器的保存值；
+    /// </summary>
+    /// <returns></returns>
     public AnimalSaveData GetSaveData()
     {
         AnimalSaveData SaveData = new AnimalSaveData();
@@ -204,7 +211,10 @@ public class AnimalController : MonoBehaviour,IInteractable
         return SaveData;
     }
 
-
+    /// <summary>
+    /// 从管理器中获取到数据加载到当前控制器中；
+    /// </summary>
+    /// <param name="animalData"></param>
     public void SetData(AnimalSaveData animalData)
     {
 

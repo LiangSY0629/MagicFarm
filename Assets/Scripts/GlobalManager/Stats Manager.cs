@@ -16,8 +16,9 @@ public class StatsManager : MonoBehaviour
     public int square = 1;
 
     [Header("Item Stats")]
-    public int maxPickNumber = 2;
+    public int maxPickNumber = 1;
     public int maxPileNumber = 99;
+    public int maxQuality = 1;
 
     [Header("Animals Stats")]
     public int currentAnimalTypes;
@@ -28,6 +29,7 @@ public class StatsManager : MonoBehaviour
     public int maxSeed;
     public int seedLevel;
     public int EveryLevelSeed;
+
 
 
     [Header("Mail Stats")]
