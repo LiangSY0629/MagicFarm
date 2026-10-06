@@ -65,7 +65,7 @@ public class PlantController : MonoBehaviour
 
         foreach (PlantSaveData plantData in plantSaveData)
         {
-            GameObject plantPrefab = plantDictionary.SetPlantPrefabs(plantData.plantID);
+            GameObject plantPrefab = plantDictionary.SetPlantPrefab(plantData.plantID);
 
             if (plantPrefab != null)
             {

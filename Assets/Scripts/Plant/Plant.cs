@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
-    ItemDictionary itemDictionary;
 
     [Header("设置基本信息")]
     public List<Sprite> plantSprite;
@@ -40,7 +39,6 @@ public class Plant : MonoBehaviour
 
     private void Start()
     {
-        itemDictionary = FindObjectOfType<ItemDictionary>();
         items = FindObjectOfType<ItemSaveController>();
     }
 
@@ -105,7 +103,9 @@ public class Plant : MonoBehaviour
         
     }
 
-
+    /// <summary>
+    /// 浇水时触发，重置浇水时间，并增加植物生长进度；
+    /// </summary>
     public void IsWatering()
     {
         water = true;
@@ -117,12 +117,30 @@ public class Plant : MonoBehaviour
     public void HarvestCrop()
     {
         int itemQuality = Random.Range(1, StatsManager.Instance.maxQuality + 1);
-        GameObject item = Instantiate(itemDictionary.GetItemPrefab(StatsManager.ItemTypes.Crop, ID, itemQuality), items.transform);
+        GameObject item = Instantiate(ItemDictionary.Instance.GetItemPrefab(StatsManager.ItemTypes.Crop, ID, itemQuality), items.transform);
         item.transform.position = transform.position;
         item.GetComponent<Item>().Harvest(jumpTime);
         Destroy(gameObject);
 
     }
 
+    /// <summary>
+    /// 传入plant SO调用该函数为这个脚本赋值；
+    /// </summary>
+    /// <param name="plantSO"></param>
+    public void SetPlantSO(PlantSO plantSO)
+    {
+        ID = plantSO.ID;
+        plantSprite = plantSO.plantSprite;
+        if (growth <= 0)
+        {
+            GetComponent<SpriteRenderer>().sprite = plantSO.plantSprite[0];
+        }
+        else GetComponent<SpriteRenderer>().sprite = plantSO.plantSprite[growth];
+        
+        growTime = plantSO.growTime;
+        waterTime = plantSO.waterTime;
+
+    }
 
 }
