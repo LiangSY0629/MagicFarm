@@ -137,7 +137,7 @@ public class PlayerCombat : MonoBehaviour
         else if (StatsManager.Instance.current_tool == StatsManager.Tools.Seed)
         {
             //实例化植物预制体，并将字典里的东西更新；
-            GameObject plantPrefab = plantDictionary.SetPlantPrefabs(seedChoose.currentSeed);
+            GameObject plantPrefab = plantDictionary.SetPlantPrefab(seedChoose.currentSeed);
             if (plantPrefab != null)
             {
                 foreach (Vector3Int position in tilePositions)

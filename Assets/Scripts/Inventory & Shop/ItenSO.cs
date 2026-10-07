@@ -5,7 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item")]
 public class ItemSO: ScriptableObject
 {
+    public int ID;
     public string itemName;
-    [TextArea]public string itemDescription;
     public Sprite icon;
+    public int itemLevel;
+
+    [TextArea] public string itemDescription;
+
 }

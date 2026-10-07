@@ -148,7 +148,7 @@ public class AnimalsManager : MonoBehaviour
             return;
         }
 
-        if (inventoryController.LessItem(feedChoose.feedID, feedChoose.feedNumber))
+        if (inventoryController.LessItem(StatsManager.ItemTypes.Crop, feedChoose.feedID, 1, feedChoose.feedNumber))
         {
             
             animals[animalID].SetFeed(feedChoose , nutrition);

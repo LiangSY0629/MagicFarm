@@ -32,11 +32,13 @@ public class ItemPickUpController : MonoBehaviour
     /// <param name="itemName"></param>
     /// <param name="itemSprite"></param>
     /// <param name="number"></param>
-    public void ShowItemPickUp(string itemName, Sprite itemSprite, int number)
+    /// <param name="quality"></param>
+    public void ShowItemPickUp(string itemName, Sprite itemSprite, int number, int quality)
     {
         GameObject popup = Instantiate(popupPrefab, transform);
 
-        popup.GetComponentInChildren<TMP_Text>().text = itemName + "×" + number;
+        //对弹窗预制体进行赋值修改；
+        popup.GetComponentInChildren<TMP_Text>().text = quality + "+" + itemName + "×" + number;
         Image image = popup.transform.Find("ItemImage").GetComponent<Image>();
 
         if (image != null)
@@ -46,6 +48,7 @@ public class ItemPickUpController : MonoBehaviour
 
         activePopups.Enqueue(popup);
 
+        //将预制体加入队列，如果队列已满，销毁最先进入的预制体；
         if (activePopups.Count > maxPopups)
         {
             Destroy(activePopups.Dequeue());
@@ -63,7 +66,9 @@ public class ItemPickUpController : MonoBehaviour
         {
             yield break;
         }
+
         CanvasGroup canvasGroup = popup.GetComponent<CanvasGroup>();
+
         for (float timePassed = 0f; timePassed < 1f; timePassed += Time.deltaTime)
         {
             if (popup == null)

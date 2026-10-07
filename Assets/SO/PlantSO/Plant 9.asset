@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7323eb8a175111d499dec9199fed5d98, type: 3}
+  m_Name: Plant 9
+  m_EditorClassIdentifier: 
+  ID: 2
+  growTime: 15
+  waterTime: 15
+  plantSprite:
+  - {fileID: 1770379377, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: 1324355324, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: 916402299, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: -1796526688, guid: 3413244494e131a4e80f444b5aca251a, type: 3}

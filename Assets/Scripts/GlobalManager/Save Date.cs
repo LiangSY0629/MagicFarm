@@ -32,7 +32,9 @@ public class SaveData
 [System.Serializable]
 public class InventorySaveData
 {
+    public StatsManager.ItemTypes itemType;
     public int itemID;
+    public int itemQuality;
     public int slotIndex;
     public int itemNum;
 
@@ -41,7 +43,9 @@ public class InventorySaveData
 [System.Serializable]
 public class AllItemNumberSaveData
 {
+    public StatsManager.ItemTypes itemType;
     public int itemID;
+    public int itemQuality;
     public int allItemNumber;
 }
 
@@ -49,7 +53,9 @@ public class AllItemNumberSaveData
 [System.Serializable]
 public class ItemSaveData
 {
+    public StatsManager.ItemTypes itemType;
     public int itemID;
+    public int itemQuality;
     public Vector3 itemPosition;
 
 }
@@ -92,7 +98,9 @@ public class AnimalSaveData
 [System.Serializable]
 public class OrderSaveData
 {
+    public StatsManager.ItemTypes itemType;
     public int itemID;
+    public int itemQuality;
     public string titleText, goldNumber;
 
     public int starNumber;

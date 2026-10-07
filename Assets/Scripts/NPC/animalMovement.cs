@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class CowMovement : MonoBehaviour
 {
-
     public SpriteLibraryAsset[] spriteLibrarys;
     public SpriteLibrary spriteLibrary;
     public Animator anim;

@@ -6,18 +6,17 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
-    ItemDictionary itemDictionary;
 
     [Header("设置基本信息")]
     public List<Sprite> plantSprite;
     public int ID;
     //public string Name;
-    public int growth;
+    public int growth = 0;
     public GameObject waterSprite;
 
     [Header("不要改这个")]
-    public float currentGrowTime;
-    public float currentWaterTime;
+    public float currentGrowTime = 0;
+    public float currentWaterTime = 0;
     public bool water;
     public bool mature = false;
 
@@ -27,18 +26,20 @@ public class Plant : MonoBehaviour
     public float jumpTime = 0.5f;
 
     ItemSaveController items;
-    
-    
+
+
+    private void Awake()
+    {
+        growth = 0;
+        currentGrowTime = 0;
+        currentWaterTime = 0;
+
+        water = false;
+    }
 
     private void Start()
     {
-        itemDictionary = FindObjectOfType<ItemDictionary>();
         items = FindObjectOfType<ItemSaveController>();
-
-        currentGrowTime = 0;
-        currentWaterTime = 0;
-        growth = 0;
-        water = false;
     }
 
     public void PlantGrowth()
@@ -102,7 +103,9 @@ public class Plant : MonoBehaviour
         
     }
 
-
+    /// <summary>
+    /// 浇水时触发，重置浇水时间，并增加植物生长进度；
+    /// </summary>
     public void IsWatering()
     {
         water = true;
@@ -113,12 +116,31 @@ public class Plant : MonoBehaviour
 
     public void HarvestCrop()
     {
-        GameObject item = Instantiate(itemDictionary.GetItemPrefabs(ID), items.transform);
+        int itemQuality = Random.Range(1, StatsManager.Instance.maxQuality + 1);
+        GameObject item = Instantiate(ItemDictionary.Instance.GetItemPrefab(StatsManager.ItemTypes.Crop, ID, itemQuality), items.transform);
         item.transform.position = transform.position;
         item.GetComponent<Item>().Harvest(jumpTime);
         Destroy(gameObject);
 
     }
 
+    /// <summary>
+    /// 传入plant SO调用该函数为这个脚本赋值；
+    /// </summary>
+    /// <param name="plantSO"></param>
+    public void SetPlantSO(PlantSO plantSO)
+    {
+        ID = plantSO.ID;
+        plantSprite = plantSO.plantSprite;
+        if (growth <= 0)
+        {
+            GetComponent<SpriteRenderer>().sprite = plantSO.plantSprite[0];
+        }
+        else GetComponent<SpriteRenderer>().sprite = plantSO.plantSprite[growth];
+        
+        growTime = plantSO.growTime;
+        waterTime = plantSO.waterTime;
+
+    }
 
 }

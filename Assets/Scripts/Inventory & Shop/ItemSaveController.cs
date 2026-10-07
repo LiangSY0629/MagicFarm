@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class ItemSaveController : MonoBehaviour
 {
+
     //保存当前场景下的掉落物；
-    ItemDictionary itemDictionary;
-    private void Start()
-    {
-        itemDictionary = transform.GetComponent<ItemDictionary>();
-    }
-
-
     public List<ItemSaveData> GetItemData()
     {
         List<ItemSaveData> itemSaveData = new List<ItemSaveData>();
@@ -19,7 +13,7 @@ public class ItemSaveController : MonoBehaviour
         foreach(Transform itemTransform in transform)
         {
             Item item = itemTransform.GetComponent<Item>();
-            itemSaveData.Add(new ItemSaveData { itemID = item.ID, itemPosition = itemTransform.position });
+            itemSaveData.Add(new ItemSaveData { itemType = item.Type, itemID = item.ID, itemQuality = item.quality, itemPosition = itemTransform.position });
         }
 
         return itemSaveData;
@@ -40,9 +34,9 @@ public class ItemSaveController : MonoBehaviour
             }
 
 
-            foreach(ItemSaveData itemData in itemSaveData)
+            foreach (ItemSaveData itemData in itemSaveData)
             {
-                GameObject itemPrefab = itemDictionary.GetItemPrefabs(itemData.itemID);
+                GameObject itemPrefab = ItemDictionary.Instance.GetItemPrefab(itemData.itemType, itemData.itemID, itemData.itemQuality);
                 if (itemPrefab != null)
                 {
                     GameObject newItem = Instantiate(itemPrefab, transform);

@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class MailBoxManager : MonoBehaviour, IInteractable
 {
@@ -19,23 +19,18 @@ public class MailBoxManager : MonoBehaviour, IInteractable
 
     public GameObject mailPrefab;
 
-    [SerializeField]
-    public Item[] plantItemPrefabs;
-    [SerializeField]
-    public Item[] animalItemPrefabs;
     public int itemValue;
 
 
     [Header("设置大面板")]
     public GameObject orderPanel;
-    public Image needImage2;
+    public Image itemImage;
     public TMP_Text orderTitleText, orderNeedNumber, rewardNumberText;
     public int whichMail;
     public GameObject[] stars;
 
     public float mailInterval;
     InventoryController inventoryController;
-    ItemDictionary itemDictionary;
     Mail currentMail;
 
     void Awake()
@@ -52,7 +47,6 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     {
         mails = new List<Mail>();
         mailInterval = StatsManager.Instance.orderInterval;
-        itemDictionary = FindObjectOfType<ItemDictionary>();
         inventoryController = FindObjectOfType<InventoryController>();
     }
 
@@ -123,127 +117,119 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     }
 
 
+    public StatsManager.ItemTypes RandomType()
+    {
+        var types = Enum.GetValues(typeof(StatsManager.ItemTypes));
+        return (StatsManager.ItemTypes)types.GetValue(UnityEngine.Random.Range(0, types.Length));
+
+    }
+
     /// <summary>
     /// 生成一个随机的可获取的掉落物，一个随机的数量，并计算它的总价值
     /// </summary>
     public void SetMail()
     {
-        Debug.Log("开始生成");
-
+        //Item item = null;
+        //string itemName;
+        //int itemNeed;
+        //int rewardNumber;
+        //float rewardFactor;
         Item item = null;
-        string itemName;
-        int itemNeed;
+        int needNumber;
         int rewardNumber;
-        float rewardFactor;
+        float rewardFactor = 1;
 
-        if (plantItemPrefabs.Length > 0 && animalItemPrefabs.Length > 0)
+        StatsManager.ItemTypes currentType;
+        int currentLevel;
+        int currentID;
+        int currentQuality;
+
+        currentType = RandomType();
+        
+        //如果可以找到对应的字典，就取出这个等级的字典；
+        if (ItemDictionary.Instance.itemLevelDictionary.TryGetValue(currentType, out Dictionary<int,List<ItemSO>> LevelDictionary))
         {
-            //先判断选中的是植物还是动物；
-            int currentChoose = Random.Range(0, 2);
-
-            //设定一个等级值，在判断当前选中的掉落物Item是什么等级；
-            int currentLevel;
-
-            //设定一个ID值，判断当前选中的是哪一个；
-            int currentItemID;
-            int itemID;
-
-
-            if (currentChoose == 0)
+            if(LevelDictionary.Count == 0)
             {
-                currentLevel = Random.Range(0, StatsManager.Instance.seedLevel);
-
-                currentItemID = Random.Range(0, StatsManager.Instance.EveryLevelSeed);
-
-                itemID = currentItemID + (currentLevel * StatsManager.Instance.EveryLevelSeed);
-
-                rewardFactor = Mathf.Pow(2, (currentLevel * 2));
-
-                if (itemID < plantItemPrefabs.Length && itemID >= 0)
-                {
-                    item = plantItemPrefabs[itemID];
-                }
-                else
-                {
-                    Debug.Log("是植物物品不足");
-                }
-
-            }
-            else
-            {
-                currentLevel = Random.Range(0, StatsManager.Instance.currentAnimalTypes);
-
-                currentItemID = Random.Range(0, StatsManager.Instance.animalNumber);
-
-                itemID = currentItemID + (currentLevel * StatsManager.Instance.animalNumber);
-
-                rewardFactor = Mathf.Pow(2, (currentLevel * 2)) * 1.5f;
-
-                if (itemID < animalItemPrefabs.Length)
-                {
-                    item = animalItemPrefabs[itemID];
-                }
-                else
-                {
-                    Debug.Log("是动物物品不足");
-                }
-
-            }
-
-            if (item == null)
-            {
-
-                SetMail();
                 return;
             }
 
-            if (item.Name != null)
+            //用List保存所有的Level；
+            List<int> levelList = new List<int>(LevelDictionary.Keys);
+
+            //如果是植物，就用当前最大植物等级来随机等级；
+            if (currentType == StatsManager.ItemTypes.Crop)
             {
-                itemName = item.Name;
+                currentLevel = levelList[UnityEngine.Random.Range(0, StatsManager.Instance.seedLevel)];
+                rewardFactor = 1;
             }
-            else itemName = "未知";
+            //如果是动物，就用当前最大动物等级来随机等级；
+            else if (currentType == StatsManager.ItemTypes.Animal)
+            {
+                currentLevel = levelList[UnityEngine.Random.Range(0, StatsManager.Instance.currentAnimalTypes)];
+                rewardFactor = 2;
+            }
+            else currentLevel = 1;
 
+            List<ItemSO> itemList = LevelDictionary[currentLevel];
 
-            itemNeed = Random.Range(6, 10) * StatsManager.Instance.orderLevel / (currentLevel + 1);
+            //随机当前等级下的掉落物；
+            currentID = itemList[UnityEngine.Random.Range(0, LevelDictionary[currentLevel].Count)].ID;
 
-            rewardNumber = (int) (itemNeed * StatsManager.Instance.rewardLevel * itemValue * rewardFactor);
+            //随机可获得的品质；
+            currentQuality = UnityEngine.Random.Range(1, StatsManager.Instance.maxQuality);
+
+            item = ItemDictionary.Instance.GetItemPrefab(currentType, currentID, currentQuality).GetComponent<Item>();
+
+            //随机一些订单系数
+            needNumber = UnityEngine.Random.Range(6, 10) * StatsManager.Instance.orderLevel / currentLevel;
+            //报酬 = 需求数量 * 物品价值 * 物品品质 * 奖励系数（植物为默认的1；动物为2） * 奖励等级 * （当前等级 - 1）的 4次方；
+            rewardNumber = (int)(needNumber * itemValue * currentQuality * rewardFactor * StatsManager.Instance.rewardLevel * Mathf.Pow(4, currentLevel - 1));
+
+            if(item == null)
+            {
+                SetMail();
+                Debug.Log("重新生成");
+                return;
+            }
+
+            //将获取到的各种属性赋值给Mail；
+            Mail mail = Instantiate(mailPrefab, mailTransform).GetComponent<Mail>();
+
+            string levelName;
+
+            if (StatsManager.Instance.orderLevel == 1)
+            {
+                levelName = "初级";
+            }
+            else if (StatsManager.Instance.orderLevel == 2)
+            {
+                levelName = "中级";
+            }
+            else if (StatsManager.Instance.orderLevel == 3)
+            {
+                levelName = "高级";
+            }
+            else levelName = "特级";
+
+            mail.titleText.text = $"{item.quality}阶{item.Name}的{levelName}订单";
+            mail.rewardNumber = rewardNumber;
+            mail.goldNumber.text = $"{rewardNumber}";
+            mail.itemImage.sprite = item.GetComponent<Image>().sprite;
+            mail.starNumber = StatsManager.Instance.orderLevel;
+            mail.itemNeedNumber = needNumber;
+            //保存item的信息，以便使用；
+            mail.itemType = item.Type;
+            mail.itemID = item.ID;
+            mail.itemQuality = item.quality;
+
+            mails.Add(mail);
 
         }
-        else
-        {
-            Debug.Log("未设置掉落物数组");
-            return;
-        }
-
-        //将前面获得的属性复制到mail中；
-
-        Mail mail = Instantiate(mailPrefab, mailTransform).GetComponent<Mail>();
-
-        string levelName = "";
-
-        if (StatsManager.Instance.orderLevel == 1)
-        {
-            levelName = "初级";
-        }
-        else if (StatsManager.Instance.orderLevel == 2)
-        {
-            levelName = "中级";
-        }
-        else levelName = "高级";
-
-        mail.titleText.text = itemName + "的" + levelName + "订单";
-        mail.rewardNumber = rewardNumber;
-        mail.goldNumber.text = $"{rewardNumber}";
-        mail.needImage1.sprite = item.GetComponent<Image>().sprite;
-        mail.itemID = item.ID;
-        mail.starNumber = StatsManager.Instance.orderLevel;
-        mail.itemNeedNumber = itemNeed;
-
-        mails.Add(mail);
 
     }
 
-
+    //关闭整个订单面板；
     public void CloseMailPanel()
     {
         PauseController.SetPause(false);
@@ -252,7 +238,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         SoundEffectManager.Instance.PlayAudio("Cancel");
     }
 
-
+    //只关闭打开的订单详情面板；
     public void CloseOrder()
     {
         orderPanel.SetActive(false);
@@ -261,7 +247,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     }
 
     /// <summary>
-    /// 将mail的信息传入订单order中；
+    /// 将mail的信息传入订单详情面板中；
     /// </summary>
     /// <param name="mail"></param>
     public void SetOrder(Mail mail)
@@ -271,12 +257,17 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         currentMail = mail;
         SoundEffectManager.Instance.PlayAudio("Select");
 
-        orderTitleText.text = mail.titleText.text;
-        rewardNumberText.text = mail.goldNumber.text;
-        needImage2.sprite = mail.needImage1.sprite;
-        int currentHaveItem = itemDictionary.itemNumDictionary[mail.itemID];
+        //对详情面板进行赋值
+        orderTitleText.text = mail.titleText.text;//标题
+        rewardNumberText.text = mail.goldNumber.text;//奖励数字；
+        itemImage.sprite = mail.itemImage.sprite;//掉落物图像；
+
+        //获取当前库存的item数量
+        ItemDictionary.Instance.itemNumberDictionary.TryGetValue((mail.itemType, mail.itemID, mail.itemQuality), out int currentHaveItem);
+
         orderNeedNumber.text = $"{currentHaveItem}/{mail.itemNeedNumber}";
 
+        //生成当前订单的星级；
         for (int i = 0; i < stars.Length; i++)
         {
             if (i < mail.starNumber)
@@ -293,19 +284,32 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     /// </summary>
     public void SubmitOrder()
     {
+        //订单不为空；
         if (currentMail != null)
         {
-            int currentHaveItem = itemDictionary.itemNumDictionary[currentMail.itemID];
+            int currentHaveItem = ItemDictionary.Instance.itemNumberDictionary[(currentMail.itemType, currentMail.itemID, currentMail.itemQuality)];
+
+            //库存足够就调用函数减少对应库存，从Mails这个List中移除对应的Mail，销毁当前mail，如果还有订单 就自动显示当前mails中的第一个mail的订单是详情面板；
             if (currentHaveItem >= currentMail.itemNeedNumber)
             {
                 SoundEffectManager.Instance.PlayAudio("Confirm");
 
-                inventoryController.LessItem(currentMail.itemID, currentMail.itemNeedNumber);
+                inventoryController.LessItem(currentMail.itemType, currentMail.itemID, currentMail.itemQuality, currentMail.itemNeedNumber);
                 TimeController.Instance.SetGold(currentMail.rewardNumber);
                 TipsPopupControler.Instance.SetTipsText("种了么订单提交成功！");
                 mails.Remove(currentMail);
                 Destroy(currentMail.gameObject);
-                mails[0].SetOrder();
+
+                if (mails.Count > 0)
+                {
+                    mails[0].SetOrder();
+                }
+                else
+                {
+                    orderPanel.SetActive(false);
+                    currentMail = null;
+                }
+
             }
             else
             {
@@ -319,10 +323,14 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         {
             SoundEffectManager.Instance.PlayAudio("Cancel");
             TipsPopupControler.Instance.SetTipsText("尚未选择订单");
+            return;
         }
     }
     
-
+    /// <summary>
+    /// 调用该函数获取保存着当前mail的属性的List；
+    /// </summary>
+    /// <returns></returns>
     public List<OrderSaveData> GetSaveData()
     {
         List<OrderSaveData> orderSaveData = new List<OrderSaveData>();
@@ -331,7 +339,9 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         {
             orderSaveData.Add(new OrderSaveData
             {
+                itemType = mail.itemType,
                 itemID = mail.itemID,
+                itemQuality = mail.itemQuality,
                 titleText = mail.titleText.text,
                 goldNumber = mail.goldNumber.text,
                 starNumber = mail.starNumber,
@@ -355,20 +365,25 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             Destroy(mail.gameObject);
         }
 
+        //调用协程，在清空所有的Mail之后再生成新的Mail；
         StartCoroutine(SetMailDataIE(mailSaveData));
     }
 
     IEnumerator SetMailDataIE(List<OrderSaveData> saveData)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForEndOfFrame();
+        //先清空整个Mails；
         mails.Clear();
 
+        //遍历整个List来生成Mail；
         foreach(OrderSaveData mailData in saveData)
         {
             Mail mail = Instantiate(mailPrefab, mailTransform).GetComponent<Mail>();
 
+            mail.itemType = mailData.itemType;
             mail.itemID = mailData.itemID;
-            mail.needImage1.sprite = itemDictionary.GetItemPrefabs(mailData.itemID).GetComponent<Image>().sprite;
+            mail.itemQuality = mailData.itemQuality;
+            mail.itemImage.sprite = ItemDictionary.Instance.GetItemPrefab(mailData.itemType, mailData.itemID, mailData.itemQuality).GetComponent<Image>().sprite;
             mail.titleText.text = mailData.titleText;
             mail.goldNumber.text = mailData.goldNumber;
             mail.starNumber = mailData.starNumber;

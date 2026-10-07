@@ -6,38 +6,55 @@ using UnityEngine;
 
 public class PlantDictionary : MonoBehaviour
 {
-    public List<Plant> plantPrefabs;
-    Dictionary<int, GameObject> plantDictionary;
-
+    public GameObject plantPrefab;
+    public List<PlantSO> plantLibrary;
+    public Dictionary<int, PlantSO> plantDictionary;
 
     private void Awake()
     {
-        plantDictionary = new Dictionary<int, GameObject>();
+        plantDictionary = new Dictionary<int, PlantSO>();
 
-        for (int i = 0; i < plantPrefabs.Count;i++)
+        for(int i = 0; i < plantLibrary.Count; i++)
         {
-            if (plantPrefabs[i] != null)
-            {
-                plantPrefabs[i].GetComponent<Plant>().ID = i + 1;
-            }
+            plantLibrary[i].ID = i + 1;
         }
 
-        foreach(Plant plant in plantPrefabs)
+        foreach(PlantSO plant in plantLibrary)
         {
-            plantDictionary[plant.ID] = plant.gameObject;
+            plantDictionary[plant.ID] = plant;
         }
-
     }
 
-
-    public GameObject SetPlantPrefabs(int plantID)
+    /// <summary>
+    /// 传入ID获取plant SO，并根据Plant SO对公共植物预制体进行赋值；
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns></returns>
+    public GameObject SetPlantPrefab(int ID)
     {
-        plantDictionary.TryGetValue(plantID, out GameObject plantPrefab);
-        if (plantPrefab == null)
+        plantDictionary.TryGetValue(ID, out PlantSO plantSO);
+
+        GameObject plant = plantPrefab;
+        if (plantSO != null)
+        {
+            plant.GetComponent<Plant>().SetPlantSO(plantSO);
+        }
+        else
         {
             return null;
         }
+
         return plantPrefab;
     }
+
+    //public GameObject SetPlantPrefabs(int plantID)
+    //{
+    //    plantDictionary.TryGetValue(plantID, out GameObject plantPrefab);
+    //    if (plantPrefab == null)
+    //    {
+    //        return null;
+    //    }
+    //    return plantPrefab;
+    //}
 
 }
