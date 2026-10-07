@@ -183,8 +183,8 @@ public class MailBoxManager : MonoBehaviour, IInteractable
 
             //随机一些订单系数
             needNumber = UnityEngine.Random.Range(6, 10) * StatsManager.Instance.orderLevel / currentLevel;
-            //报酬 = 需求数量 * 物品价值 * 奖励系数（植物为默认的1；动物为2） * 奖励等级 * （当前等级 - 1）的 4次方；
-            rewardNumber = (int)(needNumber * itemValue * rewardFactor * StatsManager.Instance.rewardLevel * Mathf.Pow(4, currentLevel - 1));
+            //报酬 = 需求数量 * 物品价值 * 物品品质 * 奖励系数（植物为默认的1；动物为2） * 奖励等级 * （当前等级 - 1）的 4次方；
+            rewardNumber = (int)(needNumber * itemValue * currentQuality * rewardFactor * StatsManager.Instance.rewardLevel * Mathf.Pow(4, currentLevel - 1));
 
             if(item == null)
             {
