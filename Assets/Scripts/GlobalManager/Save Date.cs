@@ -98,7 +98,9 @@ public class AnimalSaveData
 [System.Serializable]
 public class OrderSaveData
 {
+    public StatsManager.ItemTypes itemType;
     public int itemID;
+    public int itemQuality;
     public string titleText, goldNumber;
 
     public int starNumber;

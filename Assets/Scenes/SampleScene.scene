@@ -179075,21 +179075,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb4521fb0931f4749a9403c9fd8bf345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantPrefabs:
-  - {fileID: 1865200475148451463, guid: faec5c702da1ae74ba4288db61caa528, type: 3}
-  - {fileID: 1865200475148451463, guid: 7f063cc6fdac4e5478e7cc8e9cc4496d, type: 3}
-  - {fileID: 1865200475148451463, guid: 945c128062bc32c498c75824dd5c44f1, type: 3}
-  - {fileID: 1865200475148451463, guid: 86956fcdaa56e1541add19833a3cb45e, type: 3}
-  - {fileID: 1865200475148451463, guid: 6795c7792a49cbc4ba4f4e9eb90a97d1, type: 3}
-  - {fileID: 1865200475148451463, guid: dfd99f8d72978474391c21b5fb421680, type: 3}
-  - {fileID: 1865200475148451463, guid: 488bafdaa65ecbb4f8599bd087a11bde, type: 3}
-  - {fileID: 1865200475148451463, guid: 714cc3ad29e253b4599267461844a91c, type: 3}
-  - {fileID: 1865200475148451463, guid: 30fe7fec4b2756e4f9bcd46bded1e23a, type: 3}
-  - {fileID: 1865200475148451463, guid: 97e2c0a852ce5f74cb009bb651cfc475, type: 3}
-  - {fileID: 1865200475148451463, guid: da4d93cedb993414090cc854930f1255, type: 3}
-  - {fileID: 1865200475148451463, guid: 0402ae975c4104e4eb3bfc5478944552, type: 3}
-  - {fileID: 1865200475148451463, guid: d0fdbcfcb010de04cbd17298ea46de53, type: 3}
-  - {fileID: 1865200475148451463, guid: a31bc07719f48cf45aa8dd3da9107e4f, type: 3}
+  plantPrefab: {fileID: 3488484973777947158, guid: 945c128062bc32c498c75824dd5c44f1, type: 3}
+  plantLibrary:
+  - {fileID: 11400000, guid: 8ec44ecd5c2d89a47b8017e6c44b6ad3, type: 2}
 --- !u!114 &835808360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184100,6 +184088,7 @@ MonoBehaviour:
   square: 3
   maxPickNumber: 1
   maxPileNumber: 99
+  maxQuality: 1
   currentAnimalTypes: 5
   animalNumber: 2
   maxAnimalTypes: 5

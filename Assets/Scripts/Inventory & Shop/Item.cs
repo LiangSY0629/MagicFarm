@@ -12,8 +12,8 @@ public class Item : MonoBehaviour
     public string Name;
     public int level;
     public int quality;
-    public Sprite image;
-    public Sprite Sprite;
+    public Image image;
+    public SpriteRenderer Sprite;
     public StatsManager.ItemTypes Type;
 
     //后期再生成的变量；
@@ -29,8 +29,8 @@ public class Item : MonoBehaviour
     private void Start()
     {
         inventoryController = FindObjectOfType<InventoryController>();
-        image = GetComponent<Image>().sprite;
-        Sprite = GetComponent<SpriteRenderer>().sprite;
+        image = GetComponent<Image>();
+        Sprite = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -43,8 +43,8 @@ public class Item : MonoBehaviour
     {
         ID = itemSO.ID;
         Name = itemSO.itemName;
-        image = itemSO.icon;
-        Sprite = itemSO.icon;
+        image.sprite = itemSO.icon;
+        Sprite.sprite = itemSO.icon;
         level = itemSO.itemLevel;
         quality = itemQuality;
         Type = itemType;

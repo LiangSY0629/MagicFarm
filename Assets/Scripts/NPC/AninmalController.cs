@@ -178,10 +178,11 @@ public class AnimalController : MonoBehaviour,IInteractable
 
         for(int i = 0; i < finalProduct; i++ )
         {
+            //随机生成品质
             int itemQuality = Random.Range(1, StatsManager.Instance.maxQuality + 1);
             int itemID = ( ID + 1 ) + animalType * StatsManager.Instance.animalNumber;
-            GameObject productPrefab = ItemDictionary.Instance.GetItemPrefab(StatsManager.ItemTypes.Animal, itemID, itemQuality);
-            Instantiate(productPrefab, ItemDictionary.Instance.transform);
+            //通过字典获取到Product预制体，实例化；
+            GameObject productPrefab = Instantiate(ItemDictionary.Instance.GetItemPrefab(StatsManager.ItemTypes.Animal, itemID, itemQuality), ItemDictionary.Instance.transform);
             productPrefab.transform.position = chest.transform.position;
             productPrefab.GetComponent<Item>().Harvest(0.3f);
         }

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: 0
-  needImage1: {fileID: 1931140066520018264}
+  itemImage: {fileID: 1931140066520018264}
   titleText: {fileID: 4333758423472167309}
   goldNumber: {fileID: 1098632671410746606}
   starNumber: 0
