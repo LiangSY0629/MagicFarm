@@ -16,7 +16,7 @@ MonoBehaviour:
   growTime: 15
   waterTime: 15
   plantSprite:
-  - {fileID: 1770379377, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
-  - {fileID: 1324355324, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
-  - {fileID: 916402299, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
-  - {fileID: -1796526688, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: 2113978647, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: 863517324, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: -84574513, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: 697441595, guid: 3413244494e131a4e80f444b5aca251a, type: 3}

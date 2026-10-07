@@ -179078,6 +179078,19 @@ MonoBehaviour:
   plantPrefab: {fileID: 3488484973777947158, guid: 945c128062bc32c498c75824dd5c44f1, type: 3}
   plantLibrary:
   - {fileID: 11400000, guid: 8ec44ecd5c2d89a47b8017e6c44b6ad3, type: 2}
+  - {fileID: 11400000, guid: 41e027d3170087c4880cf85ce882c2c9, type: 2}
+  - {fileID: 11400000, guid: 2fa04ead06711ca458cc5e4ea0e4ecb8, type: 2}
+  - {fileID: 11400000, guid: 77405e07d6715154e98d7ce2f9c2b1b7, type: 2}
+  - {fileID: 11400000, guid: f8ca38b386402d444b597341cc1dc5a5, type: 2}
+  - {fileID: 11400000, guid: bf1a215d15d09f342b42a8dbc3cfd85e, type: 2}
+  - {fileID: 11400000, guid: ce456b9ca85af80419a06cdadc3c4e89, type: 2}
+  - {fileID: 11400000, guid: bef646b0b8e091948b27ab87f8d52d64, type: 2}
+  - {fileID: 11400000, guid: 5df940298a7ade74ba814c5a6b3763d4, type: 2}
+  - {fileID: 11400000, guid: 4b6413b9edd873b42b2bbfc45e519d56, type: 2}
+  - {fileID: 11400000, guid: 8e66d1d8f86a2d04f99a102efdc02da9, type: 2}
+  - {fileID: 11400000, guid: 59fbb32ca3d883042b894553e3cf1916, type: 2}
+  - {fileID: 11400000, guid: c3328e0b582e91c46bbc730ffee6374a, type: 2}
+  - {fileID: 11400000, guid: acbeeccd94adce8418fcaa033ffc461f, type: 2}
 --- !u!114 &835808360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189385,35 +189398,9 @@ MonoBehaviour:
   mails:
   - {fileID: 7652906490897000310, guid: 870dacb69ec6ff145a6145e9637e0a65, type: 3}
   mailPrefab: {fileID: 1572942271842334350, guid: 870dacb69ec6ff145a6145e9637e0a65, type: 3}
-  plantItemPrefabs:
-  - {fileID: 6732391698981306855, guid: 0c526b0738396614c9879021c3b572ae, type: 3}
-  - {fileID: -2717869828810951709, guid: 0da86576608026e40ac7f478a0243970, type: 3}
-  - {fileID: 6732391698981306855, guid: f5696493902aadb498f2940eb0f6d005, type: 3}
-  - {fileID: 6732391698981306855, guid: bf3ad214982123740ae406668623b0ba, type: 3}
-  - {fileID: 6732391698981306855, guid: 6255cbce66f6ab1458d7b1f8afbecd6a, type: 3}
-  - {fileID: 6732391698981306855, guid: d59041aab9d925341916ff94e6d4d03a, type: 3}
-  - {fileID: 6732391698981306855, guid: 6ba1b76a62c8bc5459c2c65d73e7c524, type: 3}
-  - {fileID: 6732391698981306855, guid: 3471773733c346f409856cc689ee6788, type: 3}
-  - {fileID: 6732391698981306855, guid: d7d15b692dc661e4fa49ab3fe7776800, type: 3}
-  - {fileID: 6732391698981306855, guid: b0a6126f1c19f054191fb96fd3141abb, type: 3}
-  - {fileID: 6732391698981306855, guid: 696cb76cb3bda6940adeeff88259caae, type: 3}
-  - {fileID: 6732391698981306855, guid: 1e4b2a30f98a8c946aa9c8b0554587e3, type: 3}
-  - {fileID: 6732391698981306855, guid: 7c10f87ed0375fe479f3dd39a1cd89be, type: 3}
-  - {fileID: 6732391698981306855, guid: d3f9ec6898fdcb949827b62409d70c0d, type: 3}
-  animalItemPrefabs:
-  - {fileID: 6732391698981306855, guid: 58c7f0cf40d5bdd4ba473c7c66a9275e, type: 3}
-  - {fileID: 6732391698981306855, guid: c71970b051c09d34a9c5538c456fe564, type: 3}
-  - {fileID: 6732391698981306855, guid: 13be58a904ab8b04bb9b67a544fd96d5, type: 3}
-  - {fileID: 6732391698981306855, guid: d406b4b123bb94248bd53d50861f26b1, type: 3}
-  - {fileID: 6732391698981306855, guid: 1ab784220b7d18648b419ea208764981, type: 3}
-  - {fileID: 6732391698981306855, guid: e85d1cd4d20b78547b549cb1a3bbf2bb, type: 3}
-  - {fileID: 6732391698981306855, guid: 44d8132ad63c65a488767cc6b196f6fe, type: 3}
-  - {fileID: 6732391698981306855, guid: 25d4ecbbee1d5cc4f9c4bbbf352781fd, type: 3}
-  - {fileID: 6732391698981306855, guid: 62d0b0d59623ef8449aaab520fee3da2, type: 3}
-  - {fileID: 6732391698981306855, guid: 56ff4514030401b44a3f2cedc01ad501, type: 3}
   itemValue: 10
   orderPanel: {fileID: 194179269}
-  needImage2: {fileID: 1238607121}
+  itemImage: {fileID: 1238607121}
   orderTitleText: {fileID: 1439506800}
   orderNeedNumber: {fileID: 703275115}
   rewardNumberText: {fileID: 544740362}
@@ -193033,7 +193020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782bbb4773e2fad4bb8464e677242241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueData: {fileID: 11400000, guid: 0c259d9fc770f134dbc5b5a758e7a0c9, type: 2}
 --- !u!212 &1980722594
 SpriteRenderer:
   m_ObjectHideFlags: 0
