@@ -31,6 +31,8 @@ public class MailBoxManager : MonoBehaviour, IInteractable
 
     public float mailInterval;
     InventoryController inventoryController;
+    Animator anim;
+    bool NewMail;
     Mail currentMail;
 
     void Awake()
@@ -48,6 +50,9 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         mails = new List<Mail>();
         mailInterval = StatsManager.Instance.orderInterval;
         inventoryController = FindObjectOfType<InventoryController>();
+        anim = GetComponent<Animator>();
+        NewMail = false;
+
     }
 
 
@@ -73,6 +78,12 @@ public class MailBoxManager : MonoBehaviour, IInteractable
                 SetMail();
                 SoundEffectManager.Instance.PlayAudio("Confirm");
                 TipsPopupControler.Instance.SetTipsText("您有新的种了么订单，请及时处理~");
+                if (!NewMail)
+                {
+                    NewMail = true;
+                    anim.SetBool("NewMail", NewMail);
+                }
+                
 
             }
             else
@@ -82,6 +93,8 @@ public class MailBoxManager : MonoBehaviour, IInteractable
 
 
         }
+
+
     }
 
 
@@ -110,8 +123,9 @@ public class MailBoxManager : MonoBehaviour, IInteractable
 
         if (haveMail && !mailPanel.activeSelf)
         {
-            mailPanel.SetActive(true);
-            PauseController.SetPause(true);
+            NewMail = false;
+            anim.SetBool("NewMail", NewMail);
+            
         }
         else
         {
@@ -122,6 +136,29 @@ public class MailBoxManager : MonoBehaviour, IInteractable
 
     }
 
+    //切换动画为有新订单；
+    public void AnimatorMail()
+    {
+        anim.Play("MailHave", 0, 0);
+    }
+
+    //绑定信箱打开动画，动画结束自动运行；
+    public void OpenMailBox()
+    {
+        mailPanel.SetActive(true);
+        PauseController.SetPause(true);
+    }
+
+    //绑定关闭动画，判断是否还有订单未提交，
+    public void TipsMail()
+    {
+        if(mails.Count > 0)
+        {
+            NewMail = true;
+            anim.SetBool("NewMail", NewMail);
+        }
+        
+    }
 
     public StatsManager.ItemTypes RandomType()
     {
@@ -238,6 +275,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         mailPanel.SetActive(false);
         CloseOrder();
         SoundEffectManager.Instance.PlayAudio("Cancel");
+        anim.Play("MailClose", 0, 0);
     }
 
     //只关闭打开的订单详情面板；
@@ -395,6 +433,8 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             mails.Add(mail);
         }
 
+        //判断该不该播放动画；
+        TipsMail();
     }
 
 
