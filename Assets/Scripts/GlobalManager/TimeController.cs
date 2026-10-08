@@ -72,14 +72,16 @@ public class TimeController : MonoBehaviour
 
         dayTime = finalTime % oneDay;
 
+        //不需要及时更新放在这里面节省部分性能；
         if (updateTime <= 0)
         {
             updateTime = 0.2f;
             SetTime();
 
-            if (!isNight && hour >= 18)
+            if (!isNight && (hour >= 18 || hour < 6))
             {
                 isNight = true;
+                TipsPopupControler.Instance.SetTipsText("晚上了，去屋子里的床上睡一觉吧！");
             }
 
             if (isNight && hour >= 6 && hour < 18)
@@ -87,8 +89,21 @@ public class TimeController : MonoBehaviour
                 isNight = false;
             }
 
+            //防止修改时间后灯光无法匹配当前时间；
+            if ((dayTime > nightTime + targetTime || dayTime < lightTime - targetTime) && light.intensity > 0.5)//大于天黑时间或小于天亮时间；
+            {
+                light.color = nightColor;
+                light.intensity = 0.5f;
+            }
+            else if (dayTime > lightTime + targetTime && dayTime < nightTime - targetTime && light.intensity != 1)//大于天亮时间并小于天黑时间；
+            {
+                light.color = dayColor;
+                light.intensity = 1;
+            }
+
         }
 
+        //判断当前时间来改变目前的灯光效果（即使改变时间，只要还在范围内就能切换对应的效果）
         if (dayTime >= nightTime - targetTime && dayTime <= nightTime + targetTime)
         {
             SetNight();
@@ -98,6 +113,8 @@ public class TimeController : MonoBehaviour
         {
             SetDay();
         }
+
+
 
     }
 

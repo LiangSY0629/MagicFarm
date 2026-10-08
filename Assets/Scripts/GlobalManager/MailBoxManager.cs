@@ -53,6 +53,12 @@ public class MailBoxManager : MonoBehaviour, IInteractable
 
     void FixedUpdate()
     {
+        //ÍíÉÏÍ£Ö¹¼ÆÊ±£»
+        if (TimeController.Instance.isNight)
+        {
+            return;
+        }
+
         if (mailInterval > 0)
         {
             mailInterval -= Time.deltaTime;
@@ -129,11 +135,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     /// </summary>
     public void SetMail()
     {
-        //Item item = null;
-        //string itemName;
-        //int itemNeed;
-        //int rewardNumber;
-        //float rewardFactor;
+        
         Item item = null;
         int needNumber;
         int rewardNumber;
