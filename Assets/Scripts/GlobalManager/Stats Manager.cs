@@ -54,6 +54,20 @@ public class StatsManager : MonoBehaviour
         Animal,
     }
 
+    /// <summary>
+    /// 成就解锁的量化条件；
+    /// </summary>
+    public enum AchieveCondition
+    {
+        None,
+        Harvest,
+        Feed,
+        Order,
+        Glod,
+        StarItem,
+
+    }
+
     private void Awake()
     {
         if (Instance == null)

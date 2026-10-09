@@ -72,7 +72,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 361234708, guid: 4565004d8db00c648a5589a81a67a7e4, type: 3}
+  m_Sprite: {fileID: -1663262905, guid: 4565004d8db00c648a5589a81a67a7e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -118,13 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0b610c67663614382b9c9e7f5821ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 1
-  Name: "\u6709\u673A\u571F\u9E21\u86CB"
+  ID: 2
+  Name: "\u756A\u8304"
   level: 1
   quality: 1
   image: {fileID: 3241729943603359807}
   Sprite: {fileID: -4031398349553806826}
-  Type: 1
+  Type: 0
   number: 1
   pickNumber: 0
   isFlying: 0
@@ -173,7 +173,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 361234708, guid: 4565004d8db00c648a5589a81a67a7e4, type: 3}
+  m_Sprite: {fileID: -1663262905, guid: 4565004d8db00c648a5589a81a67a7e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

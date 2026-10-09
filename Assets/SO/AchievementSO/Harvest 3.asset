@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3196ceff009cb124e93f8f9880847b8f, type: 3}
+  m_Name: Harvest 3
+  m_EditorClassIdentifier: 
+  ID: 3
+  achieveName: "\u5927\u4E30\u65363"
+  achieveDescription: 
+  icon: {fileID: -1941101569, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
+  condition: 1
+  conditionNumber: 100
