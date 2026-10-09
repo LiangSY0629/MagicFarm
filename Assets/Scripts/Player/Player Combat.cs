@@ -1,15 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-
     public Animator anim;
     public SeedChoose seedChoose;
 
     public bool attack;
-
 
     ToolUsedSquare toolUsed;
     PlantDictionary plantDictionary;

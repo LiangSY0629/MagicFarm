@@ -148,7 +148,7 @@ public class ToolUsedSquare : MonoBehaviour
                     //遍历所有位置，判断各个位置是否合适；
                     foreach (Vector3Int Position in tilePosition)
                     {
-                        //未来将使用耕地字典叠加植物状态来判断是否有植物，是否成熟；
+                        //使用耕地字典叠加植物状态来判断是否有植物，是否成熟；
                         if (TileMapManager.Instance.tileCellDictionary.ContainsKey(Position))
                         {
                             if (TileMapManager.Instance.tileCellDictionary[Position] == true)

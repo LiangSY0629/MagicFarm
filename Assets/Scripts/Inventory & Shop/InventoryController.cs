@@ -7,6 +7,7 @@ using static UnityEditor.Progress;
 
 public class InventoryController : MonoBehaviour
 {
+
     public GameObject inventoryPanel;
     public GameObject slotPrefab;
     public int slotCount;

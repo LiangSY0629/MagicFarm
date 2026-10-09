@@ -168,12 +168,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  achieveName: {fileID: 1141709436867208468}
+  achieveName: 
+  achieveText: {fileID: 1141709436867208468}
   slotIcon: {fileID: 7604617071315057099}
   achieveIcon: {fileID: 1908833670022316655}
-  condition: 0
   conditionNumber: 0
+  currentValue: 0
   isLock: 1
+  condition: 0
 --- !u!1 &5216249800115370984
 GameObject:
   m_ObjectHideFlags: 0

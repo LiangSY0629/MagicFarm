@@ -64,7 +64,10 @@ public class Item : MonoBehaviour
         pickNumber = Random.Range(1, StatsManager.Instance.maxPickNumber + 1);
     }
 
-    //调用ui弹窗，将物品信息返回ui弹窗函数
+ 
+    /// <summary>
+    ///调用ui弹窗，将物品信息返回ui弹窗函数
+    /// </summary>
     public  void PickUp()
     {
         Sprite sprite = GetComponent<Image>().sprite;
@@ -112,6 +115,15 @@ public class Item : MonoBehaviour
 
         if (itemAdded)
         {
+            //判断当前掉落物类型，根据类型传入不同的函数参数；
+            if (Type == StatsManager.ItemTypes.Crop)
+            {
+                EventController.TriggerComplete(StatsManager.AchieveCondition.Harvest, pickNumber);
+            }
+            else if(Type == StatsManager.ItemTypes.Animal)
+            {
+                EventController.TriggerComplete(StatsManager.AchieveCondition.Feed, pickNumber);
+            }
             PickUp();
             Destroy(collision);
         }
