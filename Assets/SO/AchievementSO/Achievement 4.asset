@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3196ceff009cb124e93f8f9880847b8f, type: 3}
+  m_Name: Achievement 4
+  m_EditorClassIdentifier: 
+  ID: 4
+  achieveName: "\u6613\u5982\u53CD\u638C"
+  icon: {fileID: 1611510644, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
+  completeIcon: {fileID: -1538668155, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
+  conditionNumber: 100
+  achieveDescription: 

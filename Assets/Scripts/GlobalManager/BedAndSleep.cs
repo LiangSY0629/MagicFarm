@@ -23,19 +23,13 @@ public class BedAndSleep : MonoBehaviour, IInteractable
         {
             sleep = true;
             EventController.TriggerComplete(1, 1);
-            PlayerSleep();
+            SleepFade();
         }
         else
         {
             TipsPopupControler.Instance.SetTipsText("现在还不是晚上，不可以睡觉");
         }
 
-    }
-
-    void PlayerSleep()
-    {
-        SleepFade();
-        
     }
 
     //使用异步委托来淡入淡出转场；

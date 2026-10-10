@@ -21,7 +21,6 @@ public class ToolUsedSquare : MonoBehaviour
     private void Start()
     {
         GetComponent<SpriteRenderer>().color = new Color(1,0.8f,0.8f,0);
-        square = StatsManager.Instance.square;
         playerCombat = player.GetComponent<PlayerCombat>();
         tilePosition = new List<Vector3Int>();
         newTilePosition = new List<Vector3Int>();
@@ -47,6 +46,8 @@ public class ToolUsedSquare : MonoBehaviour
 
             tilePosition.Clear();
             newTilePosition.Clear();
+
+            square = StatsManager.Instance.square;
 
             // 获取鼠标位置，将其转换为单元格位置；
             transform.localScale = new Vector3(square, square, square);

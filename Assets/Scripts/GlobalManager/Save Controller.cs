@@ -59,10 +59,10 @@ public class SaveController : MonoBehaviour
         SaveData saveData = new SaveData
         {
             player_position = GameObject.FindGameObjectWithTag("Player").transform.position,
-            square = StatsManager.Instance.square,
             currentTime = TimeController.Instance.currentTime,
             currentOrderInterval = MailBoxManager.Instance.mailInterval,
 
+            statsSaveData = StatsManager.Instance.GetSaveData(),
             inventorySaveData = inventoryController.GetSaveSlot(),
             allItemNumberSaveData = inventoryController.GetItemNumber(),
             itemSaveData = itemSaveController.GetItemData(),
@@ -88,16 +88,17 @@ public class SaveController : MonoBehaviour
             SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(save_localtion));
 
             GameObject.FindGameObjectWithTag("Player").transform.position = saveData.player_position;
-            StatsManager.Instance.square = saveData.square;
             TimeController.Instance.currentTime = saveData.currentTime;
             MailBoxManager.Instance.mailInterval = saveData.currentOrderInterval;
 
+            StatsManager.Instance.SetSaveData(saveData.statsSaveData);
             inventoryController.SetInventoryData(saveData.inventorySaveData);
             inventoryController.SetItemNumber(saveData.allItemNumberSaveData);
             itemSaveController.SetItemDate(saveData.itemSaveData);
             plantController.SetPlant(saveData.plantSaveData);
             TileMapManager.Instance.SetTileData(saveData.tileSaveData);
             TimeController.Instance.SetTime();
+            TimeController.Instance.SetGold(0);
             AnimalsManager.Instance.SetAnimalsSaveData(saveData.animalSaveData);
             MailBoxManager.Instance.SetMailData(saveData.orderSaveData);
             AchieveController.Instance.SetAchieveData(saveData.achievementSaveData);

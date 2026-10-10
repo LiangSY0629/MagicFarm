@@ -171,7 +171,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -2062149183, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  m_Sprite: {fileID: 1770379377, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -195,11 +195,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantSprite:
-  - {fileID: -2062149183, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
-  - {fileID: -1341338387, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
-  - {fileID: 929524717, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
-  - {fileID: 1508617167, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
-  ID: 1
+  - {fileID: 1770379377, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: 1324355324, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: 916402299, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  - {fileID: -1796526688, guid: 3413244494e131a4e80f444b5aca251a, type: 3}
+  ID: 4
   growth: 0
   waterSprite: {fileID: 2320180746311320694}
   currentGrowTime: 0

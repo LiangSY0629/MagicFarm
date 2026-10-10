@@ -31,11 +31,15 @@ public class TimeController : MonoBehaviour
     public int day;
     public int hour;
     public int minute;
+    public int truthDay = 0;
+    public int truthHour = 0;
+    public int truthMin = 0;
     public bool isNight = false;
 
     public float finalTime;
     public float dayTime;
     float updateTime = 0.1f;
+    float waitTruthTime = 0;
     int nightTime;
     int lightTime;
 
@@ -67,6 +71,7 @@ public class TimeController : MonoBehaviour
         currentTime += Time.deltaTime;
 
         updateTime -= Time.deltaTime;
+        waitTruthTime -= Time.deltaTime;
 
         finalTime = startTime + currentTime;
 
@@ -87,7 +92,22 @@ public class TimeController : MonoBehaviour
             if (isNight && hour >= 6 && hour < 18)
             {
                 isNight = false;
+
+                //如果天数小于10，每更新一次黑夜状态（也就是过了一天）就会添加一点成就进度；
+                if (day <= 10)
+                {
+                    EventController.TriggerComplete(2, 1);
+                }
+                
             }
+
+            //每隔60s调用一下函数更新一下显示时间；
+            if(waitTruthTime <= 0)
+            {
+                waitTruthTime = 60;
+                SetTruthTime();
+            }
+
 
             //防止修改时间后灯光无法匹配当前时间；
             if ((dayTime > nightTime + targetTime || dayTime < lightTime - targetTime) && light.intensity > 0.5)//大于天黑时间或小于天亮时间；
@@ -132,6 +152,26 @@ public class TimeController : MonoBehaviour
 
     }
 
+    public void SetTruthTime()
+    {
+        truthMin++;
+        if(truthMin >= 60)
+        {
+            truthMin = 0;
+            truthHour++;
+        }
+
+        if(truthHour >= 24)
+        {
+            truthHour = 0;
+            truthDay++;
+        }
+
+        StatsManager.Instance.timeText.text = $"游戏时间：{truthDay:D2}天{truthHour:D2}小时{truthMin:D2}分钟";
+
+    }
+
+
     /// <summary>
     /// 传入int 数字，直接添加到当前金币总量中；
     /// </summary>
@@ -139,6 +179,8 @@ public class TimeController : MonoBehaviour
     public void SetGold(int number)
     {
         StatsManager.Instance.goldCount += number;
+        StatsManager.Instance.glodText.text = $"当前金币数：{(StatsManager.Instance.goldCount)}";
+        EventController.TriggerComplete(StatsManager.AchieveCondition.Glod, number);
         goldText.text = $"{(StatsManager.Instance.goldCount):D2}";
     }
 

@@ -54,7 +54,7 @@ public class PlayerCombat : MonoBehaviour
 
             }
 
-
+            EventController.TriggerComplete(4, 1);
             anim.SetFloat("Tool", 0);
             SoundEffectManager.Instance.PlayAudio("Attack");
         }
@@ -105,6 +105,7 @@ public class PlayerCombat : MonoBehaviour
                 
             }
 
+            EventController.TriggerComplete(4, 1);
             anim.SetFloat("Tool", 1);
             SoundEffectManager.Instance.PlayAudio("Attack");
 
@@ -112,12 +113,10 @@ public class PlayerCombat : MonoBehaviour
         // 水壶，范围内存在植物时可进行浇水；
         else if (StatsManager.Instance.current_tool == StatsManager.Tools.Kettle)
         {
-            anim.SetFloat("Tool", 2);
-            SoundEffectManager.Instance.PlayAudio("Water");
 
             if (TimeController.Instance.isNight)
             {
-                TipsPopupControler.Instance.SetTipsText("拜托~ 晚上还给植物浇水，你觉得晚上它会生长吗？");
+                TipsPopupControler.Instance.SetTipsText("拜托~ 晚上还给植物浇水，你认为晚上它会生长吗？");
                 return;
             }
 
@@ -129,7 +128,10 @@ public class PlayerCombat : MonoBehaviour
                     plant.IsWatering();
                 }
             }
-            
+
+            EventController.TriggerComplete(4, 1);
+            anim.SetFloat("Tool", 2);
+            SoundEffectManager.Instance.PlayAudio("Water");
         }
 
         //种子，选中地块为耕地并且不存在植物时，根据所选种子类型、种植植物；
@@ -153,6 +155,7 @@ public class PlayerCombat : MonoBehaviour
                 }
             }
 
+            EventController.TriggerComplete(4, 1);
             anim.SetFloat("Tool", 1);
             SoundEffectManager.Instance.PlayAudio("Attack");
         }

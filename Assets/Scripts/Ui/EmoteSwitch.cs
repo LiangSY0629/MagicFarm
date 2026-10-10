@@ -56,6 +56,9 @@ public class EmoteSwitch : MonoBehaviour
         animEmote.SetFloat("Emote", emoteClick);
         SoundEffectManager.Instance.PlayAudio("Emotes");
         animEmote.SetBool("Click", true);
+
+        EventController.TriggerComplete(3, 1);
+
     }
 
     //«–ªªªÿœ–÷√±Ì«È
@@ -65,6 +68,8 @@ public class EmoteSwitch : MonoBehaviour
         animEmote.SetFloat("IdleEmote", 0);
         IdleEmoteTime = emoteTime * 1.2f;
     }
+
+
     public void returnIdle()
     {
         animEmote.SetFloat("IdleEmote", 0);

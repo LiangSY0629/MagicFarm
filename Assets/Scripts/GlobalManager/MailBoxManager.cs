@@ -335,8 +335,13 @@ public class MailBoxManager : MonoBehaviour, IInteractable
                 SoundEffectManager.Instance.PlayAudio("Confirm");
 
                 inventoryController.LessItem(currentMail.itemType, currentMail.itemID, currentMail.itemQuality, currentMail.itemNeedNumber);
+
+                //调用函数触发时间，增加成就进度；
+                EventController.TriggerComplete(StatsManager.AchieveCondition.Order, 1);
+
                 TimeController.Instance.SetGold(currentMail.rewardNumber);
                 TipsPopupControler.Instance.SetTipsText("种了么订单提交成功！");
+
                 mails.Remove(currentMail);
                 Destroy(currentMail.gameObject);
 

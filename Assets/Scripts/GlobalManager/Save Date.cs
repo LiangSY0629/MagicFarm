@@ -9,10 +9,11 @@ public class SaveData
 {
 
     public Vector3 player_position;
-    public int square;
 
-    public float currentTime;
     public float currentOrderInterval;
+    public float currentTime;
+
+    public StatsSaveData statsSaveData;
 
     public List<InventorySaveData> inventorySaveData;
     public List<AllItemNumberSaveData> allItemNumberSaveData;
@@ -29,6 +30,17 @@ public class SaveData
 
     public List<AchievementSaveData> achievementSaveData;
 }
+
+[System.Serializable]
+public class StatsSaveData
+{
+    public int square;
+    public int currentGlodCount;
+    public int achieveCompleteCount;
+
+}
+
+
 
 [System.Serializable]
 public class InventorySaveData
