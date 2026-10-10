@@ -70,6 +70,7 @@ public class SaveController : MonoBehaviour
             tileSaveData = TileMapManager.Instance.GetTileData(),
             animalSaveData = AnimalsManager.Instance.GetAnimalsSaveData(),
             orderSaveData = MailBoxManager.Instance.GetSaveData(),
+            achievementSaveData = AchieveController.Instance.GetSaveData(),
 
         };
 
@@ -99,6 +100,7 @@ public class SaveController : MonoBehaviour
             TimeController.Instance.SetTime();
             AnimalsManager.Instance.SetAnimalsSaveData(saveData.animalSaveData);
             MailBoxManager.Instance.SetMailData(saveData.orderSaveData);
+            AchieveController.Instance.SetAchieveData(saveData.achievementSaveData);
 
             TipsPopupControler.Instance.SetTipsText("º”‘ÿ≥…π¶£°");
         }

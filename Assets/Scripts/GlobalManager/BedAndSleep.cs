@@ -22,6 +22,7 @@ public class BedAndSleep : MonoBehaviour, IInteractable
         if (TimeController.Instance.isNight)
         {
             sleep = true;
+            EventController.TriggerComplete(1, 1);
             PlayerSleep();
         }
         else

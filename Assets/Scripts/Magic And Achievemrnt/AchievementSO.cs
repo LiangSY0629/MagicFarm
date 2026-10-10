@@ -8,6 +8,7 @@ public class AchievementSO : ScriptableObject
     public int ID;
     public string achieveName;
     public Sprite icon;
+    public Sprite completeIcon;
     public int conditionNumber;
     [TextArea] public string achieveDescription;
 

@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 80}
+  m_AnchoredPosition: {x: 0, y: -2}
+  m_SizeDelta: {x: 90, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5395251127700859766
 CanvasRenderer:
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.8
 --- !u!114 &7207986444889758256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,10 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  achieveName: 
   achieveText: {fileID: 1141709436867208468}
   slotIcon: {fileID: 7604617071315057099}
   achieveIcon: {fileID: 1908833670022316655}
+  completeIcon: {fileID: 0}
   conditionNumber: 0
   currentValue: 0
   isLock: 1

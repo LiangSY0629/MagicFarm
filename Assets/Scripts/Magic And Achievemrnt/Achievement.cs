@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class Achievement : MonoBehaviour
     public TMP_Text achieveText;
     public Image slotIcon;
     public Image achieveIcon;
+    public Sprite startIcon;
+    public Sprite completeIcon;
     public int conditionNumber;
     public int currentValue;
     public bool isLock = true;
@@ -27,6 +30,9 @@ public class Achievement : MonoBehaviour
         ID = achieveSO.ID;
         achieveText.text = achieveSO.achieveName;
         achieveIcon.sprite = achieveSO.icon;
+        startIcon = achieveSO.icon;
+        completeIcon = achieveSO.completeIcon;
+
         if (achieveSO.conditionNumber > 0)
         {
             conditionNumber = achieveSO.conditionNumber;
@@ -46,6 +52,8 @@ public class Achievement : MonoBehaviour
         ID = i;
         achieveText.text = groupSO.achievements[i].achieveName;
         achieveIcon.sprite = groupSO.icon;
+        startIcon = groupSO.icon;
+        completeIcon = groupSO.completeIcon;
         condition = groupSO.condition;
 
         //如果有规律，所需数量 = 基础值 * （乘数 * ID）；

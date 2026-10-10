@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using static AchievementSaveData;
 
 public class AchieveController : MonoBehaviour
 {
@@ -90,8 +91,9 @@ public class AchieveController : MonoBehaviour
                 {
                     achieve.currentValue = achieve.conditionNumber;
                     achieve.isLock = false;
+                    achieve.achieveIcon.sprite = achieve.completeIcon;
                     achieve.slotIcon.sprite = achieveSlotSprite[1];
-                    achievePopup.AchievePopup(achieve.achieveText.text);
+                    achievePopup.AchievePopup(achieve.achieveText.text, achieve.completeIcon);
 
                 }
             }
@@ -111,15 +113,97 @@ public class AchieveController : MonoBehaviour
 
         if (achieve.isLock)
         {
-            achieve.condition += number;
+            achieve.currentValue += number;
 
             if (achieve.currentValue >= achieve.conditionNumber)
             {
                 achieve.currentValue = achieve.conditionNumber;
                 achieve.isLock = false;
+                achieve.achieveIcon.sprite = achieve.completeIcon;
                 achieve.slotIcon.sprite = achieveSlotSprite[1];
-                achievePopup.AchievePopup(achieve.achieveText.text);
+                achievePopup.AchievePopup(achieve.achieveText.text, achieve.completeIcon);
             }
+
+        }
+
+    }
+
+    /// <summary>
+    /// 调用函数返回achievement的save data;
+    /// </summary>
+    /// <returns></returns>
+    public List<AchievementSaveData> GetSaveData()
+    {
+        List<AchievementSaveData> achieveData = new List<AchievementSaveData>();
+
+        //遍历有等级字典；
+        foreach(var achieveGroup in achieveGroupDictionary)
+        {
+            foreach(Achievement achieve in achieveGroup.Value)
+            {
+                achieveData.Add(new AchievementSaveData
+                {
+                    condition = achieveGroup.Key,
+                    ID = achieve.ID,
+                    currentValue = achieve.currentValue,
+                    isLock = achieve.isLock,
+                });
+
+            }
+
+        }
+
+        //遍历无等级字典；
+        foreach(var achieve in achieveDictionary)
+        {
+            achieveData.Add(new AchievementSaveData
+            {
+                condition = StatsManager.AchieveCondition.None,
+                ID = achieve.Key,
+                currentValue = achieve.Value.currentValue,
+                isLock = achieve.Value.isLock,
+            });
+
+        }
+
+        return achieveData;
+    }
+    
+
+    public void SetAchieveData(List<AchievementSaveData> achieveSaveData)
+    {
+        List<Achievement> achieveGroup = new List<Achievement>();
+
+        //遍历整个List；
+        foreach(AchievementSaveData  achieveData in achieveSaveData)
+        {
+            Achievement achieve;
+            //先为有等级字典赋值；
+            if (achieveData.condition != StatsManager.AchieveCondition.None)
+            {
+                achieveGroup = achieveGroupDictionary[achieveData.condition];
+                achieve = achieveGroup[achieveData.ID];
+            }
+            //索引无等级字典；
+            else
+            {
+                achieve = achieveDictionary[achieveData.ID];
+            }
+
+            achieve.currentValue = achieveData.currentValue;
+            achieve.isLock = achieveData.isLock;
+
+            if (achieveData.isLock)
+            {
+                achieve.slotIcon.sprite = achieveSlotSprite[0];
+                achieve.achieveIcon.sprite = achieve.startIcon;
+            }
+            else
+            {
+                achieve.slotIcon.sprite = achieveSlotSprite[1];
+                achieve.achieveIcon.sprite = achieve.completeIcon;
+            }
+
 
         }
 

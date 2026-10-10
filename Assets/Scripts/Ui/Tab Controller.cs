@@ -14,22 +14,71 @@ public class TabController : MonoBehaviour
 
     bool first = true;
 
-
+    /// <summary>
+    /// 打开个人面板；
+    /// </summary>
     public void ActivePlayer()
     {
         ActivateTab(0);
+        RangeTips();
+    }
+
+    /// <summary>
+    /// 打开背包面板；
+    /// </summary>
+    public void ActiveBag()
+    {
+        ActivateTab(1);
+        RangeTips();
+    }
+
+
+    public void ActiveShop()
+    {
+        ActivateTab(2);
+        RangeTips();
+    }
+
+    /// <summary>
+    /// 打开魔法面板；
+    /// </summary>
+    public void ActiveMagic()
+    {
+        ActivateTab(3);
+        RangeTips();
+    }
+
+    /// <summary>
+    /// 打开成就面板；
+    /// </summary>
+    public void ActiveAchieve()
+    {
+        ActivateTab(4);
+        RangeTips();
+    }
+
+    /// <summary>
+    /// 打开设置面板；
+    /// </summary>
+    public void ActiveSetting()
+    {
+        ActivateTab(5);
+        RangeTips();
+    }
+
+
+    /// <summary>
+    /// 刷新tips；
+    /// </summary>
+    public void RangeTips()
+    {
         if (tipsText.Count > 0)
         {
             int tip = Random.Range(0, tipsText.Count);
             tips.text = "Tips：" + tipsText[tip];
         }
-
     }
 
-    public void ActiveBag()
-    {
-        ActivateTab(1);
-    }
 
     public void ActivateTab(int tab_no)
     {

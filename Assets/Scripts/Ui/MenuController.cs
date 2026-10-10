@@ -49,6 +49,9 @@ public class MenuController : MonoBehaviour
         PauseController.SetPause(menuCanvas.activeSelf);
     }
 
+    /// <summary>
+    /// 按下关闭按钮；
+    /// </summary>
     public void CloseMenu()
     {
         SoundEffectManager.Instance.PlayAudio("Cancel");
@@ -57,11 +60,56 @@ public class MenuController : MonoBehaviour
         PauseController.SetPause(menuCanvas.activeSelf);
     }
 
+    /// <summary>
+    /// 按下设置按钮；
+    /// </summary>
     public void SettingButton()
     {
         openMenu();
         SoundEffectManager.Instance.PlayAudio("Select");
-        tabController.ActivePlayer();
+        tabController.ActiveSetting();
     }
+
+    /// <summary>
+    /// 按下成就按钮；
+    /// </summary>
+    public void AchieveButton()
+    {
+        openMenu();
+        SoundEffectManager.Instance.PlayAudio("Select");
+        tabController.ActiveAchieve();
+    }
+
+    /// <summary>
+    /// 按下玩家按钮；
+    /// </summary>
+    public void PlayerButton()
+    {
+        openMenu();
+        SoundEffectManager.Instance.PlayAudio("Select");
+        tabController.ActivePlayer();
+    } 
+
+    /// <summary>
+    /// 按下购物按钮；
+    /// </summary>
+    public void ShoppingButton()
+    {
+        openMenu();
+        SoundEffectManager.Instance.PlayAudio("Select");
+        tabController.ActiveShop();
+    }
+
+    /// <summary>
+    /// 按下魔法按钮；
+    /// </summary>
+    public void MagicButton()
+    {
+        openMenu();
+        SoundEffectManager.Instance.PlayAudio("Select");
+        tabController.ActiveMagic();
+    }
+
+
 
 }

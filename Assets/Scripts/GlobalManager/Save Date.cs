@@ -27,6 +27,7 @@ public class SaveData
 
     public List<OrderSaveData> orderSaveData;
 
+    public List<AchievementSaveData> achievementSaveData;
 }
 
 [System.Serializable]
@@ -106,4 +107,13 @@ public class OrderSaveData
     public int starNumber;
     public int itemNeedNumber;
     public int rewardNumber;
+}
+
+[System.Serializable]
+public class AchievementSaveData
+{
+    public StatsManager.AchieveCondition condition;
+    public int ID;
+    public int currentValue;
+    public bool isLock;
 }

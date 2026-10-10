@@ -8,6 +8,7 @@ public class AchieveGroupSO : ScriptableObject
     public StatsManager.AchieveCondition condition;
 
     public Sprite icon;
+    public Sprite completeIcon;
     public List<int> conditionNumbers;
     public bool isRegular;
     public int conditionValue;

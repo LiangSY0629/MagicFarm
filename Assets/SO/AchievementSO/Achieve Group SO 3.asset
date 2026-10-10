@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce3359ec7c853fe4a91cdeb6d7116e9e, type: 3}
-  m_Name: Achieve Group SO 1
+  m_Name: Achieve Group SO 3
   m_EditorClassIdentifier: 
-  condition: 1
-  icon: {fileID: 699400691, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
-  completeIcon: {fileID: -698463144, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
+  condition: 3
+  icon: {fileID: -1428838118, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
+  completeIcon: {fileID: 1952852693, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
   conditionNumbers: 
   isRegular: 1
   conditionValue: 1
-  mutiplier: 10
+  mutiplier: 5
   achievements:
   - ID: 0
-    achieveName: "\u4E30\u6536\uFF01"
+    achieveName: "\u7B2C\u4E00\u5355"
     description: 
   - ID: 1
-    achieveName: "\u5927\u4E30\u6536\uFF01"
+    achieveName: "\u5408\u4F5C\u6109\u5FEB"
     description: 
   - ID: 2
-    achieveName: "\u5927\u6EE1\u8D2F\uFF01"
+    achieveName: "\u4F9B\u8D27\u5546"
     description: 
   - ID: 3
-    achieveName: "\u4E94\u8C37\u4E30\u767B"
+    achieveName: "\u6709\u6C42\u5FC5\u5E94"
     description: 

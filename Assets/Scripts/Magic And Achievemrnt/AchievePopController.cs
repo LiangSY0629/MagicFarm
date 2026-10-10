@@ -1,33 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class AchievePopController : MonoBehaviour
 {
     public TMP_Text achieveText;
+    public Image achieveImage;
 
     public float popupTime;
     public float waitTime;
     public int position;
 
     bool isPopup = false;
-    readonly List<string> waitPopup = new();
+    readonly Queue<(string Name, Sprite icon)> waitPopup = new();
 
     /// <summary>
     /// 传入成就名，调用函数实现成就弹窗；
     /// </summary>
     /// <param name="achieveName"></param>
-    public void AchievePopup(string achieveName)
+    public void AchievePopup(string achieveName, Sprite icon)
     {
 
         if (isPopup)
         {
-            waitPopup.Add(achieveName);
+            waitPopup.Enqueue((achieveName, icon));
             return;
         }
 
         achieveText.text = achieveName;
+        achieveImage.sprite = icon;
         StartCoroutine(PopUpActive(achieveName));
     }
 
@@ -59,15 +63,12 @@ public class AchievePopController : MonoBehaviour
             yield return null;
         }
 
-        if (waitPopup.Count > 0 && waitPopup.Contains(achieveName))
-        {
-            waitPopup.Remove(achieveName);
-        }
         isPopup = false;
 
         if(waitPopup.Count > 0)
         {
-            AchievePopup(waitPopup[0]);
+            var next = waitPopup.Dequeue();
+            AchievePopup(next.Name, next.icon);
         }
 
     }
