@@ -47,35 +47,6 @@ public class StatsManager : MonoBehaviour
     public TMP_Text achieveText;
     public TMP_Text glodText, timeText;
 
-    public enum Tools
-    {
-        None,
-        Axe,
-        Hoe,
-        Kettle,
-        Seed,
-    }
-
-    public enum ItemTypes
-    {
-        Crop,
-        Animal,
-    }
-
-    /// <summary>
-    /// 成就解锁的量化条件；
-    /// </summary>
-    public enum AchieveCondition
-    {
-        None,
-        Harvest,
-        Feed,
-        Order,
-        Glod,
-        StarItem,
-        Skill,
-    }
-
     private void Awake()
     {
         if (Instance == null)
@@ -130,6 +101,53 @@ public class StatsManager : MonoBehaviour
         achieveText.text = "获得成就数：" + achieveCompleteCount;
 
     }
+    public enum Tools
+    {
+        None,
+        Axe,
+        Hoe,
+        Kettle,
+        Seed,
+    }
+
+    public enum ItemTypes
+    {
+        Crop,
+        Animal,
+    }
+
+    /// <summary>
+    /// 成就解锁的量化条件；
+    /// </summary>
+    public enum AchieveCondition
+    {
+        None,
+        Harvest,
+        Feed,
+        Order,
+        Glod,
+        StarItem,
+        Skill,
+    }
+    public enum PercentMagics
+    {
+        CropWater,
+        CropGrowth,
+        AnimalEat,
+        OrderInterval,
+        OrderGlod,
+    }
+
+    public enum LevelMagics
+    {
+        CropLevel,
+        AnimalLevel,
+        AnimalNeed,
+        OrderLevel,
+        QualityLevel,
+        PickLevel,
+    }
+
 
 }
 

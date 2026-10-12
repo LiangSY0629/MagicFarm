@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15365199ba6ddc24aaaed6ee5635e67b, type: 3}
+  m_Name: Crop 1
+  m_EditorClassIdentifier: 
+  ID: crop_1
+  icon: {fileID: -1434881329, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
+  laterCondition: []
+  upNeed: 0
+  description: 
+  magicEffectSos:
+  - value: 1
+    MagicEffectSo: {fileID: 11400000, guid: 3c7ca91a26563654eb524c4aca17bb74, type: 2}
+  - value: 0.05
+    MagicEffectSo: {fileID: 11400000, guid: 4a0fea72a2afe3d469536f32a86661b6, type: 2}
