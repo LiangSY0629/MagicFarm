@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.GPUDriven;
 using UnityEngine.Rendering;
@@ -13,10 +14,12 @@ public class MagicNode : MonoBehaviour
     public Image buttonIcon;
     public Image buttonImage;
     public Button button;
+    public TMP_Text levelText;
 
     private void Start()
     {
         button = GetComponent<Button>();
+        levelText = GetComponentInChildren<TMP_Text>();
         button.onClick.AddListener(() => MagicManager.Instance.MagicLevelUp(this));
     }
 

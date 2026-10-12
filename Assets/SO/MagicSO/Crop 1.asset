@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: crop_1
   icon: {fileID: -1434881329, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
-  laterCondition: []
-  upNeed: 0
+  upNeed: 1
+  maxLevel: 3
   description: 
+  precondition:
+  - default
   magicEffectSos:
   - value: 1
     MagicEffectSo: {fileID: 11400000, guid: 3c7ca91a26563654eb524c4aca17bb74, type: 2}

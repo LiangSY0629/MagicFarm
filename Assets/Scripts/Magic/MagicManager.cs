@@ -79,13 +79,9 @@ public class MagicManager : MonoBehaviour
             magicNode.ID = magicNode.magicSo.ID;
             magicNode.buttonIcon.sprite = magicNode.magicSo.icon;
 
-            if (magicRunDictionary.TryGetValue(magicNode.ID, out MagicRunTime magicRun))
-            {
-                magicNode.button.interactable = magicRun.isUnlock; //由是否锁定来决定是否可交互；
-            }
-            else magicNode.button.interactable = false; //没找到就一律不可交互；
-
             magicNodeDictionary[magicNode.ID] = magicNode;
+
+            SetMagicNodeText(magicNode.ID);
         }
 
 
@@ -106,13 +102,16 @@ public class MagicManager : MonoBehaviour
                 if(magicRun.level < magicRun.maxLevel) //当前等级未达到最大等级，升一级，
                 {
                     magicRun.level++;
+
+                    SetMagicNodeText(magicNode.ID);
                     Debug.Log(magicRun.level);
                 }
 
                 if(magicRun.level >= magicRun.maxLevel) //当前等级已达到最大等级，
                 {
-                    magicNode.buttonImage.sprite = magicNode.lightIcon;  //更新图标；
                     magicRun.level = magicRun.maxLevel;
+
+                    SetMagicNodeText(magicNode.ID);
                     Debug.Log("Max Level");
 
                     UpdateRunTime(magicNode.ID); //调用函数更新节点状态；
@@ -153,7 +152,7 @@ public class MagicManager : MonoBehaviour
 
                 if (magicNodeDictionary.TryGetValue(magicSo.ID, out MagicNode magicNode))  //查找这个ID的节点，为其更新；
                 {
-                    magicNode.button.interactable = true;
+                    SetMagicNodeText(magicSo.ID);
                 }
 
             }
@@ -163,6 +162,39 @@ public class MagicManager : MonoBehaviour
     } //函数结束；
 
 
+    /// <summary>
+    /// 传入要更新的ID，进行更新；
+    /// </summary>
+    /// <param name="ID"></param>
+    public void SetMagicNodeText(string ID)
+    {
+        if (!magicNodeDictionary.TryGetValue(ID, out MagicNode magicNode)) //没找到节点直接返回；
+            return;
+        else
+        {
+            MagicRunTime magicRun = magicRunDictionary[ID];
 
+            if (!magicNode.button.interactable)
+            {
+                magicNode.button.interactable = magicRun.isUnlock;
+            }
+
+            if (!magicRun.isUnlock)  //如果没解锁，就说被锁着；
+                magicNode.levelText.text = "Locked";
+            else
+            {
+
+                if (magicRun.level < magicRun.maxLevel)
+                    magicNode.levelText.text = magicRun.level + "/" + magicRun.maxLevel;
+                else
+                {
+                    magicNode.levelText.text = "MAX";
+                    magicNode.buttonImage.sprite = magicNode.lightIcon;  //更新图标；
+                }
+
+            }
+        }
+
+    }
 
 }

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: default
   icon: {fileID: 1458704573, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
-  laterCondition:
-  - crop_1
   upNeed: 0
+  maxLevel: 2
   description: 
+  precondition: []
   magicEffectSos: []
