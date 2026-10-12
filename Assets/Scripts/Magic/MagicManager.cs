@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +10,9 @@ public class MagicManager : MonoBehaviour
 
     public Transform magicPanelTransform;
     public List<MagicSO> MagicSos;
-    public Dictionary<string, MagicSO> magicSoDictionary;
+    public Dictionary<string, List<MagicSO>> postconditionIdDictionary;
     public Dictionary<string, MagicRunTime> magicRunDictionary;
+    public Dictionary<string, MagicNode> magicNodeDictionary;
 
     /// <summary>
     /// 定义的内部类，保存当前Magic的运行情况；
@@ -20,6 +22,8 @@ public class MagicManager : MonoBehaviour
         public string ID;
         public bool isUnlock;
         public int level;
+        public int maxLevel;
+
     }
 
     private void Awake()
@@ -35,30 +39,36 @@ public class MagicManager : MonoBehaviour
 
     private void Start()
     {
-
-        magicSoDictionary = new Dictionary<string, MagicSO>();
+        postconditionIdDictionary = new Dictionary<string, List<MagicSO>>();
         magicRunDictionary = new Dictionary<string, MagicRunTime>();
-
+        magicNodeDictionary = new Dictionary<string, MagicNode>();
 
         //遍历List 将数据存入Dictionary中；
         foreach (MagicSO magic in MagicSos)
         {
-
-            magicSoDictionary[magic.ID] = magic;
-
             MagicRunTime magicRun = new();
+
             magicRun.ID = magic.ID;
+            magicRun.level = 0;
+            magicRun.maxLevel = magic.maxLevel;
 
-            magicRun.isUnlock = false;
-
-            if(magicRun.ID == "default")
+            if (magic.precondition.Length == 0)
             {
                 magicRun.isUnlock = true;
             }
-
-            magicRun.level = 0;
+            else magicRun.isUnlock = false;
 
             magicRunDictionary[magicRun.ID] = magicRun;
+            
+
+            foreach(string preID in magic.precondition) //存一个反向表，跟据当前magic SO的前置条件，把该magic SO存为它们的后置节点；
+            {
+
+                if (!postconditionIdDictionary.ContainsKey(preID))
+                    postconditionIdDictionary[preID] = new List<MagicSO>();
+
+                postconditionIdDictionary[preID].Add(magic);
+            }
 
         }
 
@@ -69,71 +79,90 @@ public class MagicManager : MonoBehaviour
             magicNode.ID = magicNode.magicSo.ID;
             magicNode.buttonIcon.sprite = magicNode.magicSo.icon;
 
-            GetMagicRunTime(magicNode);
-
-        }
-
-
-    }
-
-
-    /// <summary>
-    /// 传入ID找到对应的Magic Runtime属性，
-    /// </summary>
-    /// <param name="magicNode"></param>
-    public void GetMagicRunTime(MagicNode magicNode)
-    {
-        //判断MagicRunTime的状态，决定是否可以点击；
-        if (magicRunDictionary.TryGetValue(magicNode.ID, out MagicRunTime magicRun))
-        {
-            magicNode.GetComponent<Button>().interactable = magicRun.isUnlock;
-
-            if (magicRun.level > 0)
+            if (magicRunDictionary.TryGetValue(magicNode.ID, out MagicRunTime magicRun))
             {
-                magicNode.buttonImage.sprite = magicNode.lightIcon;
+                magicNode.button.interactable = magicRun.isUnlock; //由是否锁定来决定是否可交互；
             }
+            else magicNode.button.interactable = false; //没找到就一律不可交互；
+
+            magicNodeDictionary[magicNode.ID] = magicNode;
         }
 
+
     }
+
 
     /// <summary>
     /// 传入ID值进行索引，找到对应的Runtime更新状态，发出事件，更新ui；
     /// </summary>
     /// <param name="ID"></param>
-    public void MagicLevelUp(string ID)
+    public void MagicLevelUp(MagicNode magicNode)
     {
-        if(magicRunDictionary.TryGetValue(ID, out MagicRunTime magicRun))
+        //是否存在magic Run；
+        if(magicRunDictionary.TryGetValue(magicNode.ID, out MagicRunTime magicRun))
         {
-            if (magicRun.isUnlock)
+            if (magicRun.isUnlock) //检测是不是解锁状态，
             {
-                magicRun.level++;
-
-                if (magicRun.level == 1)
+                if(magicRun.level < magicRun.maxLevel) //当前等级未达到最大等级，升一级，
                 {
-                    foreach (string laterID in magicSoDictionary[ID].laterCondition)
-                    {
-                        if (magicRunDictionary.TryGetValue(laterID, out MagicRunTime laterMagicRun))
-                        {
-                            laterMagicRun.isUnlock = true;
+                    magicRun.level++;
+                    Debug.Log(magicRun.level);
+                }
 
-                            Debug.Log("yes");
-                        }
+                if(magicRun.level >= magicRun.maxLevel) //当前等级已达到最大等级，
+                {
+                    magicNode.buttonImage.sprite = magicNode.lightIcon;  //更新图标；
+                    magicRun.level = magicRun.maxLevel;
+                    Debug.Log("Max Level");
 
-
-
-                    }
-
-                    Debug.Log("level UP And Magic Unlock");
+                    UpdateRunTime(magicNode.ID); //调用函数更新节点状态；
 
                 }
-                else
-                {
-                    Debug.Log("Only Level UP");
-                }
+              
             }
         }
 
 
-    }
+    } //函数结束；
+
+    /// <summary>
+    /// 传入已满级的ID，判断其他ID所处的节点是否要解锁；
+    /// </summary>
+    /// <param name="ID"></param>
+    public void UpdateRunTime(string ID)
+    {
+        if (!postconditionIdDictionary.ContainsKey(ID))
+            return;
+
+        foreach (MagicSO magicSo in postconditionIdDictionary[ID])  //遍历该天赋节点的后置节点，
+        {
+            bool isReady = true;  //设置一个bool值 判断是否存在节点未准备就绪；
+
+            foreach (string preID in magicSo.precondition)  //遍历后置节点的前置节点；
+            {
+                //如果找不到这个前置节点 或 这个前置节点未达到最大等级（没准备就绪），就赋值为false，否则不变化；
+                if (!magicRunDictionary.TryGetValue(preID, out MagicRunTime magicRun) || magicRun.level != magicRun.maxLevel)
+                {
+                    isReady = false;
+                }
+            }
+
+            if (isReady) //如果经过遍历后仍准备就绪
+            {
+                magicRunDictionary[magicSo.ID].isUnlock = true; //为这个RunTime解锁；
+
+                if (magicNodeDictionary.TryGetValue(magicSo.ID, out MagicNode magicNode))  //查找这个ID的节点，为其更新；
+                {
+                    magicNode.button.interactable = true;
+                }
+
+            }
+
+        }//遍历结束；
+
+    } //函数结束；
+
+
+
 
 }

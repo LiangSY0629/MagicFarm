@@ -7,10 +7,10 @@ public class MagicSO : ScriptableObject
 {
     public string ID;
     public Sprite icon;
-    public string[] laterCondition;
     public int upNeed;
+    public int maxLevel;
     [TextArea] public string description;
-
+    public string[] precondition;
     public List<MagicEffect> magicEffectSos;
 }
 

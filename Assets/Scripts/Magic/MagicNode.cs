@@ -9,13 +9,15 @@ public class MagicNode : MonoBehaviour
 {
     public string ID;
     public MagicSO magicSo;
-    public Sprite lightIcon;
+    public Sprite lightIcon; //点亮时的图标；
     public Image buttonIcon;
     public Image buttonImage;
+    public Button button;
 
     private void Start()
     {
-        GetComponent<Button>().onClick.AddListener(() => MagicManager.Instance.MagicLevelUp(ID));
+        button = GetComponent<Button>();
+        button.onClick.AddListener(() => MagicManager.Instance.MagicLevelUp(this));
     }
 
 }
