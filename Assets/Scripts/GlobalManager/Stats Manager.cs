@@ -13,30 +13,30 @@ public class StatsManager : MonoBehaviour
     public Tools current_tool = Tools.None;
 
     [Header("Player Stats")]
-    public float speed;//角色速度；
-    public int square = 1;//攻击范围；
+    public float speed;//角色速度；  
+    public int square = 1;//攻击范围；   1
 
     [Header("Item Stats")]
-    public int maxPickNumber = 1;//最大可拾取数量
+    public int maxPickNumber = 1;//最大可拾取数量    2
     public int maxPileNumber = 99;//最大可堆叠数量；
-    public int maxQuality = 1;//最大可获得品质；
+    public int maxQuality = 1;//最大可获得品质；     3
 
     [Header("Animals Stats")]
-    public int currentAnimalTypes;//当前最高动物等级；
+    public int currentAnimalTypes;//当前最高动物等级；    4
     public int animalNumber;//动物种类数量；
     public int maxAnimalTypes;//动物品种总数；
 
     [Header("Plant Stats")]
-    public int maxSeed;//种子总数；
-    public int seedLevel;//当前最高种子等级；
+    public int maxSeed;//种子总数；  
+    public int seedLevel;//当前最高种子等级；         5
     public int EveryLevelSeed;//每个等级的种子数量；
 
 
     [Header("Mail Stats")]
-    public int maxMail;//最大可容纳订单数；
-    public int orderLevel;//订单等级；
-    public float rewardLevel;//奖励等级；
-    public float orderInterval;//订单冷却；
+    public int maxMail;//最大可容纳订单数；         ？
+    public int orderLevel;//订单等级；              6
+    public float rewardLevel;//奖励等级；           7
+    public float orderInterval;//订单冷却；          8
     public int goldCount;//金币总量；
 
 
@@ -46,6 +46,9 @@ public class StatsManager : MonoBehaviour
     [Header("绑定个人信息面板")]
     public TMP_Text achieveText;
     public TMP_Text glodText, timeText;
+
+    public Dictionary<LevelMagics,int> levelEffectDictionary;
+    public Dictionary<PercentMagics, float> percentEffectDictionary;
 
     private void Awake()
     {
@@ -62,6 +65,10 @@ public class StatsManager : MonoBehaviour
     private void Start()
     {
         EventController.OnAchieveUp += AchieveCountUp;
+
+        levelEffectDictionary = new Dictionary<LevelMagics, int>();
+        percentEffectDictionary = new Dictionary<PercentMagics, float>();
+
     }
 
     /// <summary>

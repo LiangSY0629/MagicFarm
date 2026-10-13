@@ -6,4 +6,9 @@ using UnityEngine;
 public class LevelMagicSO : MagicEffectSO
 {
     public StatsManager.LevelMagics type;
+
+    public override void MagicAssert()
+    {
+        throw new System.NotImplementedException();
+    }
 }

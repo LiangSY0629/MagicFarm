@@ -6,4 +6,9 @@ using UnityEngine;
 public class PercentMagicSO : MagicEffectSO
 {
     public StatsManager.PercentMagics type;
+
+    public override void MagicAssert()
+    {
+        throw new System.NotImplementedException();
+    }
 }
