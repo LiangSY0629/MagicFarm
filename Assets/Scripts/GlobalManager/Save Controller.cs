@@ -62,7 +62,7 @@ public class SaveController : MonoBehaviour
             currentTime = TimeController.Instance.currentTime,
             currentOrderInterval = MailBoxManager.Instance.mailInterval,
 
-            statsSaveData = StatsManager.Instance.GetSaveData(),
+            //statsSaveData = StatsManager.Instance.GetSaveData(),
             inventorySaveData = inventoryController.GetSaveSlot(),
             allItemNumberSaveData = inventoryController.GetItemNumber(),
             itemSaveData = itemSaveController.GetItemData(),
@@ -91,7 +91,7 @@ public class SaveController : MonoBehaviour
             TimeController.Instance.currentTime = saveData.currentTime;
             MailBoxManager.Instance.mailInterval = saveData.currentOrderInterval;
 
-            StatsManager.Instance.SetSaveData(saveData.statsSaveData);
+            //StatsManager.Instance.SetSaveData(saveData.statsSaveData);
             inventoryController.SetInventoryData(saveData.inventorySaveData);
             inventoryController.SetItemNumber(saveData.allItemNumberSaveData);
             itemSaveController.SetItemDate(saveData.itemSaveData);

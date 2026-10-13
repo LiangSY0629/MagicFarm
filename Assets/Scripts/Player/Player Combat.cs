@@ -17,7 +17,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
-        StatsManager.Instance.current_tool = StatsManager.Tools.None;
+        ToolController.Instance.currentTool = Tools.None;
         toolUsed = GetComponentInChildren<ToolUsedSquare>();
         plantDictionary = FindObjectOfType<PlantDictionary>();
         plantController = FindObjectOfType<PlantController>();
@@ -29,12 +29,12 @@ public class PlayerCombat : MonoBehaviour
     public void Attack(List<Vector3Int> tilePositions)
     {
         //没用工具，返回；
-        if (StatsManager.Instance.current_tool == StatsManager.Tools.None)
+        if (ToolController.Instance.currentTool == Tools.None)
         {
             return;
         }
         //斧子，当范围内有植物时触发收获函数；
-        else if (StatsManager.Instance.current_tool == StatsManager.Tools.Axe)
+        else if (ToolController.Instance.currentTool == Tools.Axe)
         {
             foreach(Vector3Int position in tilePositions)
             {
@@ -61,7 +61,7 @@ public class PlayerCombat : MonoBehaviour
 
 
         //锄头，当前选中地块不为耕地时，生成耕地；
-        else if (StatsManager.Instance.current_tool == StatsManager.Tools.Hoe)
+        else if (ToolController.Instance.currentTool == Tools.Hoe)
         {
             
             //如果不是右键删除，添加
@@ -111,7 +111,7 @@ public class PlayerCombat : MonoBehaviour
 
         }
         // 水壶，范围内存在植物时可进行浇水；
-        else if (StatsManager.Instance.current_tool == StatsManager.Tools.Kettle)
+        else if (ToolController.Instance.currentTool == Tools.Kettle)
         {
 
             if (TimeController.Instance.isNight)
@@ -135,7 +135,7 @@ public class PlayerCombat : MonoBehaviour
         }
 
         //种子，选中地块为耕地并且不存在植物时，根据所选种子类型、种植植物；
-        else if (StatsManager.Instance.current_tool == StatsManager.Tools.Seed)
+        else if (ToolController.Instance.currentTool == Tools.Seed)
         {
             //实例化植物预制体，并将字典里的东西更新；
             GameObject plantPrefab = plantDictionary.SetPlantPrefab(seedChoose.currentSeed);

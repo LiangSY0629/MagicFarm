@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
     public int quality;
     public Image image;
     public SpriteRenderer Sprite;
-    public StatsManager.ItemTypes Type;
+    public ItemTypes Type;
 
     //后期再生成的变量；
     public int number = 1;
@@ -39,7 +39,7 @@ public class Item : MonoBehaviour
     /// <param name="itemType"></param>
     /// <param name="itemSO"></param>
     /// <param name="itemQuality"></param>
-    public void CreateItem(StatsManager.ItemTypes itemType, ItemSO itemSO, int itemQuality)
+    public void CreateItem(ItemTypes itemType, ItemSO itemSO, int itemQuality)
     {
         ID = itemSO.ID;
         Name = itemSO.itemName;
@@ -61,7 +61,8 @@ public class Item : MonoBehaviour
     //拾取时随机数量
     public void RandomPickNum()
     {
-        pickNumber = Random.Range(1, StatsManager.Instance.maxPickNumber + 1);
+        int value = Mathf.RoundToInt(StatsManager.Instance.maxPickNumber.finalValue);
+        pickNumber = Random.Range(1, value + 1);
     }
 
  
@@ -116,13 +117,13 @@ public class Item : MonoBehaviour
         if (itemAdded)
         {
             //判断当前掉落物类型，根据类型传入不同的函数参数；
-            if (Type == StatsManager.ItemTypes.Crop)
+            if (Type == ItemTypes.Crop)
             {
-                EventController.TriggerComplete(StatsManager.AchieveCondition.Harvest, pickNumber);
+                EventController.TriggerComplete(AchieveCondition.Harvest, pickNumber);
             }
-            else if(Type == StatsManager.ItemTypes.Animal)
+            else if(Type == ItemTypes.Animal)
             {
-                EventController.TriggerComplete(StatsManager.AchieveCondition.Feed, pickNumber);
+                EventController.TriggerComplete(AchieveCondition.Feed, pickNumber);
             }
             PickUp();
             Destroy(collision);

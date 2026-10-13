@@ -45,7 +45,7 @@ public class StatsSaveData
 [System.Serializable]
 public class InventorySaveData
 {
-    public StatsManager.ItemTypes itemType;
+    public ItemTypes itemType;
     public int itemID;
     public int itemQuality;
     public int slotIndex;
@@ -56,7 +56,7 @@ public class InventorySaveData
 [System.Serializable]
 public class AllItemNumberSaveData
 {
-    public StatsManager.ItemTypes itemType;
+    public ItemTypes itemType;
     public int itemID;
     public int itemQuality;
     public int allItemNumber;
@@ -66,7 +66,7 @@ public class AllItemNumberSaveData
 [System.Serializable]
 public class ItemSaveData
 {
-    public StatsManager.ItemTypes itemType;
+    public ItemTypes itemType;
     public int itemID;
     public int itemQuality;
     public Vector3 itemPosition;
@@ -111,12 +111,12 @@ public class AnimalSaveData
 [System.Serializable]
 public class OrderSaveData
 {
-    public StatsManager.ItemTypes itemType;
+    public ItemTypes itemType;
     public int itemID;
     public int itemQuality;
     public string titleText, goldNumber;
 
-    public int starNumber;
+    public float starNumber;
     public int itemNeedNumber;
     public int rewardNumber;
 }
@@ -124,7 +124,7 @@ public class OrderSaveData
 [System.Serializable]
 public class AchievementSaveData
 {
-    public StatsManager.AchieveCondition condition;
+    public AchieveCondition condition;
     public int ID;
     public int currentValue;
     public bool isLock;

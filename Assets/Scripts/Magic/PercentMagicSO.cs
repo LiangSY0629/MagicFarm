@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Percent So", menuName = "Magic/PercentMagic")]
 public class PercentMagicSO : MagicEffectSO
 {
-    public StatsManager.PercentMagics type;
+    public PercentMagics type;
 
-    public override void MagicAssert()
+    public override void MagicAssert(float value)
     {
-        throw new System.NotImplementedException();
+        StatsManager.Instance.PercentStatUp(type, value);
     }
 }

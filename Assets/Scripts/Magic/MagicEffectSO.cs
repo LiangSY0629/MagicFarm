@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class MagicEffectSO : ScriptableObject,IMagicAssert
 {
-    public abstract void MagicAssert();
+    public abstract void MagicAssert(float value);
 }

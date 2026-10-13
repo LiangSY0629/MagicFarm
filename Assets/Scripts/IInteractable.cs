@@ -8,5 +8,5 @@ public interface IInteractable
 
 public interface IMagicAssert
 {
-    void MagicAssert();
+    void MagicAssert(float value);
 }

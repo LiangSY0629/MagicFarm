@@ -7,7 +7,7 @@ public class EventController : MonoBehaviour
 {
 
     //achieve相关的事件
-    public static event Action<StatsManager.AchieveCondition, int> OnAchieveConditionComplete;
+    public static event Action<AchieveCondition, int> OnAchieveConditionComplete;
     public static event Action<int, int> OnAchieveComplete;
     public static event Action<int> OnAchieveUp;
     /// <summary>
@@ -15,7 +15,7 @@ public class EventController : MonoBehaviour
     /// </summary>
     /// <param name="condition"></param>
     /// <param name="number"></param>
-    public static void TriggerComplete(StatsManager.AchieveCondition condition, int number)
+    public static void TriggerComplete(AchieveCondition condition, int number)
     {
         OnAchieveConditionComplete?.Invoke(condition, number);
     }

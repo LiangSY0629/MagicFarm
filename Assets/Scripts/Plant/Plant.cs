@@ -31,8 +31,8 @@ public class Plant : MonoBehaviour
     private void Awake()
     {
         growth = 0;
-        currentGrowTime = 0;
-        currentWaterTime = 0;
+        currentGrowTime = growTime * StatsManager.Instance.plantGrowth.finalValue;
+        currentWaterTime = waterTime * StatsManager.Instance.plantWater.finalValue;
 
         water = false;
     }
@@ -68,13 +68,13 @@ public class Plant : MonoBehaviour
 
         if (growth + 1 < plantSprite.Count)
         {
-            if (currentGrowTime < growTime)
+            if (currentGrowTime > 0)
             {
-                currentGrowTime += Time.deltaTime;
+                currentGrowTime -= Time.deltaTime;
             }
             else
             {
-                currentGrowTime = 0;
+                currentGrowTime = growTime * StatsManager.Instance.plantGrowth.finalValue;
                 growth += 1;
                 PlantGrowth();
                 
@@ -82,9 +82,9 @@ public class Plant : MonoBehaviour
 
             if (water)
             {
-                if (currentWaterTime < waterTime)
+                if (currentWaterTime > 0)
                 {
-                    currentWaterTime += Time.deltaTime;
+                    currentWaterTime -= Time.deltaTime;
                 }
                 else
                 {
@@ -110,14 +110,15 @@ public class Plant : MonoBehaviour
     {
         water = true;
         waterSprite.SetActive(!water);
-        currentWaterTime = 0;
-        currentGrowTime += growTime * 0.5f;
+        currentWaterTime = waterTime * StatsManager.Instance.plantWater.finalValue;
+        currentGrowTime -= growTime * StatsManager.Instance.plantGrowth.finalValue * 0.5f;
     }
 
     public void HarvestCrop()
     {
-        int itemQuality = Random.Range(1, StatsManager.Instance.maxQuality + 1);
-        GameObject item = Instantiate(ItemDictionary.Instance.GetItemPrefab(StatsManager.ItemTypes.Crop, ID, itemQuality), items.transform);
+        int value = Mathf.RoundToInt(StatsManager.Instance.maxQuality.finalValue);
+        int itemQuality = Random.Range(1, value + 1);
+        GameObject item = Instantiate(ItemDictionary.Instance.GetItemPrefab(ItemTypes.Crop, ID, itemQuality), items.transform);
         item.transform.position = transform.position;
         item.GetComponent<Item>().Harvest(jumpTime);
         Destroy(gameObject);

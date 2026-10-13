@@ -180,7 +180,7 @@ public class TimeController : MonoBehaviour
     {
         StatsManager.Instance.goldCount += number;
         StatsManager.Instance.glodText.text = $"当前金币数：{(StatsManager.Instance.goldCount)}";
-        EventController.TriggerComplete(StatsManager.AchieveCondition.Glod, number);
+        EventController.TriggerComplete(AchieveCondition.Glod, number);
         goldText.text = $"{(StatsManager.Instance.goldCount):D2}";
     }
 

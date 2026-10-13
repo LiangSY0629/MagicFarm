@@ -102,6 +102,11 @@ public class MagicManager : MonoBehaviour
                 if(magicRun.level < magicRun.maxLevel) //当前等级未达到最大等级，升一级，
                 {
                     magicRun.level++;
+                    
+                    foreach(MagicEffect magicEffect in magicNode.magicSo.magicEffectSos)
+                    {
+                        magicEffect.MagicEffectSo.MagicAssert(magicEffect.value);
+                    }
 
                     SetMagicNodeText(magicNode.ID);
                     Debug.Log(magicRun.level);

@@ -19,7 +19,7 @@ public class Achievement : MonoBehaviour
     public bool isLock = true;
 
     [Header("仅有等级成就所需")]
-    public StatsManager.AchieveCondition condition;
+    public AchieveCondition condition;
 
     /// <summary>
     /// 传入SO资源来为achieve赋值；

@@ -7,34 +7,63 @@ using UnityEngine.UI;
 
 public class ToolController : MonoBehaviour
 {
-    public GameObject seedChoose;
+    public static ToolController Instance;
+
+    public GameObject seedPanel;
     public GameObject toolChoose;
+    public SeedChoose seedChoose;
+    public Tools currentTool;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else Destroy(gameObject);
+    }
 
     //按工具栏按钮选择当前工具
     private void Start()
     {
-        seedChoose.SetActive(false);
+        seedPanel.SetActive(false);
     }
     public void PressedAxe()
     {
-        StatsManager.Instance.current_tool = StatsManager.Tools.Axe;
+        currentTool = Tools.Axe;
     }
     public void PressedHoe()
     {
-        StatsManager.Instance.current_tool = StatsManager.Tools.Hoe;
+        currentTool = Tools.Hoe;
     }
     public void PressedKettle()
     {
-        StatsManager.Instance.current_tool = StatsManager.Tools.Kettle;
+        currentTool = Tools.Kettle;
     }
     public void PressedBag()
     {
-        StatsManager.Instance.current_tool = StatsManager.Tools.None;
+        currentTool = Tools.None;
     }
     public void PressedSeed()
     {
-        StatsManager.Instance.current_tool = StatsManager.Tools.Seed;
-        seedChoose.SetActive(!seedChoose.activeSelf);
+        currentTool = Tools.Seed;
+        seedPanel.SetActive(!seedPanel.activeSelf);
+
+        StatsManager.Instance.maxSeed = seedChoose.seed.Length;
+
+        for (int i = Mathf.RoundToInt(StatsManager.Instance.seedLevel.finalValue * StatsManager.Instance.EveryLevelSeed); i < seedChoose.seed.Length; i++)
+        {
+            seedChoose.seed[i].SetActive(false);
+        }
+        for(int i = 0; i < StatsManager.Instance.maxSeed; i++)
+        {
+            if (i <= StatsManager.Instance.seedLevel.finalValue * StatsManager.Instance.EveryLevelSeed)
+            {
+                seedChoose.seed[i].SetActive(true);
+            }
+            else seedChoose.seed[i].SetActive(false);
+        }
+
     }
     public void Update()
     {
@@ -45,9 +74,9 @@ public class ToolController : MonoBehaviour
             if (!EventSystem.current.IsPointerOverGameObject())
             {
 
-                if (seedChoose.activeSelf)
+                if (seedPanel.activeSelf)
                 {
-                    seedChoose.SetActive(false);
+                    seedPanel.SetActive(false);
                     SoundEffectManager.Instance.PlayAudio("Cancel");
                 }
                 else SoundEffectManager.Instance.PlayAudio("Select");

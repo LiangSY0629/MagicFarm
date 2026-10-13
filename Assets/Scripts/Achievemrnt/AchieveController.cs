@@ -18,7 +18,7 @@ public class AchieveController : MonoBehaviour
     public AchieveGroupSO[] achieveGroupSOs;
     public AchievementSO[] achieveSOs;
 
-    public Dictionary<StatsManager.AchieveCondition, List<Achievement>> achieveGroupDictionary; //有等级的成就字典
+    public Dictionary<AchieveCondition, List<Achievement>> achieveGroupDictionary; //有等级的成就字典
     public Dictionary<int, Achievement> achieveDictionary; //无等级的成就字典
 
     private void Awake()
@@ -34,7 +34,7 @@ public class AchieveController : MonoBehaviour
     private void Start()
     {
 
-        achieveGroupDictionary = new Dictionary<StatsManager.AchieveCondition, List<Achievement>>();
+        achieveGroupDictionary = new Dictionary<AchieveCondition, List<Achievement>>();
         achieveDictionary = new Dictionary<int, Achievement>();
 
         EventController.OnAchieveComplete += CompleteAchievement;
@@ -79,7 +79,7 @@ public class AchieveController : MonoBehaviour
     /// </summary>
     /// <param name="condition"></param>
     /// <param name="number"></param>
-    void CompleteAchievement(StatsManager.AchieveCondition condition, int number)
+    void CompleteAchievement(AchieveCondition condition, int number)
     {
         foreach(Achievement achieve in achieveGroupDictionary[condition])
         {
@@ -158,7 +158,7 @@ public class AchieveController : MonoBehaviour
         {
             achieveData.Add(new AchievementSaveData
             {
-                condition = StatsManager.AchieveCondition.None,
+                condition = AchieveCondition.None,
                 ID = achieve.Key,
                 currentValue = achieve.Value.currentValue,
                 isLock = achieve.Value.isLock,
@@ -179,7 +179,7 @@ public class AchieveController : MonoBehaviour
         {
             Achievement achieve;
             //先为有等级字典赋值；
-            if (achieveData.condition != StatsManager.AchieveCondition.None)
+            if (achieveData.condition != AchieveCondition.None)
             {
                 achieveGroup = achieveGroupDictionary[achieveData.condition];
                 achieve = achieveGroup[achieveData.ID];
