@@ -98,7 +98,7 @@ public class SaveController : MonoBehaviour
             plantController.SetPlant(saveData.plantSaveData);
             TileMapManager.Instance.SetTileData(saveData.tileSaveData);
             TimeController.Instance.SetTime();
-            TimeController.Instance.SetGold(0);
+            StatsManager.Instance.SetGoldCount(0);
             AnimalsManager.Instance.SetAnimalsSaveData(saveData.animalSaveData);
             MailBoxManager.Instance.SetMailData(saveData.orderSaveData);
             AchieveController.Instance.SetAchieveData(saveData.achievementSaveData);

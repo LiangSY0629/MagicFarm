@@ -40,12 +40,15 @@ public class StatsManager : MonoBehaviour
     public int goldCount;//金币总量；
 
 
-    [Header("Achieve And Magic Stats")]
+    [Header("Achieve Stats")]
     public int achieveCompleteCount;//当前解锁的成就数量；
+
+    [Header("Magic Stats")]
+    public int magicStone = 2;
 
     [Header("绑定个人信息面板")]
     public TMP_Text achieveText;
-    public TMP_Text glodText, timeText;
+    public TMP_Text goldText, timeText;
 
     public Dictionary<LevelMagics, Stat> levelEffectDictionary;
     public Dictionary<PercentMagics, Stat> percentEffectDictionary;
@@ -134,6 +137,21 @@ public class StatsManager : MonoBehaviour
         Debug.Log(percentEffectDictionary[type].percentAdd);
     }
 
+
+    /// <summary>
+    /// 传入需要更改的glodCount，进行更改并同步到UI；
+    /// </summary>
+    /// <param name="number"></param>
+    public void SetGoldCount(int number)
+    {
+        Debug.Log(number);
+        goldCount += number;
+        goldText.text = "当前金币数：" + goldCount;
+        if(number > 0)
+            EventController.TriggerComplete(AchieveCondition.Gold, number);
+
+        TimeController.Instance.glodText.text = goldCount.ToString();
+    }
 
 }
 

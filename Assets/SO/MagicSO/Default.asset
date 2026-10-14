@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   ID: default
+  magicName: "\u521D\u59CB\u9B54\u6CD5"
   icon: {fileID: 1458704573, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
+  lightIcon: {fileID: -379236361, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
+  magicPosition: {x: 1511, y: 650}
   upNeed: 0
-  maxLevel: 2
-  description: 
+  maxLevel: 1
+  description: "\u521D\u59CB\u9B54\u6CD5\uFF0C\u70B9\u4EAE\u5B83\u624D\u7B97\u771F\u6B63\u8E0F\u4E0A\u9B54\u6CD5\u4E4B\u8DEF\uFF01\n\u6548\u679C\uFF1A\n\u8E0F\u4E0A\u9B54\u6CD5\u4E4B\u8DEF"
   precondition: []
   magicEffectSos: []

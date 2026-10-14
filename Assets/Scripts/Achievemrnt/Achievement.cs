@@ -59,7 +59,7 @@ public class Achievement : MonoBehaviour
         //如果有规律，所需数量 = 基础值 * （乘数 * ID）；
         if (groupSO.isRegular)
         {
-            conditionNumber = groupSO.conditionValue * (groupSO.mutiplier * i);
+            conditionNumber = groupSO.conditionValue * (groupSO.mutiplier * i + 1);
         }
         //无规律用内置数组赋值；
         else

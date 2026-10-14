@@ -10,7 +10,6 @@ public class MagicNode : MonoBehaviour
 {
     public string ID;
     public MagicSO magicSo;
-    public Sprite lightIcon; //点亮时的图标；
     public Image buttonIcon;
     public Image buttonImage;
     public Button button;
@@ -18,9 +17,10 @@ public class MagicNode : MonoBehaviour
 
     private void Start()
     {
+        buttonImage = GetComponent<Image>();
         button = GetComponent<Button>();
         levelText = GetComponentInChildren<TMP_Text>();
-        button.onClick.AddListener(() => MagicManager.Instance.MagicLevelUp(this));
+        button.onClick.AddListener(() => MagicManager.Instance.SetDescriptionPanel(ID));
     }
 
 }

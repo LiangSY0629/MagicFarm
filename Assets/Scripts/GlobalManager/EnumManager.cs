@@ -23,7 +23,7 @@ public enum AchieveCondition
     Harvest,
     Feed,
     Order,
-    Glod,
+    Gold,
     StarItem,
     Skill,
 }

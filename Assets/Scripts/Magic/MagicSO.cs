@@ -6,7 +6,10 @@ using UnityEngine;
 public class MagicSO : ScriptableObject
 {
     public string ID;
+    public string magicName;
     public Sprite icon;
+    public Sprite lightIcon;
+    public Vector2 magicPosition;
     public int upNeed;
     public int maxLevel;
     [TextArea] public string description;

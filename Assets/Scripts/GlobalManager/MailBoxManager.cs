@@ -343,7 +343,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
                 //调用函数触发时间，增加成就进度；
                 EventController.TriggerComplete(AchieveCondition.Order, 1);
 
-                TimeController.Instance.SetGold(currentMail.rewardNumber);
+                StatsManager.Instance.SetGoldCount(currentMail.rewardNumber);
                 TipsPopupControler.Instance.SetTipsText("种了么订单提交成功！");
 
                 mails.Remove(currentMail);

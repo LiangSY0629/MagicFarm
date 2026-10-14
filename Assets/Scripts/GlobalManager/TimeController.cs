@@ -18,7 +18,7 @@ public class TimeController : MonoBehaviour
     public int oneHour;
 
     public TMP_Text timeText;
-    public TMP_Text goldText;
+    public TMP_Text glodText;
 
     [Header("设置颜色")]
     public float targetTime;
@@ -59,7 +59,7 @@ public class TimeController : MonoBehaviour
             SetTime();
         }
 
-        SetGold(StatsManager.Instance.goldCount);
+        StatsManager.Instance.SetGoldCount(0);
 
         nightTime = 18 * oneHour;
         lightTime = 6 * oneHour;
@@ -169,19 +169,6 @@ public class TimeController : MonoBehaviour
 
         StatsManager.Instance.timeText.text = $"游戏时间：{truthDay:D2}天{truthHour:D2}小时{truthMin:D2}分钟";
 
-    }
-
-
-    /// <summary>
-    /// 传入int 数字，直接添加到当前金币总量中；
-    /// </summary>
-    /// <param name="number"></param>
-    public void SetGold(int number)
-    {
-        StatsManager.Instance.goldCount += number;
-        StatsManager.Instance.glodText.text = $"当前金币数：{(StatsManager.Instance.goldCount)}";
-        EventController.TriggerComplete(AchieveCondition.Glod, number);
-        goldText.text = $"{(StatsManager.Instance.goldCount):D2}";
     }
 
 
