@@ -243,7 +243,7 @@ public class MagicManager : MonoBehaviour
                     SetLevelText(magicRun);
                     Debug.Log("Max Level");
 
-                    UpdateRunTime(currentID); //调用函数更新节点状态；
+                    SetRunTime(currentID); //调用函数更新节点状态；
 
                 }
 
@@ -261,15 +261,13 @@ public class MagicManager : MonoBehaviour
     /// 传入已满级的ID，判断其他ID所处的节点是否要解锁；
     /// </summary>
     /// <param name="ID"></param>
-    public void UpdateRunTime(string ID)
+    public void SetRunTime(string ID)
     {
         if (!postconditionIdDictionary.ContainsKey(ID))
             return;
 
         foreach (MagicSO magicSo in postconditionIdDictionary[ID])  //遍历该天赋节点的后置节点，
         {
-            magicLineDictionary[(ID, magicSo.ID)].GetComponent<Image>().color = lightColor;
-
             bool isReady = true;  //设置一个bool值 判断是否存在节点未准备就绪；
 
             foreach (string preID in magicSo.precondition)  //遍历后置节点的前置节点；
@@ -294,8 +292,30 @@ public class MagicManager : MonoBehaviour
 
         }//遍历结束；
 
+        SetLineColor(ID);
+
     } //函数结束；
     
+
+    /// <summary>
+    /// 根据传入ID对应的RunTime状态 更改line的颜色
+    /// </summary>
+    /// <param name="ID"></param>
+    public void SetLineColor(string ID)
+    {
+        if (!postconditionIdDictionary.ContainsKey(ID))
+            return;
+
+        foreach(MagicSO magicSo in postconditionIdDictionary[ID])  //遍历所有的后置节点 如果该节点满级，就变亮，否则变暗；
+        {
+            if (magicRunDictionary[ID].level < magicRunDictionary[ID].maxLevel)
+            {
+                magicLineDictionary[(ID, magicSo.ID)].GetComponent<Image>().color = lockColor;
+            }
+            else magicLineDictionary[(ID, magicSo.ID)].GetComponent<Image>().color = lightColor;
+        }
+
+    }
 
 
     /// <summary>
@@ -354,6 +374,55 @@ public class MagicManager : MonoBehaviour
         linePosition.localRotation = Quaternion.Euler(0, 0, angle);
         return line;
     }
+
+
+    /// <summary>
+    /// 获取可供保存的信息；
+    /// </summary>
+    /// <returns></returns>
+    public List<MagicSaveData> GetSaveData()
+    {
+        List<MagicSaveData> data = new List<MagicSaveData>();
+
+        foreach(var dic in magicRunDictionary)
+        {
+            data.Add(new MagicSaveData
+            {
+                ID = dic.Key,
+                isUnlock = dic.Value.isUnlock,
+                level = dic.Value.level,
+            });
+        }
+
+        return data;
+
+    }
+
+
+    /// <summary>
+    /// 将保存的信息赋值到运行状态，并更新当前的ui状态；
+    /// </summary>
+    /// <param name="magicSaveData"></param>
+    public void SetSaveData(List<MagicSaveData> magicSaveData)
+    {
+
+        foreach(MagicSaveData data in magicSaveData)
+        {
+            MagicRunTime magicRun = magicRunDictionary[data.ID];
+
+            magicRun.isUnlock = data.isUnlock;
+            magicRun.level = data.level;
+
+            SetLineColor(magicRun.ID);
+
+            SetMagicNodeText(data.ID);
+        }
+
+        if(magicRunDictionary.TryGetValue(currentID, out MagicRunTime magicRun1))
+            SetLevelText(magicRun1);  //更新详情面板正在显示的节点的状态，
+
+    }
+
 
 
 }

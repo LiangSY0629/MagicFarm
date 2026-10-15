@@ -10,7 +10,6 @@ public class StatsManager : MonoBehaviour
 
     [Header("Player Stats")]
     public float speed;//角色速度；  
-    //public int square = 1;//攻击范围；   1
     public Stat square = new(1);
 
     [Header("Item Stats")]
@@ -29,19 +28,19 @@ public class StatsManager : MonoBehaviour
     public Stat seedLevel = new(1);
     public Stat plantGrowth = new(1);
     public Stat plantWater = new(1);
-    public int EveryLevelSeed;//每个等级的种子数量；
+    public int EveryLevelSeed;  //每个等级的种子数量；
 
 
     [Header("Mail Stats")]
-    public int maxMail;//最大可容纳订单数；         ？
+    public int maxMail;  //最大可容纳订单数；
     public Stat orderLevel = new(1);
     public Stat rewardLevel = new(1);
     public Stat orderInterval = new(30);
-    public int goldCount;//金币总量；
+    public int goldCount;   //金币总量；
 
 
     [Header("Achieve Stats")]
-    public int achieveCompleteCount;//当前解锁的成就数量；
+    public int achieveCompleteCount;   //当前解锁的成就数量；
 
     [Header("Magic Stats")]
     public int level = 0;
@@ -78,7 +77,7 @@ public class StatsManager : MonoBehaviour
 
     private void Start()
     {
-        EventController.OnAchieveUp += AchieveCountUp;
+        EventController.OnAchieveUp += SetAchieveCount;
 
         levelEffectDictionary = new Dictionary<LevelMagics, Stat>();
         percentEffectDictionary = new Dictionary<PercentMagics, Stat>();
@@ -101,50 +100,87 @@ public class StatsManager : MonoBehaviour
     /// 成就解锁数量+1；
     /// </summary>
     /// <param name="number"></param>
-    public void AchieveCountUp(int number)
+    public void SetAchieveCount(int number)
     {
         achieveCompleteCount += number;
         achieveText.text = "获得成就数：" + achieveCompleteCount;
     }
 
-    ///// <summary>
-    ///// 调用函数获取需要存档的变量信息；
-    ///// </summary>
-    ///// <returns></returns>
-    //public StatsSaveData GetSaveData()
-    //{
-    //    StatsSaveData statsData = new StatsSaveData();
+    /// <summary>
+    /// 调用函数获取需要存档的变量信息；
+    /// </summary>
+    /// <returns></returns>
+    public StatsSaveData GetSaveData()
+    {
+        StatsSaveData data = new StatsSaveData();
 
-    //    statsData.currentGlodCount = goldCount;
-    //    statsData.square = square.finalValue;
-    //    statsData.achieveCompleteCount = achieveCompleteCount;
+        data.goldCount = goldCount;
+        data.achieveCount = achieveCompleteCount;
 
-    //    return statsData;
-    //}
+        List<LevelSaveData> levelData = new List<LevelSaveData>(); 
+        foreach(var dic in levelEffectDictionary)
+        {
+            levelData.Add(new LevelSaveData
+            {
+                type = dic.Key,
+                levelAdd = dic.Value.levelAdd,
+                percentAdd = dic.Value.percentAdd,
+            });
+        }
 
-    ///// <summary>
-    ///// 传入存档的变量为当前变量赋值；
-    ///// </summary>
-    ///// <param name="statsSaveData"></param>
-    //public void SetSaveData(StatsSaveData statsSaveData)
-    //{
-    //    goldCount = statsSaveData.currentGlodCount;
-    //    square = statsSaveData.square;
-    //    achieveCompleteCount = statsSaveData.achieveCompleteCount;
-    //    achieveText.text = "获得成就数：" + achieveCompleteCount;
-    //}
+        List<PercentSaveData> percentData = new List<PercentSaveData>();
+        foreach(var dic in percentEffectDictionary)
+        {
+            percentData.Add(new PercentSaveData
+            {
+                type = dic.Key,
+                levelAdd = dic.Value.levelAdd,
+                percentAdd = dic.Value.percentAdd,
+            });
+        }
+
+        data.levelSaveDatas = levelData;
+        data.percentSaveData = percentData;
+
+        return data;
+    }
+
+    /// <summary>
+    /// 传入存档的变量为当前变量赋值；
+    /// </summary>
+    /// <param name="statsSaveData"></param>
+    public void SetSaveData(StatsSaveData statsSaveData)
+    {
+        goldCount = statsSaveData.goldCount;
+        SetGoldCount(0);
+        achieveCompleteCount = statsSaveData.achieveCount;
+        SetAchieveCount(0);
+
+        foreach(LevelSaveData levelData in statsSaveData.levelSaveDatas)
+        {
+            levelEffectDictionary[levelData.type].levelAdd = levelData.levelAdd;
+            levelEffectDictionary[levelData.type].percentAdd = levelData.percentAdd;
+        }
+
+        foreach (PercentSaveData percentData in statsSaveData.percentSaveData)
+        {
+            percentEffectDictionary[percentData.type].levelAdd = percentData.levelAdd;
+            percentEffectDictionary[percentData.type].percentAdd = percentData.percentAdd;
+        }
+
+
+    }
+
 
 
     public void LevelStatUp(LevelMagics type, float value)
     {
         levelEffectDictionary[type].LevelUp(value);
-        Debug.Log(levelEffectDictionary[type].levelAdd);
     }
 
     public void PercentStatUp(PercentMagics type, float value)
     {
         percentEffectDictionary[type].PercentUp(value);
-        Debug.Log(percentEffectDictionary[type].percentAdd);
     }
 
 
@@ -154,7 +190,6 @@ public class StatsManager : MonoBehaviour
     /// <param name="number"></param>
     public void SetGoldCount(int number)
     {
-        Debug.Log(number);
         goldCount += number;
         goldText.text = "当前金币数：" + goldCount;
         if(number > 0)

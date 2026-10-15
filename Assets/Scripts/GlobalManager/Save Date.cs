@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 
@@ -12,8 +13,6 @@ public class SaveData
 
     public float currentOrderInterval;
     public float currentTime;
-
-    public StatsSaveData statsSaveData;
 
     public List<InventorySaveData> inventorySaveData;
     public List<AllItemNumberSaveData> allItemNumberSaveData;
@@ -29,15 +28,10 @@ public class SaveData
     public List<OrderSaveData> orderSaveData;
 
     public List<AchievementSaveData> achievementSaveData;
-}
 
-[System.Serializable]
-public class StatsSaveData
-{
-    public int square;
-    public int currentGlodCount;
-    public int achieveCompleteCount;
+    public StatsSaveData statsSaveData;
 
+    public List<MagicSaveData> magicSaveData;
 }
 
 
@@ -128,4 +122,40 @@ public class AchievementSaveData
     public int ID;
     public int currentValue;
     public bool isLock;
+}
+
+[System.Serializable]
+public class StatsSaveData
+{
+    public int goldCount;
+    public int achieveCount;
+
+    public List<LevelSaveData> levelSaveDatas;
+    public List<PercentSaveData> percentSaveData;
+}
+
+
+[System.Serializable]
+public class LevelSaveData
+{
+    public LevelMagics type;
+    public int levelAdd;
+    public float percentAdd;
+}
+
+[System.Serializable]
+public class PercentSaveData
+{
+    public PercentMagics type;
+    public int levelAdd;
+    public float percentAdd;
+}
+
+
+[System.Serializable]
+public class MagicSaveData
+{
+    public string ID;
+    public bool isUnlock;
+    public int level;
 }
