@@ -38,15 +38,15 @@ public class EventController : MonoBehaviour
     }
 
     //Magic相关事件;
-    public static event Action<string> OnLevelUp;
+    public static event Action<int> OnLevelUp;
     
     /// <summary>
     /// 传入需要更改信息的ID；
     /// </summary>
     /// <param name="ID"></param>
-    public static void TriggerLevelUp(string ID)
+    public static void TriggerLevelUp(int number)
     {
-        OnLevelUp?.Invoke(ID);
+        OnLevelUp?.Invoke(number);
     }
 
 }

@@ -14,11 +14,12 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     public GameObject mailPanel;
     public Transform mailTransform;
 
+    public TMP_Text levelText;
+    public Slider levelSlider;
+
     [Header("设置mail的格式")]
     public List<Mail> mails;
-
     public GameObject mailPrefab;
-
     public int itemValue;
 
 
@@ -53,6 +54,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         anim = GetComponent<Animator>();
         NewMail = false;
 
+        SetLevelText();
     }
 
 
@@ -344,6 +346,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
                 EventController.TriggerComplete(AchieveCondition.Order, 1);
 
                 StatsManager.Instance.SetGoldCount(currentMail.rewardNumber);
+                SetSliderValue(currentMail.rewardNumber);
                 TipsPopupControler.Instance.SetTipsText("种了么订单提交成功！");
 
                 mails.Remove(currentMail);
@@ -447,4 +450,35 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     }
 
 
+    /// <summary>
+    /// 传入增长的经验值；
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetSliderValue(int exp)
+    {
+        int expNeed = StatsManager.Instance.expNeed;  //获取当前升级所需的经验值；
+        float finExp = exp + StatsManager.Instance.currentExp;
+
+        while(finExp - expNeed >= 0)
+        {
+            finExp -= expNeed;
+            StatsManager.Instance.level++;            //更新等级，让等级+1；
+            StatsManager.Instance.magicStone++;
+            SetLevelText();
+            StatsManager.Instance.GetEmpiricalValue();  //更新当前等级所需的经验值；
+            expNeed = StatsManager.Instance.expNeed;
+        }
+
+        StatsManager.Instance.currentExp = (int)finExp;
+        levelSlider.value = finExp / expNeed;
+
+    }
+
+    /// <summary>
+    /// 调用函数刷新等级数字显示；
+    /// </summary>
+    public void SetLevelText()
+    {
+        levelText.text = "Lv" + StatsManager.Instance.level;
+    }
 }

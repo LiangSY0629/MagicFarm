@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Plant 1
   m_EditorClassIdentifier: 
   ID: 1
-  growTime: 15
+  growTime: 2
   waterTime: 15
   plantSprite:
   - {fileID: -2062149183, guid: 3413244494e131a4e80f444b5aca251a, type: 3}

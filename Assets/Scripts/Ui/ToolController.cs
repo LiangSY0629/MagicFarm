@@ -57,7 +57,7 @@ public class ToolController : MonoBehaviour
         }
         for(int i = 0; i < StatsManager.Instance.maxSeed; i++)
         {
-            if (i <= StatsManager.Instance.seedLevel.finalValue * StatsManager.Instance.EveryLevelSeed)
+            if (i < StatsManager.Instance.seedLevel.finalValue * StatsManager.Instance.EveryLevelSeed)
             {
                 seedChoose.seed[i].SetActive(true);
             }

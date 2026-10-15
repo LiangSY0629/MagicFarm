@@ -44,7 +44,17 @@ public class StatsManager : MonoBehaviour
     public int achieveCompleteCount;//当前解锁的成就数量；
 
     [Header("Magic Stats")]
+    public int level = 0;
+    public int expNeed = 100;
+    public int currentExp = 0;
     public int magicStone = 2;
+
+    (int, float)[] expCurve =
+    {
+        (0, 1.25f),
+        (20, 1.15f),
+        (40, 1.07f),
+    };
 
     [Header("绑定个人信息面板")]
     public TMP_Text achieveText;
@@ -152,6 +162,25 @@ public class StatsManager : MonoBehaviour
 
         TimeController.Instance.glodText.text = goldCount.ToString();
     }
+
+    /// <summary>
+    /// 更新当前所需的经验值；
+    /// </summary>
+    /// <returns></returns>
+    public void GetEmpiricalValue()
+    {
+        int finExp = 100;
+        foreach(var speed in expCurve)
+        {
+            if(level >= speed.Item1)
+            {
+                finExp *= (int)Mathf.Pow(speed.Item2, level - speed.Item1);
+            }
+        }
+
+        expNeed = finExp;
+    }
+
 
 }
 

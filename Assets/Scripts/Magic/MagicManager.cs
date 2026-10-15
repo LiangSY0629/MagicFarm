@@ -99,7 +99,8 @@ public class MagicManager : MonoBehaviour
             magicNode.ID = magicNode.magicSo.ID;
             magicNode.magicSo.magicPosition = transform.position;
             magicNode.buttonIcon.sprite = magicNode.magicSo.icon;
-
+            magicNode.levelText = transform.GetComponentInChildren<TMP_Text>();
+            magicNode.buttonImage = transform.GetComponent<Image>();
             magicNodeDictionary[magicNode.ID] = magicNode;
 
             SetMagicNodeText(magicNode.ID);
