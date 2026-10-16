@@ -27,6 +27,11 @@ public class SaveController : MonoBehaviour
         itemSaveController = FindObjectOfType<ItemSaveController>();
         plantController = FindObjectOfType<PlantController>();
 
+        if (GameManager.loadFromSave)
+        {
+            LoadGame();
+        }
+
     }
     #region 控制提醒面板开关。
     public void OpenSave()
@@ -54,6 +59,10 @@ public class SaveController : MonoBehaviour
     }
 
     #endregion
+
+    /// <summary>
+    /// 调用函数保存游戏
+    /// </summary>
     public void SaveGame()
     {
         SaveData saveData = new SaveData
@@ -81,6 +90,9 @@ public class SaveController : MonoBehaviour
         TipsPopupControler.Instance.SetTipsText("存档成功！");
     }
 
+    /// <summary>
+    /// 调用函数加载存档
+    /// </summary>
     public void LoadGame()
     {
 
