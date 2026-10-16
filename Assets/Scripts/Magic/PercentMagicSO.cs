@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Percent So", menuName = "Magic/PercentMagic")]
 public class PercentMagicSO : MagicEffectSO
 {
-    public PercentMagics type;
+    public MagicTypes type;
 
     public override void MagicAssert(float value)
     {

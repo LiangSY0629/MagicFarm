@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15365199ba6ddc24aaaed6ee5635e67b, type: 3}
+  m_Name: AO 2
+  m_EditorClassIdentifier: 
+  ID: animal_order_2
+  magicName: "\u52A8\u7269\xB7\u8BA2\u5355\u9B54\u6CD5\u4E8C"
+  icon: {fileID: -990997350, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
+  lightIcon: {fileID: 666987845, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
+  magicPosition: {x: 1511, y: 350}
+  upNeed: 10000
+  maxLevel: 2
+  description: "\u901A\u8FC7\u7279\u6B8A\u624B\u6BB5\u4F7F\u4E24\u79CD\u9B54\u6CD5\u76F8\u878D\u5408\u6210\u4E3A\u4E00\u4E2A\u65B0\u9B54\u6CD5\uFF0C\u5177\u5907\u4E24\u79CD\u9B54\u6CD5\u7684\u7279\u6027\uFF0C\u53EF\u4EE5\u52A0\u5FEB\u52A8\u7269\u4EA7\u51FA\u4EA7\u7269\u7684\u901F\u7387\uFF0C\u5E76\u4E14\u63D0\u9AD8\u5355\u6B21\u8BA2\u5355\u83B7\u5F97\u91D1\u5E01\u6570\u91CF\u3002\n\u6548\u679C\uFF1A\n\u4EA7\u51FA\u901F\u5EA6-4%\n\u91D1\u5E01\u6570\u91CF+5%"
+  precondition:
+  - animal_4
+  magicEffectSos:
+  - value: -0.04
+    MagicEffectSo: {fileID: 11400000, guid: 96a9b93daa66b9d49a3b221d616c6a3f, type: 2}
+  - value: 0.05
+    MagicEffectSo: {fileID: 11400000, guid: 3de6fcd916178ae4fb46c564a8950887, type: 2}

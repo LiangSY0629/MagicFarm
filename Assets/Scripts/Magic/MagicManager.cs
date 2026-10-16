@@ -232,7 +232,7 @@ public class MagicManager : MonoBehaviour
                     SetMagicNodeText(currentID);
                     SetLevelText(magicRun);
                     EventController.TriggerComplete(AchieveCondition.Skill, 1);
-                    Debug.Log(magicRun.level);
+                    //Debug.Log(magicRun.level);
                 }
 
                 if (magicRun.level >= magicRun.maxLevel) //当前等级已达到最大等级，
@@ -241,7 +241,7 @@ public class MagicManager : MonoBehaviour
 
                     SetMagicNodeText(currentID);
                     SetLevelText(magicRun);
-                    Debug.Log("Max Level");
+                    //Debug.Log("Max Level");
 
                     SetRunTime(currentID); //调用函数更新节点状态；
 

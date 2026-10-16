@@ -29,21 +29,37 @@ public enum AchieveCondition
 }
 
 
-public enum PercentMagics
+//public enum PercentMagics
+//{
+//    CropWater,
+//    CropGrowth,
+//    AnimalEat,
+//    OrderInterval,
+//    OrderGlod,
+//}
+
+//public enum LevelMagics
+//{
+//    CropLevel,
+//    AnimalLevel,
+//    AnimalNeed,
+//    OrderLevel,
+//    QualityLevel,
+//    PickLevel,
+//}
+
+public enum MagicTypes
 {
     CropWater,
     CropGrowth,
     AnimalEat,
     OrderInterval,
     OrderGlod,
-}
 
-public enum LevelMagics
-{
     CropLevel,
     AnimalLevel,
-    AnimalNeed,
     OrderLevel,
     QualityLevel,
     PickLevel,
+    SquareLevel,
 }

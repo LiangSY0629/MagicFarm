@@ -16,9 +16,9 @@ MonoBehaviour:
   magicName: "\u690D\u7269\u9B54\u6CD5\u4E00"
   icon: {fileID: -1434881329, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
   lightIcon: {fileID: 2108537332, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
-  magicPosition: {x: 1511, y: 830}
+  magicPosition: {x: 1511, y: 810}
   upNeed: 5
-  maxLevel: 3
+  maxLevel: 2
   description: "\u5B66\u4E60\u8BE5\u9B54\u6CD5\u53EF\u4EE5\u8BA9\u690D\u7269\u66F4\u5FEB\u5438\u6536\u8425\u517B\uFF0C\u51CF\u5C11\u6D47\u6C34\u7684\u51B7\u5374\u3002\n\u6548\u679C\uFF1A\n\u6D47\u6C34\u51B7\u5374-5%"
   precondition:
   - default

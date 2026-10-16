@@ -59,8 +59,7 @@ public class StatsManager : MonoBehaviour
     public TMP_Text achieveText;
     public TMP_Text goldText, timeText;
 
-    public Dictionary<LevelMagics, Stat> levelEffectDictionary;
-    public Dictionary<PercentMagics, Stat> percentEffectDictionary;
+    public Dictionary<MagicTypes, Stat> magicStatDictionary;
 
     private void Awake()
     {
@@ -79,21 +78,21 @@ public class StatsManager : MonoBehaviour
     {
         EventController.OnAchieveUp += SetAchieveCount;
 
-        levelEffectDictionary = new Dictionary<LevelMagics, Stat>();
-        percentEffectDictionary = new Dictionary<PercentMagics, Stat>();
+        magicStatDictionary = new Dictionary<MagicTypes, Stat>();
 
-        levelEffectDictionary[LevelMagics.CropLevel] = seedLevel;
-        levelEffectDictionary[LevelMagics.AnimalLevel] = currentAnimalTypes;
-        levelEffectDictionary[LevelMagics.OrderLevel] = orderLevel;
-        levelEffectDictionary[LevelMagics.PickLevel] = maxPickNumber;
-        levelEffectDictionary[LevelMagics.QualityLevel] = maxQuality;
+        //把所有需要修改的属性添加进dictionary；
+        magicStatDictionary[MagicTypes.CropLevel] = seedLevel;
+        magicStatDictionary[MagicTypes.AnimalLevel] = currentAnimalTypes;
+        magicStatDictionary[MagicTypes.OrderLevel] = orderLevel;
+        magicStatDictionary[MagicTypes.PickLevel] = maxPickNumber;
+        magicStatDictionary[MagicTypes.QualityLevel] = maxQuality;
+        magicStatDictionary[MagicTypes.SquareLevel] = square;
 
-        percentEffectDictionary[PercentMagics.CropGrowth] = plantGrowth;
-        percentEffectDictionary[PercentMagics.CropWater] = plantWater;
-        percentEffectDictionary[PercentMagics.AnimalEat] = animalEatTime;
-        percentEffectDictionary[PercentMagics.OrderGlod] = rewardLevel;
-        percentEffectDictionary[PercentMagics.OrderInterval] = orderInterval;
-
+        magicStatDictionary[MagicTypes.CropGrowth] = plantGrowth;
+        magicStatDictionary[MagicTypes.CropWater] = plantWater;
+        magicStatDictionary[MagicTypes.AnimalEat] = animalEatTime;
+        magicStatDictionary[MagicTypes.OrderInterval] = orderInterval;
+        magicStatDictionary[MagicTypes.OrderGlod] = rewardLevel;
     }
 
     /// <summary>
@@ -117,30 +116,17 @@ public class StatsManager : MonoBehaviour
         data.goldCount = goldCount;
         data.achieveCount = achieveCompleteCount;
 
-        List<LevelSaveData> levelData = new List<LevelSaveData>(); 
-        foreach(var dic in levelEffectDictionary)
+        List<TypeSaveData> saveData = new List<TypeSaveData>();
+        foreach(var dic in magicStatDictionary)
         {
-            levelData.Add(new LevelSaveData
+            saveData.Add(new TypeSaveData
             {
                 type = dic.Key,
                 levelAdd = dic.Value.levelAdd,
                 percentAdd = dic.Value.percentAdd,
             });
         }
-
-        List<PercentSaveData> percentData = new List<PercentSaveData>();
-        foreach(var dic in percentEffectDictionary)
-        {
-            percentData.Add(new PercentSaveData
-            {
-                type = dic.Key,
-                levelAdd = dic.Value.levelAdd,
-                percentAdd = dic.Value.percentAdd,
-            });
-        }
-
-        data.levelSaveDatas = levelData;
-        data.percentSaveData = percentData;
+        data.typeSaveDatas = saveData;
 
         return data;
     }
@@ -156,16 +142,11 @@ public class StatsManager : MonoBehaviour
         achieveCompleteCount = statsSaveData.achieveCount;
         SetAchieveCount(0);
 
-        foreach(LevelSaveData levelData in statsSaveData.levelSaveDatas)
+        foreach(TypeSaveData data in statsSaveData.typeSaveDatas)
         {
-            levelEffectDictionary[levelData.type].levelAdd = levelData.levelAdd;
-            levelEffectDictionary[levelData.type].percentAdd = levelData.percentAdd;
-        }
-
-        foreach (PercentSaveData percentData in statsSaveData.percentSaveData)
-        {
-            percentEffectDictionary[percentData.type].levelAdd = percentData.levelAdd;
-            percentEffectDictionary[percentData.type].percentAdd = percentData.percentAdd;
+            Stat stat = magicStatDictionary[data.type];
+            stat.levelAdd = data.levelAdd;
+            stat.percentAdd = data.percentAdd;
         }
 
 
@@ -173,14 +154,14 @@ public class StatsManager : MonoBehaviour
 
 
 
-    public void LevelStatUp(LevelMagics type, float value)
+    public void LevelStatUp(MagicTypes type, float value)
     {
-        levelEffectDictionary[type].LevelUp(value);
+        magicStatDictionary[type].LevelUp(value);
     }
 
-    public void PercentStatUp(PercentMagics type, float value)
+    public void PercentStatUp(MagicTypes type, float value)
     {
-        percentEffectDictionary[type].PercentUp(value);
+        magicStatDictionary[type].PercentUp(value);
     }
 
 

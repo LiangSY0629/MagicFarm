@@ -130,23 +130,14 @@ public class StatsSaveData
     public int goldCount;
     public int achieveCount;
 
-    public List<LevelSaveData> levelSaveDatas;
-    public List<PercentSaveData> percentSaveData;
+    public List<TypeSaveData> typeSaveDatas;
 }
 
 
 [System.Serializable]
-public class LevelSaveData
+public class TypeSaveData
 {
-    public LevelMagics type;
-    public int levelAdd;
-    public float percentAdd;
-}
-
-[System.Serializable]
-public class PercentSaveData
-{
-    public PercentMagics type;
+    public MagicTypes type;
     public int levelAdd;
     public float percentAdd;
 }

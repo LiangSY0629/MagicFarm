@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15365199ba6ddc24aaaed6ee5635e67b, type: 3}
+  m_Name: Crop 2
+  m_EditorClassIdentifier: 
+  ID: crop_2
+  magicName: "\u690D\u7269\u9B54\u6CD5\u4E8C"
+  icon: {fileID: -1434881329, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
+  lightIcon: {fileID: 2108537332, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
+  magicPosition: {x: 1511, y: 970}
+  upNeed: 100
+  maxLevel: 1
+  description: "\u5B66\u4E60\u8BE5\u9B54\u6CD5\u53EF\u4EE5\u8BA9\u690D\u7269\u66F4\u5FEB\u5438\u6536\u8425\u517B\uFF0C\u51CF\u5C11\u6D47\u6C34\u7684\u51B7\u5374\u3002\n\u6548\u679C\uFF1A\n\u690D\u7269\u7B49\u7EA7+1\n\u6D47\u6C34\u51B7\u5374-5%"
+  precondition:
+  - crop_1
+  magicEffectSos:
+  - value: 1
+    MagicEffectSo: {fileID: 11400000, guid: 3c7ca91a26563654eb524c4aca17bb74, type: 2}
+  - value: -0.05
+    MagicEffectSo: {fileID: 11400000, guid: 4a0fea72a2afe3d469536f32a86661b6, type: 2}

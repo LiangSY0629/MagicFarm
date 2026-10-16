@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15365199ba6ddc24aaaed6ee5635e67b, type: 3}
+  m_Name: Animal 5
+  m_EditorClassIdentifier: 
+  ID: animal_5
+  magicName: "\u52A8\u7269\u9B54\u6CD5\u4E94"
+  icon: {fileID: -450955333, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
+  lightIcon: {fileID: 544586259, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
+  magicPosition: {x: 769.6248, y: 210.00006}
+  upNeed: 20000
+  maxLevel: 2
+  description: "\u901A\u8FC7\u9B54\u6CD5\u8BA9\u52A8\u7269\u4EEC\u66F4\u52A0\u5F3A\u5927\uFF0C\u53EF\u4EE5\u66F4\u5FEB\u7684\u4EA7\u51FA\u4EA7\u7269\n\u6548\u679C\uFF1A\n\u4EA7\u51FA\u65F6\u95F4-4%"
+  precondition:
+  - animal_4
+  magicEffectSos:
+  - value: -0.04
+    MagicEffectSo: {fileID: 11400000, guid: 96a9b93daa66b9d49a3b221d616c6a3f, type: 2}
