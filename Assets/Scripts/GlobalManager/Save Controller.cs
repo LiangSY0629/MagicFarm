@@ -62,7 +62,6 @@ public class SaveController : MonoBehaviour
             currentTime = TimeController.Instance.currentTime,
             currentOrderInterval = MailBoxManager.Instance.mailInterval,
 
-            statsSaveData = StatsManager.Instance.GetSaveData(),
             inventorySaveData = inventoryController.GetSaveSlot(),
             allItemNumberSaveData = inventoryController.GetItemNumber(),
             itemSaveData = itemSaveController.GetItemData(),
@@ -71,6 +70,8 @@ public class SaveController : MonoBehaviour
             animalSaveData = AnimalsManager.Instance.GetAnimalsSaveData(),
             orderSaveData = MailBoxManager.Instance.GetSaveData(),
             achievementSaveData = AchieveController.Instance.GetSaveData(),
+            statsSaveData = StatsManager.Instance.GetSaveData(),
+            magicSaveData = MagicManager.Instance.GetSaveData(),
 
         };
 
@@ -91,17 +92,18 @@ public class SaveController : MonoBehaviour
             TimeController.Instance.currentTime = saveData.currentTime;
             MailBoxManager.Instance.mailInterval = saveData.currentOrderInterval;
 
-            StatsManager.Instance.SetSaveData(saveData.statsSaveData);
             inventoryController.SetInventoryData(saveData.inventorySaveData);
             inventoryController.SetItemNumber(saveData.allItemNumberSaveData);
             itemSaveController.SetItemDate(saveData.itemSaveData);
             plantController.SetPlant(saveData.plantSaveData);
             TileMapManager.Instance.SetTileData(saveData.tileSaveData);
             TimeController.Instance.SetTime();
-            TimeController.Instance.SetGold(0);
+            StatsManager.Instance.SetGoldCount(0);
             AnimalsManager.Instance.SetAnimalsSaveData(saveData.animalSaveData);
             MailBoxManager.Instance.SetMailData(saveData.orderSaveData);
             AchieveController.Instance.SetAchieveData(saveData.achievementSaveData);
+            StatsManager.Instance.SetSaveData(saveData.statsSaveData);
+            MagicManager.Instance.SetSaveData(saveData.magicSaveData);
 
             TipsPopupControler.Instance.SetTipsText("º”‘ÿ≥…π¶£°");
         }

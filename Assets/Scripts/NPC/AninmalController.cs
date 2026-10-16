@@ -158,7 +158,7 @@ public class AnimalController : MonoBehaviour,IInteractable
             animal.GetComponent<CowMovement>().SetEat(feed.eatTime);
         }
 
-        eatingTime = feed.eatTime;
+        eatingTime = feed.eatTime * StatsManager.Instance.animalEatTime.finalValue;
         eating = true;
 
     }
@@ -179,10 +179,11 @@ public class AnimalController : MonoBehaviour,IInteractable
         for(int i = 0; i < finalProduct; i++ )
         {
             //随机生成品质
-            int itemQuality = Random.Range(1, StatsManager.Instance.maxQuality + 1);
+            int value = Mathf.RoundToInt(StatsManager.Instance.maxQuality.finalValue);
+            int itemQuality = Random.Range(1, value + 1);
             int itemID = ( ID + 1 ) + animalType * StatsManager.Instance.animalNumber;
             //通过字典获取到Product预制体，实例化；
-            GameObject productPrefab = Instantiate(ItemDictionary.Instance.GetItemPrefab(StatsManager.ItemTypes.Animal, itemID, itemQuality), ItemDictionary.Instance.transform);
+            GameObject productPrefab = Instantiate(ItemDictionary.Instance.GetItemPrefab(ItemTypes.Animal, itemID, itemQuality), ItemDictionary.Instance.transform);
             productPrefab.transform.position = chest.transform.position;
             productPrefab.GetComponent<Item>().Harvest(0.3f);
         }

@@ -15,7 +15,7 @@ MonoBehaviour:
   condition: 6
   icon: {fileID: 966751176, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
   completeIcon: {fileID: -1590090702, guid: de2cb1c22bed3cb4aa8068e59a7ca5dd, type: 3}
-  conditionNumbers: 01000000050000001400000032000000
+  conditionNumbers: 01000000050000001400000031000000
   isRegular: 0
   conditionValue: 1
   mutiplier: 4

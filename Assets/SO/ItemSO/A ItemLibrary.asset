@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adbbf4ffdef03f54fb4ad580a46d26f0, type: 3}
-  m_Name: a ItemLibrary
+  m_Name: A ItemLibrary
   m_EditorClassIdentifier: Assembly-CSharp::ItemLibrarySO
   plantItems:
   - {fileID: 11400000, guid: bd48b9f2f62326b4cb01d6244760a6b8, type: 2}
@@ -38,3 +38,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 360b64994b867e44cb08cf38fab345dc, type: 2}
   - {fileID: 11400000, guid: 9245d28aae02a2e4bb7711a0dcb0e279, type: 2}
   - {fileID: 11400000, guid: e74931ccdb74f084ca5f183b06afa036, type: 2}
+  propItems:
+  - {fileID: 11400000, guid: f5bb8055bc89d4344a0863761f0db6d5, type: 2}
+  - {fileID: 11400000, guid: d0952722bd6c2004491b831d0a7aa143, type: 2}
+  - {fileID: 11400000, guid: 033f39364514d974198c9a97777a7a2f, type: 2}

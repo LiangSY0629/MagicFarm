@@ -38,6 +38,7 @@ public class AchievePopController : MonoBehaviour
     IEnumerator PopUpActive(string achieveName)
     {
         isPopup = true;
+        SoundEffectManager.Instance.PlayAudio("Achieve");
         EventController.TriggerAchieveUp();
         Vector2 startPosition = transform.position;
         Vector2 currentPosition = startPosition;

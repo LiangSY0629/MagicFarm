@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class EventController : MonoBehaviour
 {
-    public static EventController instance { get; private set; }
 
     //achieve相关的事件
-    public static event Action<StatsManager.AchieveCondition, int> OnAchieveConditionComplete;
+    public static event Action<AchieveCondition, int> OnAchieveConditionComplete;
     public static event Action<int, int> OnAchieveComplete;
     public static event Action<int> OnAchieveUp;
     /// <summary>
@@ -16,7 +15,7 @@ public class EventController : MonoBehaviour
     /// </summary>
     /// <param name="condition"></param>
     /// <param name="number"></param>
-    public static void TriggerComplete(StatsManager.AchieveCondition condition, int number)
+    public static void TriggerComplete(AchieveCondition condition, int number)
     {
         OnAchieveConditionComplete?.Invoke(condition, number);
     }
@@ -36,6 +35,18 @@ public class EventController : MonoBehaviour
     public static void TriggerAchieveUp()
     {
         OnAchieveUp?.Invoke(1);
+    }
+
+    //Magic相关事件;
+    public static event Action<int> OnLevelUp;
+    
+    /// <summary>
+    /// 传入需要更改信息的ID；
+    /// </summary>
+    /// <param name="ID"></param>
+    public static void TriggerLevelUp(int number)
+    {
+        OnLevelUp?.Invoke(number);
     }
 
 }

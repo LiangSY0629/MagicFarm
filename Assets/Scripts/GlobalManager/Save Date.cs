@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 
@@ -12,8 +13,6 @@ public class SaveData
 
     public float currentOrderInterval;
     public float currentTime;
-
-    public StatsSaveData statsSaveData;
 
     public List<InventorySaveData> inventorySaveData;
     public List<AllItemNumberSaveData> allItemNumberSaveData;
@@ -29,15 +28,10 @@ public class SaveData
     public List<OrderSaveData> orderSaveData;
 
     public List<AchievementSaveData> achievementSaveData;
-}
 
-[System.Serializable]
-public class StatsSaveData
-{
-    public int square;
-    public int currentGlodCount;
-    public int achieveCompleteCount;
+    public StatsSaveData statsSaveData;
 
+    public List<MagicSaveData> magicSaveData;
 }
 
 
@@ -45,7 +39,7 @@ public class StatsSaveData
 [System.Serializable]
 public class InventorySaveData
 {
-    public StatsManager.ItemTypes itemType;
+    public ItemTypes itemType;
     public int itemID;
     public int itemQuality;
     public int slotIndex;
@@ -56,7 +50,7 @@ public class InventorySaveData
 [System.Serializable]
 public class AllItemNumberSaveData
 {
-    public StatsManager.ItemTypes itemType;
+    public ItemTypes itemType;
     public int itemID;
     public int itemQuality;
     public int allItemNumber;
@@ -66,7 +60,7 @@ public class AllItemNumberSaveData
 [System.Serializable]
 public class ItemSaveData
 {
-    public StatsManager.ItemTypes itemType;
+    public ItemTypes itemType;
     public int itemID;
     public int itemQuality;
     public Vector3 itemPosition;
@@ -111,12 +105,12 @@ public class AnimalSaveData
 [System.Serializable]
 public class OrderSaveData
 {
-    public StatsManager.ItemTypes itemType;
+    public ItemTypes itemType;
     public int itemID;
     public int itemQuality;
     public string titleText, goldNumber;
 
-    public int starNumber;
+    public float starNumber;
     public int itemNeedNumber;
     public int rewardNumber;
 }
@@ -124,8 +118,35 @@ public class OrderSaveData
 [System.Serializable]
 public class AchievementSaveData
 {
-    public StatsManager.AchieveCondition condition;
+    public AchieveCondition condition;
     public int ID;
     public int currentValue;
     public bool isLock;
+}
+
+[System.Serializable]
+public class StatsSaveData
+{
+    public int goldCount;
+    public int achieveCount;
+
+    public List<TypeSaveData> typeSaveDatas;
+}
+
+
+[System.Serializable]
+public class TypeSaveData
+{
+    public MagicTypes type;
+    public int levelAdd;
+    public float percentAdd;
+}
+
+
+[System.Serializable]
+public class MagicSaveData
+{
+    public string ID;
+    public bool isUnlock;
+    public int level;
 }

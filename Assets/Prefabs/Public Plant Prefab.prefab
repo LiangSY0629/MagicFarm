@@ -206,7 +206,7 @@ MonoBehaviour:
   currentWaterTime: 0
   water: 0
   mature: 0
-  growTime: 15
+  growTime: 2
   waterTime: 15
   jumpTime: 0.5
 --- !u!58 &7573708170979461164

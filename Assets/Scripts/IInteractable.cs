@@ -5,3 +5,8 @@ public interface IInteractable
 
 
 }
+
+public interface IMagicAssert
+{
+    void MagicAssert(float value);
+}

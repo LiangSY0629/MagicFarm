@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:yousandi.cn,2023:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15365199ba6ddc24aaaed6ee5635e67b, type: 3}
+  m_Name: Order 3
+  m_EditorClassIdentifier: 
+  ID: order_3
+  magicName: "\u8BA2\u5355\u9B54\u6CD5\u4E09"
+  icon: {fileID: 1977382762, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
+  lightIcon: {fileID: 713512281, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
+  magicPosition: {x: 1761, y: 350}
+  upNeed: 1000
+  maxLevel: 2
+  description: "\u901A\u8FC7\u9B54\u6CD5\u63D0\u5347\u4E86\u63A8\u9500\u7684\u6548\u679C\uFF0C\u73B0\u5728\u6BCF\u5355\u53EF\u4EE5\u8D5A\u66F4\u591A\u91D1\u5E01\u4E86\n\u6548\u679C\uFF1A\n\u91D1\u5E01\u6570\u91CF+6%"
+  precondition:
+  - order_2
+  magicEffectSos:
+  - value: 0.06
+    MagicEffectSo: {fileID: 11400000, guid: 3de6fcd916178ae4fb46c564a8950887, type: 2}

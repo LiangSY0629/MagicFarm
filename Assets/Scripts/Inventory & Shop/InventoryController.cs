@@ -31,7 +31,7 @@ public class InventoryController : MonoBehaviour
         Item pickItem = itemPrefab.GetComponent<Item>();
         int itemID = pickItem.ID;
         int itemQuality = pickItem.quality;
-        StatsManager.ItemTypes itemType = pickItem.Type;
+        ItemTypes itemType = pickItem.Type;
 
         //随机拾取到的数量；
         pickItem.RandomPickNum();
@@ -105,7 +105,7 @@ public class InventoryController : MonoBehaviour
     /// <param name="quality"></param>
     /// <param name="number"></param>
     /// <returns></returns>
-    public bool LessItem(StatsManager.ItemTypes Type, int ID, int quality, int number)
+    public bool LessItem(ItemTypes Type, int ID, int quality, int number)
     {
         //先看是否能找到对应的value；
         if (ItemDictionary.Instance.itemNumberDictionary.TryGetValue((Type, ID, quality), out int itemNumber))

@@ -8,79 +8,65 @@ public class StatsManager : MonoBehaviour
     public static StatsManager Instance { get;set;}
 
 
-    [Header("Combat Stats")]
-    public int damage;
-    public Tools current_tool = Tools.None;
-
     [Header("Player Stats")]
-    public float speed;//角色速度；
-    public int square = 1;//攻击范围；
+    public float speed;//角色速度；  
+    public Stat square = new(1);
 
     [Header("Item Stats")]
-    public int maxPickNumber = 1;//最大可拾取数量
+    public Stat maxPickNumber = new(1);
     public int maxPileNumber = 99;//最大可堆叠数量；
-    public int maxQuality = 1;//最大可获得品质；
+    public Stat maxQuality = new(1);
 
     [Header("Animals Stats")]
-    public int currentAnimalTypes;//当前最高动物等级；
+    public Stat currentAnimalTypes = new(1);
+    public Stat animalEatTime = new(1);
     public int animalNumber;//动物种类数量；
     public int maxAnimalTypes;//动物品种总数；
 
     [Header("Plant Stats")]
-    public int maxSeed;//种子总数；
-    public int seedLevel;//当前最高种子等级；
-    public int EveryLevelSeed;//每个等级的种子数量；
+    public int maxSeed;//种子总数；  
+    public Stat seedLevel = new(1);
+    public Stat plantGrowth = new(1);
+    public Stat plantWater = new(1);
+    public int EveryLevelSeed;  //每个等级的种子数量；
 
 
     [Header("Mail Stats")]
-    public int maxMail;//最大可容纳订单数；
-    public int orderLevel;//订单等级；
-    public float rewardLevel;//奖励等级；
-    public float orderInterval;//订单冷却；
-    public int goldCount;//金币总量；
+    public int maxMail;  //最大可容纳订单数；
+    public Stat orderLevel = new(1);
+    public Stat rewardLevel = new(1);
+    public Stat orderInterval = new(30);
+    public int goldCount;   //金币总量；
 
 
-    [Header("Achieve And Magic Stats")]
-    public int achieveCompleteCount;//当前解锁的成就数量；
+    [Header("Achieve Stats")]
+    public int achieveCompleteCount;   //当前解锁的成就数量；
+
+    [Header("Magic Stats")]
+    public int level = 0;
+    public int expNeed = 100;
+    public int currentExp = 0;
+    public int magicStone = 2;
+
+    (int, float)[] expCurve =
+    {
+        (0, 1.25f),
+        (20, 1.15f),
+        (40, 1.07f),
+    };
 
     [Header("绑定个人信息面板")]
     public TMP_Text achieveText;
-    public TMP_Text glodText, timeText;
+    public TMP_Text goldText, timeText;
 
-    public enum Tools
-    {
-        None,
-        Axe,
-        Hoe,
-        Kettle,
-        Seed,
-    }
-
-    public enum ItemTypes
-    {
-        Crop,
-        Animal,
-    }
-
-    /// <summary>
-    /// 成就解锁的量化条件；
-    /// </summary>
-    public enum AchieveCondition
-    {
-        None,
-        Harvest,
-        Feed,
-        Order,
-        Glod,
-        StarItem,
-        Skill,
-    }
+    public Dictionary<MagicTypes, Stat> magicStatDictionary;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -90,14 +76,30 @@ public class StatsManager : MonoBehaviour
 
     private void Start()
     {
-        EventController.OnAchieveUp += AchieveCountUp;
+        EventController.OnAchieveUp += SetAchieveCount;
+
+        magicStatDictionary = new Dictionary<MagicTypes, Stat>();
+
+        //把所有需要修改的属性添加进dictionary；
+        magicStatDictionary[MagicTypes.CropLevel] = seedLevel;
+        magicStatDictionary[MagicTypes.AnimalLevel] = currentAnimalTypes;
+        magicStatDictionary[MagicTypes.OrderLevel] = orderLevel;
+        magicStatDictionary[MagicTypes.PickLevel] = maxPickNumber;
+        magicStatDictionary[MagicTypes.QualityLevel] = maxQuality;
+        magicStatDictionary[MagicTypes.SquareLevel] = square;
+
+        magicStatDictionary[MagicTypes.CropGrowth] = plantGrowth;
+        magicStatDictionary[MagicTypes.CropWater] = plantWater;
+        magicStatDictionary[MagicTypes.AnimalEat] = animalEatTime;
+        magicStatDictionary[MagicTypes.OrderInterval] = orderInterval;
+        magicStatDictionary[MagicTypes.OrderGlod] = rewardLevel;
     }
 
     /// <summary>
     /// 成就解锁数量+1；
     /// </summary>
     /// <param name="number"></param>
-    public void AchieveCountUp(int number)
+    public void SetAchieveCount(int number)
     {
         achieveCompleteCount += number;
         achieveText.text = "获得成就数：" + achieveCompleteCount;
@@ -109,13 +111,24 @@ public class StatsManager : MonoBehaviour
     /// <returns></returns>
     public StatsSaveData GetSaveData()
     {
-        StatsSaveData statsData = new StatsSaveData();
+        StatsSaveData data = new StatsSaveData();
 
-        statsData.currentGlodCount = goldCount;
-        statsData.square = square;
-        statsData.achieveCompleteCount = achieveCompleteCount;
+        data.goldCount = goldCount;
+        data.achieveCount = achieveCompleteCount;
 
-        return statsData;
+        List<TypeSaveData> saveData = new List<TypeSaveData>();
+        foreach(var dic in magicStatDictionary)
+        {
+            saveData.Add(new TypeSaveData
+            {
+                type = dic.Key,
+                levelAdd = dic.Value.levelAdd,
+                percentAdd = dic.Value.percentAdd,
+            });
+        }
+        data.typeSaveDatas = saveData;
+
+        return data;
     }
 
     /// <summary>
@@ -124,12 +137,100 @@ public class StatsManager : MonoBehaviour
     /// <param name="statsSaveData"></param>
     public void SetSaveData(StatsSaveData statsSaveData)
     {
-        goldCount = statsSaveData.currentGlodCount;
-        square = statsSaveData.square;
-        achieveCompleteCount = statsSaveData.achieveCompleteCount;
-        achieveText.text = "获得成就数：" + achieveCompleteCount;
+        goldCount = statsSaveData.goldCount;
+        SetGoldCount(0);
+        achieveCompleteCount = statsSaveData.achieveCount;
+        SetAchieveCount(0);
+
+        foreach(TypeSaveData data in statsSaveData.typeSaveDatas)
+        {
+            Stat stat = magicStatDictionary[data.type];
+            stat.levelAdd = data.levelAdd;
+            stat.percentAdd = data.percentAdd;
+        }
+
 
     }
 
+
+
+    public void LevelStatUp(MagicTypes type, float value)
+    {
+        magicStatDictionary[type].LevelUp(value);
+    }
+
+    public void PercentStatUp(MagicTypes type, float value)
+    {
+        magicStatDictionary[type].PercentUp(value);
+    }
+
+
+    /// <summary>
+    /// 传入需要更改的glodCount，进行更改并同步到UI；
+    /// </summary>
+    /// <param name="number"></param>
+    public void SetGoldCount(int number)
+    {
+        goldCount += number;
+        goldText.text = "当前金币数：" + goldCount;
+        if(number > 0)
+            EventController.TriggerComplete(AchieveCondition.Gold, number);
+
+        TimeController.Instance.glodText.text = goldCount.ToString();
+    }
+
+    /// <summary>
+    /// 更新当前所需的经验值；
+    /// </summary>
+    /// <returns></returns>
+    public void GetEmpiricalValue()
+    {
+        int finExp = 100;
+        foreach(var speed in expCurve)
+        {
+            if(level >= speed.Item1)
+            {
+                finExp *= (int)Mathf.Pow(speed.Item2, level - speed.Item1);
+            }
+        }
+
+        expNeed = finExp;
+    }
+
+
 }
 
+[System.Serializable]
+public class Stat//创建一个属性类；
+{
+    public float baseValue;
+    public int levelAdd;
+    public float percentAdd;
+    public float finalValue => (baseValue + levelAdd) * percentAdd;
+
+    public Stat(float value)
+    {
+        baseValue = value;
+        levelAdd = 0;
+        percentAdd = 1f;
+    }
+
+    /// <summary>
+    /// 提升等级；
+    /// </summary>
+    /// <param name="value"></param>
+    public void LevelUp(float value)
+    {
+        levelAdd += Mathf.RoundToInt(value);
+    }
+
+    /// <summary>
+    /// 提升百分比；
+    /// </summary>
+    /// <param name="value"></param>
+    public void PercentUp(float value)
+    {
+        percentAdd += value;
+    }
+
+}

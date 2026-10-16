@@ -14,11 +14,12 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     public GameObject mailPanel;
     public Transform mailTransform;
 
+    public TMP_Text levelText;
+    public Slider levelSlider;
+
     [Header("设置mail的格式")]
     public List<Mail> mails;
-
     public GameObject mailPrefab;
-
     public int itemValue;
 
 
@@ -48,11 +49,12 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     void Start()
     {
         mails = new List<Mail>();
-        mailInterval = StatsManager.Instance.orderInterval;
+        mailInterval = 0;
         inventoryController = FindObjectOfType<InventoryController>();
         anim = GetComponent<Animator>();
         NewMail = false;
 
+        SetLevelText();
     }
 
 
@@ -64,14 +66,14 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             return;
         }
 
-        if (mailInterval > 0)
+        if (mailInterval < StatsManager.Instance.orderInterval.finalValue)
         {
-            mailInterval -= Time.deltaTime;
+            mailInterval += Time.deltaTime;
         }
         else
         {
             //mailInterval = Random.Range(StatsManager.Instance.orderInterval - 20, StatsManager.Instance.orderInterval + 20);
-            mailInterval = StatsManager.Instance.orderInterval;
+            mailInterval = 0;
 
             if (mails.Count < StatsManager.Instance.maxMail)
             {
@@ -160,10 +162,10 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         
     }
 
-    public StatsManager.ItemTypes RandomType()
+    public ItemTypes RandomType()
     {
-        var types = Enum.GetValues(typeof(StatsManager.ItemTypes));
-        return (StatsManager.ItemTypes)types.GetValue(UnityEngine.Random.Range(0, types.Length));
+        var types = Enum.GetValues(typeof(ItemTypes));
+        return (ItemTypes)types.GetValue(UnityEngine.Random.Range(0, types.Length));
 
     }
 
@@ -178,7 +180,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
         int rewardNumber;
         float rewardFactor = 1;
 
-        StatsManager.ItemTypes currentType;
+        ItemTypes currentType;
         int currentLevel;
         int currentID;
         int currentQuality;
@@ -197,15 +199,17 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             List<int> levelList = new List<int>(LevelDictionary.Keys);
 
             //如果是植物，就用当前最大植物等级来随机等级；
-            if (currentType == StatsManager.ItemTypes.Crop)
+            if (currentType == ItemTypes.Crop)
             {
-                currentLevel = levelList[UnityEngine.Random.Range(0, StatsManager.Instance.seedLevel)];
+                int finalValue = Mathf.RoundToInt(StatsManager.Instance.seedLevel.finalValue);
+                currentLevel = levelList[UnityEngine.Random.Range(0, finalValue)];
                 rewardFactor = 1;
             }
             //如果是动物，就用当前最大动物等级来随机等级；
-            else if (currentType == StatsManager.ItemTypes.Animal)
+            else if (currentType == ItemTypes.Animal)
             {
-                currentLevel = levelList[UnityEngine.Random.Range(0, StatsManager.Instance.currentAnimalTypes)];
+                int finalValue = Mathf.RoundToInt(StatsManager.Instance.currentAnimalTypes.finalValue);
+                currentLevel = levelList[UnityEngine.Random.Range(0, finalValue)];
                 rewardFactor = 2;
             }
             else currentLevel = 1;
@@ -216,14 +220,15 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             currentID = itemList[UnityEngine.Random.Range(0, LevelDictionary[currentLevel].Count)].ID;
 
             //随机可获得的品质；
-            currentQuality = UnityEngine.Random.Range(1, StatsManager.Instance.maxQuality);
+            int quality = Mathf.RoundToInt(StatsManager.Instance.maxQuality.finalValue);
+            currentQuality = UnityEngine.Random.Range(1, quality + 1);
 
             item = ItemDictionary.Instance.GetItemPrefab(currentType, currentID, currentQuality).GetComponent<Item>();
 
-            //随机一些订单系数
-            needNumber = UnityEngine.Random.Range(6, 10) * StatsManager.Instance.orderLevel / currentLevel;
+            //随机一些订单系数 订单等级的2次方，
+            needNumber =  (int)(UnityEngine.Random.Range(6, 10) * Mathf.Pow(StatsManager.Instance.orderLevel.finalValue, 2) / currentLevel);
             //报酬 = 需求数量 * 物品价值 * 物品品质 * 奖励系数（植物为默认的1；动物为2） * 奖励等级 * （当前等级 - 1）的 4次方；
-            rewardNumber = (int)(needNumber * itemValue * currentQuality * rewardFactor * StatsManager.Instance.rewardLevel * Mathf.Pow(4, currentLevel - 1));
+            rewardNumber = (int)(needNumber * itemValue * currentQuality * rewardFactor * StatsManager.Instance.rewardLevel.finalValue * Mathf.Pow(4, currentLevel - 1));
 
             if(item == null)
             {
@@ -236,16 +241,17 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             Mail mail = Instantiate(mailPrefab, mailTransform).GetComponent<Mail>();
 
             string levelName;
+            int levelValue = Mathf.FloorToInt(StatsManager.Instance.orderLevel.finalValue);
 
-            if (StatsManager.Instance.orderLevel == 1)
+            if (levelValue == 1)
             {
                 levelName = "初级";
             }
-            else if (StatsManager.Instance.orderLevel == 2)
+            else if (levelValue == 2)
             {
                 levelName = "中级";
             }
-            else if (StatsManager.Instance.orderLevel == 3)
+            else if (levelValue == 3)
             {
                 levelName = "高级";
             }
@@ -255,7 +261,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             mail.rewardNumber = rewardNumber;
             mail.goldNumber.text = $"{rewardNumber}";
             mail.itemImage.sprite = item.GetComponent<Image>().sprite;
-            mail.starNumber = StatsManager.Instance.orderLevel;
+            mail.starNumber = StatsManager.Instance.orderLevel.finalValue;
             mail.itemNeedNumber = needNumber;
             //保存item的信息，以便使用；
             mail.itemType = item.Type;
@@ -337,9 +343,10 @@ public class MailBoxManager : MonoBehaviour, IInteractable
                 inventoryController.LessItem(currentMail.itemType, currentMail.itemID, currentMail.itemQuality, currentMail.itemNeedNumber);
 
                 //调用函数触发时间，增加成就进度；
-                EventController.TriggerComplete(StatsManager.AchieveCondition.Order, 1);
+                EventController.TriggerComplete(AchieveCondition.Order, 1);
 
-                TimeController.Instance.SetGold(currentMail.rewardNumber);
+                StatsManager.Instance.SetGoldCount(currentMail.rewardNumber);
+                SetSliderValue(currentMail.rewardNumber);
                 TipsPopupControler.Instance.SetTipsText("种了么订单提交成功！");
 
                 mails.Remove(currentMail);
@@ -443,4 +450,35 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     }
 
 
+    /// <summary>
+    /// 传入增长的经验值；
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetSliderValue(int exp)
+    {
+        int expNeed = StatsManager.Instance.expNeed;  //获取当前升级所需的经验值；
+        float finExp = exp + StatsManager.Instance.currentExp;
+
+        while(finExp - expNeed >= 0)
+        {
+            finExp -= expNeed;
+            StatsManager.Instance.level++;            //更新等级，让等级+1；
+            StatsManager.Instance.magicStone++;
+            SetLevelText();
+            StatsManager.Instance.GetEmpiricalValue();  //更新当前等级所需的经验值；
+            expNeed = StatsManager.Instance.expNeed;
+        }
+
+        StatsManager.Instance.currentExp = (int)finExp;
+        levelSlider.value = finExp / expNeed;
+
+    }
+
+    /// <summary>
+    /// 调用函数刷新等级数字显示；
+    /// </summary>
+    public void SetLevelText()
+    {
+        levelText.text = "Lv" + StatsManager.Instance.level;
+    }
 }

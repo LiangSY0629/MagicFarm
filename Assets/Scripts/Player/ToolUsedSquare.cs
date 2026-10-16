@@ -30,7 +30,7 @@ public class ToolUsedSquare : MonoBehaviour
     {
 
 
-        if (StatsManager.Instance.current_tool != StatsManager.Tools.None)
+        if (ToolController.Instance.currentTool != Tools.None)
         {
             //如果正在攻击不判定；
             if (playerCombat.attack)
@@ -47,7 +47,7 @@ public class ToolUsedSquare : MonoBehaviour
             tilePosition.Clear();
             newTilePosition.Clear();
 
-            square = StatsManager.Instance.square;
+            square = Mathf.RoundToInt(StatsManager.Instance.square.finalValue);
 
             // 获取鼠标位置，将其转换为单元格位置；
             transform.localScale = new Vector3(square, square, square);
@@ -67,7 +67,7 @@ public class ToolUsedSquare : MonoBehaviour
 
 
                 //锄头
-                if (StatsManager.Instance.current_tool == StatsManager.Tools.Hoe)
+                if (ToolController.Instance.currentTool == Tools.Hoe)
                 {
 
                     //遍历所有位置，判断各个位置是否合适；
@@ -113,7 +113,7 @@ public class ToolUsedSquare : MonoBehaviour
                 }
 
                 //种子
-                else if (StatsManager.Instance.current_tool == StatsManager.Tools.Seed)
+                else if (ToolController.Instance.currentTool == Tools.Seed)
                 {
                     //遍历所有位置，判断各个位置是否合适；
                     foreach (Vector3Int Position in tilePosition)
@@ -144,7 +144,7 @@ public class ToolUsedSquare : MonoBehaviour
 
 
                 //斧子
-                else if (StatsManager.Instance.current_tool == StatsManager.Tools.Axe)
+                else if (ToolController.Instance.currentTool == Tools.Axe)
                 {
                     //遍历所有位置，判断各个位置是否合适；
                     foreach (Vector3Int Position in tilePosition)

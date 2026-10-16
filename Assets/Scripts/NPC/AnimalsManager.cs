@@ -65,7 +65,7 @@ public class AnimalsManager : MonoBehaviour
 
         for(int i = 0; i < StatsManager.Instance.maxAnimalTypes; i++)
         {
-            if (i < StatsManager.Instance.currentAnimalTypes)
+            if (i < StatsManager.Instance.currentAnimalTypes.finalValue)
             {
                 animalButtons[i].gameObject.SetActive(true);
             }
@@ -148,7 +148,7 @@ public class AnimalsManager : MonoBehaviour
             return;
         }
 
-        if (inventoryController.LessItem(StatsManager.ItemTypes.Crop, feedChoose.feedID, 1, feedChoose.feedNumber))
+        if (inventoryController.LessItem(ItemTypes.Crop, feedChoose.feedID, 1, feedChoose.feedNumber))
         {
             
             animals[animalID].SetFeed(feedChoose , nutrition);
