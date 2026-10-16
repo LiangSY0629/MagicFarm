@@ -16,16 +16,16 @@ MonoBehaviour:
   magicName: "\u8BA2\u5355\u9B54\u6CD5\u56DB"
   icon: {fileID: 1977382762, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
   lightIcon: {fileID: 713512281, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
-  magicPosition: {x: 1811, y: 458}
+  magicPosition: {x: 1921, y: 250}
   upNeed: 5000
   maxLevel: 1
-  description: "\u901A\u8FC7\u9B54\u6CD5\u63D0\u5347\u4E86\u63A8\u9500\u7684\u6548\u679C\uFF0C\u8BA2\u5355\u7684\u89C4\u6A21\u53D8\u5927\u4E86\uFF0C\u5E76\u4E14\u8BA2\u5355\u6570\u91CF\u548C\u6BCF\u5355\u8D5A\u53D6\u7684\u91D1\u5E01\u6570\u91CF\u90FD\u6709\u6240\u4E0A\u5347\u3002\n\u6548\u679C\uFF1A\n\u8BA2\u5355\u7B49\u7EA7+1\n\u8BA2\u5355\u51B7\u5374-5%\n\u91D1\u5E01\u6570\u91CF+5%"
+  description: "\u901A\u8FC7\u9B54\u6CD5\u63D0\u5347\u4E86\u63A8\u9500\u7684\u6548\u679C\uFF0C\u8BA2\u5355\u7684\u89C4\u6A21\u53D8\u5927\u4E86\uFF0C\u5E76\u4E14\u8BA2\u5355\u6570\u91CF\u548C\u6BCF\u5355\u8D5A\u53D6\u7684\u91D1\u5E01\u6570\u91CF\u90FD\u6709\u6240\u4E0A\u5347\u3002\n\u6548\u679C\uFF1A\n\u8BA2\u5355\u7B49\u7EA7+1\n\u8BA2\u5355\u51B7\u5374-4%\n\u91D1\u5E01\u6570\u91CF+8%"
   precondition:
   - order_3
   magicEffectSos:
   - value: 1
     MagicEffectSo: {fileID: 11400000, guid: 23f375626d204a04299575e391dc09c1, type: 2}
-  - value: -0.05
+  - value: -0.04
     MagicEffectSo: {fileID: 11400000, guid: c6bb5ab514aa7ca48be3dff1479d535f, type: 2}
-  - value: 0.05
+  - value: 0.08
     MagicEffectSo: {fileID: 11400000, guid: 3de6fcd916178ae4fb46c564a8950887, type: 2}

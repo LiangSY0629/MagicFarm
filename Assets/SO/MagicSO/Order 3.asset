@@ -16,12 +16,12 @@ MonoBehaviour:
   magicName: "\u8BA2\u5355\u9B54\u6CD5\u4E09"
   icon: {fileID: 1977382762, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
   lightIcon: {fileID: 713512281, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
-  magicPosition: {x: 1661, y: 565}
+  magicPosition: {x: 1761, y: 350}
   upNeed: 1000
   maxLevel: 2
-  description: "\u901A\u8FC7\u9B54\u6CD5\u63D0\u5347\u4E86\u63A8\u9500\u7684\u6548\u679C\uFF0C\u73B0\u5728\u6BCF\u5355\u53EF\u4EE5\u8D5A\u66F4\u591A\u91D1\u5E01\u4E86\n\u6548\u679C\uFF1A\n\u91D1\u5E01\u6570\u91CF+5%"
+  description: "\u901A\u8FC7\u9B54\u6CD5\u63D0\u5347\u4E86\u63A8\u9500\u7684\u6548\u679C\uFF0C\u73B0\u5728\u6BCF\u5355\u53EF\u4EE5\u8D5A\u66F4\u591A\u91D1\u5E01\u4E86\n\u6548\u679C\uFF1A\n\u91D1\u5E01\u6570\u91CF+6%"
   precondition:
   - order_2
   magicEffectSos:
-  - value: 0.05
+  - value: 0.06
     MagicEffectSo: {fileID: 11400000, guid: 3de6fcd916178ae4fb46c564a8950887, type: 2}

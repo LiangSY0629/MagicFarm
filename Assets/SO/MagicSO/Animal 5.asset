@@ -16,12 +16,14 @@ MonoBehaviour:
   magicName: "\u52A8\u7269\u9B54\u6CD5\u4E94"
   icon: {fileID: -450955333, guid: c223d4c7f796ced4699c48e5871cdbfd, type: 3}
   lightIcon: {fileID: 544586259, guid: b39a73c13c0e660449fb164a7edf664e, type: 3}
-  magicPosition: {x: 769.6248, y: 210.00006}
+  magicPosition: {x: 541, y: 130}
   upNeed: 20000
   maxLevel: 2
-  description: "\u901A\u8FC7\u9B54\u6CD5\u8BA9\u52A8\u7269\u4EEC\u66F4\u52A0\u5F3A\u5927\uFF0C\u53EF\u4EE5\u66F4\u5FEB\u7684\u4EA7\u51FA\u4EA7\u7269\n\u6548\u679C\uFF1A\n\u4EA7\u51FA\u65F6\u95F4-4%"
+  description: "\u901A\u8FC7\u9B54\u6CD5\u8BA9\u52A8\u7269\u4EEC\u66F4\u52A0\u5F3A\u5927\uFF0C\u53EF\u4EE5\u66F4\u5FEB\u7684\u4EA7\u51FA\u4EA7\u7269\uFF0C\u540C\u65F6\u63D0\u9AD8\u4EA7\u51FA\u4EA7\u7269\u7684\u6700\u5927\u54C1\u8D28\n\u6548\u679C\uFF1A\n\u4EA7\u51FA\u65F6\u95F4-4%\n\u6700\u5927\u54C1\u8D28+1"
   precondition:
   - animal_4
   magicEffectSos:
   - value: -0.04
     MagicEffectSo: {fileID: 11400000, guid: 96a9b93daa66b9d49a3b221d616c6a3f, type: 2}
+  - value: 1
+    MagicEffectSo: {fileID: 11400000, guid: 5e1ae4f5eca675246b1c219daf8244e8, type: 2}
