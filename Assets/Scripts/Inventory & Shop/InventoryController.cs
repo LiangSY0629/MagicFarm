@@ -8,20 +8,9 @@ using static UnityEditor.Progress;
 public class InventoryController : MonoBehaviour
 {
 
-    public static InventoryController Instance;
-
     public GameObject inventoryPanel;
     public GameObject slotPrefab;
     public int slotCount;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else Destroy(gameObject);
-    }
 
     private void Start()
     {

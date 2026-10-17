@@ -24,9 +24,11 @@ public class Item : MonoBehaviour
     float flyTime = .6f;
     float jumpHeight = 1f;
 
+    InventoryController inventoryController;
 
     private void Start()
     {
+        inventoryController = FindObjectOfType<InventoryController>();
         image = GetComponent<Image>();
         Sprite = GetComponent<SpriteRenderer>();
     }
@@ -110,7 +112,7 @@ public class Item : MonoBehaviour
         }
 
         //调用库存添加函数，传入Game Object作为库存面板中显示的game object；
-        bool itemAdded = InventoryController.Instance.AddItem(collision);
+        bool itemAdded = inventoryController.AddItem(collision);
 
         if (itemAdded)
         {

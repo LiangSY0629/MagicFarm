@@ -5,19 +5,8 @@ using UnityEngine;
 
 public class PlantController : MonoBehaviour
 {
-    public static PlantController Instance;
 
     PlantDictionary plantDictionary;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else Destroy(gameObject);
-    }
-
 
     private void Start()
     {

@@ -12,12 +12,15 @@ public class MusicEffectManager : MonoBehaviour
 
     static AudioSource audioSource;
     static SoundEffectLibrary SoundEffectLibrary;
-
+    [SerializeField] private Slider MusicSlider;
     float time = 450f;
     float BgmTime;
     float fadeVolume = 1f;
     float fadeTime = 0;
     bool music = true;
+
+    float volumeChange = 0;
+    bool change = true;
 
     //静态化该脚本，同一时间只能存在一个；
     private void Awake()
@@ -31,6 +34,15 @@ public class MusicEffectManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    //绑定滑块，只要滑块发生变化，调用音量改变函数；
+    private void Start()
+    {
+        if(MusicSlider != null)
+        {
+            MusicSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
         }
     }
 
@@ -50,6 +62,30 @@ public class MusicEffectManager : MonoBehaviour
             }
         }
         
+    }
+    public void OnValueChanged()
+    {
+        if(MusicSlider == null)
+        {
+            audioSource.volume = fadeVolume;
+            return;
+        }
+
+        //滑块音效，当滑块变化超过0.02，相当于两点音量值，播放一次音效；
+        if (!change)
+        {
+            volumeChange = MusicSlider.value;
+            change = true;
+        }
+        else
+        {
+            if (Mathf.Abs(volumeChange - MusicSlider.value) > 0.03f)
+            {
+                SoundEffectManager.Instance.PlayAudio("Select");
+                change = false;
+            }
+        }
+        SetVolume(MusicSlider.value);
     }
 
     public void SetVolume(float volume)
@@ -85,7 +121,7 @@ public class MusicEffectManager : MonoBehaviour
         for (float time = 0;time < fadeTime; time += Time.deltaTime)
         {
             fadeVolume = Mathf.Lerp(1, 0, time / fadeTime);
-            SetVolume(0.8f);
+            OnValueChanged();
             yield return null;
         }
         fadeVolume = 0;
@@ -100,7 +136,7 @@ public class MusicEffectManager : MonoBehaviour
         for (float time = 0; time < fadeTime; time += Time.deltaTime)
         {
             fadeVolume = Mathf.Lerp(0, 1, time / fadeTime);
-            SetVolume(0.8f);
+            OnValueChanged();
             yield return null;
         }
         fadeVolume = 1;

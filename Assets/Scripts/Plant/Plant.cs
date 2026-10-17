@@ -25,6 +25,8 @@ public class Plant : MonoBehaviour
     public float waterTime = 5;
     public float jumpTime = 0.5f;
 
+    ItemSaveController items;
+
 
     private void Awake()
     {
@@ -33,6 +35,11 @@ public class Plant : MonoBehaviour
         currentWaterTime = waterTime * StatsManager.Instance.plantWater.finalValue;
 
         water = false;
+    }
+
+    private void Start()
+    {
+        items = FindObjectOfType<ItemSaveController>();
     }
 
     public void PlantGrowth()
@@ -111,7 +118,7 @@ public class Plant : MonoBehaviour
     {
         int value = Mathf.RoundToInt(StatsManager.Instance.maxQuality.finalValue);
         int itemQuality = Random.Range(1, value + 1);
-        GameObject item = Instantiate(ItemDictionary.Instance.GetItemPrefab(ItemTypes.Crop, ID, itemQuality), ItemSaveController.Instance.transform);
+        GameObject item = Instantiate(ItemDictionary.Instance.GetItemPrefab(ItemTypes.Crop, ID, itemQuality), items.transform);
         item.transform.position = transform.position;
         item.GetComponent<Item>().Harvest(jumpTime);
         Destroy(gameObject);

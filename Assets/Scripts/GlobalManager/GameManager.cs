@@ -1,91 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-    public bool isLoadGame = false;
-    public Color fadeColor;
+    public static bool loadFromSave = false;
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject.transform.parent);
         }
         else Destroy(gameObject);
-    }
-
-    /// <summary>
-    /// 创建一个新游戏；
-    /// </summary>
-    public void CreateNewGame()
-    {
-        isLoadGame = false;
-        ExitGame();
-    }
-
-    /// <summary>
-    /// 加载游戏；
-    /// </summary>
-    public void LoadGame()
-    {
-        isLoadGame = true;
-        ExitGame();
-    }
-
-    public void ReturnMainMenu()
-    {
-        isLoadGame = false;
-        EnterGame();
-    }
-
-    public void CloseGame()
-    {
-        SoundEffectManager.Instance.PlayAudio("Confirm");
-        Application.Quit();
-
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
 
     }
 
-
-    async void ExitGame()
+    public void LoadNewGame()
     {
-        SoundEffectManager.Instance.PlayAudio("Confirm");
-        await SceneFader.Instance.FadeIn(fadeColor);
+        loadFromSave = false;
+        FadeLoad();
+    }
+
+    public void LoadGameFromSave()
+    {
+        loadFromSave = true;
+        FadeLoad();
+    }
+
+
+    async void FadeLoad()
+    {
+        await SceenFader.Instance.FadeIn();
+
+        SceneManager.LoadScene("GameScene");
+
+        await SceenFader.Instance.FadeOn();
+
+        if(loadFromSave)
+            SaveController.Instance.LoadGame();
+
+        await SceenFader.Instance.FadeOut();
+    }
+
+    public void EnterMain()
+    {
+        loadFromSave = false;
+        FadeEnter();
+    }
+
+    async void FadeEnter()
+    {
+        await SceenFader.Instance.FadeIn();
 
         SceneManager.LoadScene("MainScene");
 
-        await SceneFader.Instance.FadeOn();
+        await SceenFader.Instance.FadeOn();
 
-        if (isLoadGame)
-        {
-            SaveController.Instance.LoadGame();
-        }
-
-        await SceneFader.Instance.FadeOut();
+        await SceenFader.Instance.FadeOut();
     }
-
-    async void EnterGame()
-    {
-        await SceneFader.Instance.FadeIn(fadeColor);
-
-        SceneManager.LoadScene("MainMenuScene");
-
-        await SceneFader.Instance.FadeOn();
-
-        await SceneFader.Instance.FadeOut();
-    }
-
 
 }
