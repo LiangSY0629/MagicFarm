@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class ItemSaveController : MonoBehaviour
 {
+    public static ItemSaveController Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else Destroy(gameObject);
+    }
+
 
     //保存当前场景下的掉落物；
     public List<ItemSaveData> GetItemData()

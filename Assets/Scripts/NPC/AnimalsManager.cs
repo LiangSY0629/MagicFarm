@@ -22,8 +22,6 @@ public class AnimalsManager : MonoBehaviour
     public List<AnimalController> animals;
     public int animalID;
 
-    public InventoryController inventoryController;
-
     FeedInformation feedChoose;
     int feedID;
 
@@ -39,7 +37,6 @@ public class AnimalsManager : MonoBehaviour
 
     private void Start()
     {
-        inventoryController = FindObjectOfType<InventoryController>();
 
         foreach(Transform transform in transform)
         {
@@ -148,7 +145,7 @@ public class AnimalsManager : MonoBehaviour
             return;
         }
 
-        if (inventoryController.LessItem(ItemTypes.Crop, feedChoose.feedID, 1, feedChoose.feedNumber))
+        if (InventoryController.Instance.LessItem(ItemTypes.Crop, feedChoose.feedID, 1, feedChoose.feedNumber))
         {
             
             animals[animalID].SetFeed(feedChoose , nutrition);

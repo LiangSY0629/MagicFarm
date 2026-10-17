@@ -7,6 +7,7 @@ public class MenuController : MonoBehaviour
     public GameObject menuCanvas;
     public GameObject uiEmotes;
     public TabController tabController;
+
     void Start()
     {
         menuCanvas.SetActive(false);
@@ -109,7 +110,5 @@ public class MenuController : MonoBehaviour
         SoundEffectManager.Instance.PlayAudio("Select");
         tabController.ActiveMagic();
     }
-
-
 
 }

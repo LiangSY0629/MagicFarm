@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SceenFader : MonoBehaviour
+public class SceneFader : MonoBehaviour
 {
-    public static SceenFader Instance;
+    public static SceneFader Instance;
     public CanvasGroup canvas;
     public float fadeTime;
 
@@ -45,8 +46,9 @@ public class SceenFader : MonoBehaviour
     /// Öð½¥ºÚÆÁ
     /// </summary>
     /// <returns></returns>
-    public async Task FadeIn()
+    public async Task FadeIn(Color color)
     {
+        canvas.GetComponent<Image>().color = color;
         await Fade(1);
     }
 
@@ -58,5 +60,13 @@ public class SceenFader : MonoBehaviour
     {
         await Fade(0);
     }
+
+    public async Task FadeOn()
+    {
+        await Task.Yield();
+        await Task.Yield();
+        await Task.Yield();
+    }
+
 
 }

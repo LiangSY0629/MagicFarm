@@ -7,53 +7,27 @@ using UnityEngine.EventSystems;
 
 public class SaveController : MonoBehaviour
 {
+    public static SaveController Instance;
 
     private string save_localtion;
 
-    private InventoryController inventoryController;
-    ItemSaveController itemSaveController;
-    PlantController plantController;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
 
-    public GameObject SaveGamePanel;
-    public GameObject LoadGamePanel;
 
     void Start()
     {
-        SaveGamePanel.SetActive(false);
-        LoadGamePanel.SetActive(false);
-
         save_localtion = Path.Combine(Application.persistentDataPath, "saveData.json");
-        inventoryController = FindObjectOfType<InventoryController>();
-        itemSaveController = FindObjectOfType<ItemSaveController>();
-        plantController = FindObjectOfType<PlantController>();
 
     }
-    #region 控制提醒面板开关。
-    public void OpenSave()
-    {
-        SaveGamePanel.SetActive(!SaveGamePanel.activeSelf);
-        SoundEffectManager.Instance.PlayAudio("Select");
-    }
 
-    public void CancelSave()
-    {
-        SaveGamePanel.SetActive(false);
-        SoundEffectManager.Instance.PlayAudio("Cancel");
-    }
-
-    public void OpenLoad()
-    {
-        LoadGamePanel.SetActive(!LoadGamePanel.activeSelf);
-        SoundEffectManager.Instance.PlayAudio("Select");
-    }
-
-    public void CancelLoad()
-    {
-        LoadGamePanel.SetActive(false);
-        SoundEffectManager.Instance.PlayAudio("Cancel");
-    }
-
-    #endregion
     public void SaveGame()
     {
         SaveData saveData = new SaveData
@@ -62,10 +36,10 @@ public class SaveController : MonoBehaviour
             currentTime = TimeController.Instance.currentTime,
             currentOrderInterval = MailBoxManager.Instance.mailInterval,
 
-            inventorySaveData = inventoryController.GetSaveSlot(),
-            allItemNumberSaveData = inventoryController.GetItemNumber(),
-            itemSaveData = itemSaveController.GetItemData(),
-            plantSaveData = plantController.GetSaveData(),
+            inventorySaveData = InventoryController.Instance.GetSaveSlot(),
+            allItemNumberSaveData = InventoryController.Instance.GetItemNumber(),
+            itemSaveData = ItemSaveController.Instance.GetItemData(),
+            plantSaveData = PlantController.Instance.GetSaveData(),
             tileSaveData = TileMapManager.Instance.GetTileData(),
             animalSaveData = AnimalsManager.Instance.GetAnimalsSaveData(),
             orderSaveData = MailBoxManager.Instance.GetSaveData(),
@@ -76,12 +50,9 @@ public class SaveController : MonoBehaviour
         };
 
         File.WriteAllText(save_localtion, JsonUtility.ToJson(saveData));
-        SoundEffectManager.Instance.PlayAudio("Confirm");
-        SaveGamePanel.SetActive(!SaveGamePanel.activeSelf);
-        TipsPopupControler.Instance.SetTipsText("存档成功！");
     }
 
-    public void LoadGame()
+    public bool LoadGame()
     {
 
         if (File.Exists(save_localtion))
@@ -92,10 +63,10 @@ public class SaveController : MonoBehaviour
             TimeController.Instance.currentTime = saveData.currentTime;
             MailBoxManager.Instance.mailInterval = saveData.currentOrderInterval;
 
-            inventoryController.SetInventoryData(saveData.inventorySaveData);
-            inventoryController.SetItemNumber(saveData.allItemNumberSaveData);
-            itemSaveController.SetItemDate(saveData.itemSaveData);
-            plantController.SetPlant(saveData.plantSaveData);
+            InventoryController.Instance.SetInventoryData(saveData.inventorySaveData);
+            InventoryController.Instance.SetItemNumber(saveData.allItemNumberSaveData);
+            ItemSaveController.Instance.SetItemDate(saveData.itemSaveData);
+            PlantController.Instance.SetPlant(saveData.plantSaveData);
             TileMapManager.Instance.SetTileData(saveData.tileSaveData);
             TimeController.Instance.SetTime();
             StatsManager.Instance.SetGoldCount(0);
@@ -104,15 +75,13 @@ public class SaveController : MonoBehaviour
             AchieveController.Instance.SetAchieveData(saveData.achievementSaveData);
             StatsManager.Instance.SetSaveData(saveData.statsSaveData);
             MagicManager.Instance.SetSaveData(saveData.magicSaveData);
-
-            TipsPopupControler.Instance.SetTipsText("加载成功！");
+            return true;
         }
         else
         {
-            TipsPopupControler.Instance.SetTipsText("没有可供加载的存档，请先保存！");
+            return false;
         }
-        SoundEffectManager.Instance.PlayAudio("Confirm");
-        LoadGamePanel.SetActive(!LoadGamePanel.activeSelf);
+
     }
 
 }
