@@ -12,7 +12,6 @@ public class PlayerCombat : MonoBehaviour
 
     ToolUsedSquare toolUsed;
     PlantDictionary plantDictionary;
-    PlantController plantController;
     
 
     private void Start()
@@ -20,7 +19,6 @@ public class PlayerCombat : MonoBehaviour
         ToolController.Instance.currentTool = Tools.None;
         toolUsed = GetComponentInChildren<ToolUsedSquare>();
         plantDictionary = FindObjectOfType<PlantDictionary>();
-        plantController = FindObjectOfType<PlantController>();
 
     }
 
@@ -148,7 +146,7 @@ public class PlayerCombat : MonoBehaviour
                         return;
                     }
 
-                    Plant plant = Instantiate(plantPrefab, plantController.transform).GetComponent<Plant>();
+                    Plant plant = Instantiate(plantPrefab, PlantController.Instance.transform).GetComponent<Plant>();
                     plant.transform.position = position + toolUsed.tilemap.cellSize / 2;
                     TileMapManager.Instance.tilePlantDictionary[position] = plant;
                     TileMapManager.Instance.tileCellDictionary[position] = true;

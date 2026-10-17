@@ -14,10 +14,7 @@ public class SoundEffectManager : MonoBehaviour
     static AudioSource audioSource2;
     static AudioSource voiceSource;
     static SoundEffectLibrary SoundEffectLibrary;
-    [SerializeField] private Slider sfxSlider;
 
-    float volumeChange = 0f;
-    bool change = false;
 
     //注释与函数与musicEffectManager相同；
 
@@ -37,7 +34,6 @@ public class SoundEffectManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 
     public void PlayAudio(string soundName)
     {
@@ -64,39 +60,11 @@ public class SoundEffectManager : MonoBehaviour
     }
 
 
-
-    private void Start()
-    {
-        if(sfxSlider != null)
-        {
-            sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
-            OnValueChanged();
-        }
-    }
-
     public static void SetVolume(float volume)
     {
         audioSource1.volume = volume;
         audioSource2.volume = volume * 0.75f;
         voiceSource.volume = volume * 0.3f;
-    }
-
-    public void OnValueChanged()
-    {
-        if (!change)
-        {
-            volumeChange = sfxSlider.value;
-            change = true;
-        }
-        else
-        {
-            if (Mathf.Abs(volumeChange - sfxSlider.value) > 0.03f)
-            {
-                SoundEffectManager.Instance.PlayAudio("Select");
-                change = false;
-            }
-        }
-        SetVolume(sfxSlider.value * 0.8f);
     }
 
 }

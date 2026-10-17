@@ -31,7 +31,6 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     public GameObject[] stars;
 
     public float mailInterval;
-    InventoryController inventoryController;
     Animator anim;
     bool NewMail;
     Mail currentMail;
@@ -50,7 +49,6 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     {
         mails = new List<Mail>();
         mailInterval = 0;
-        inventoryController = FindObjectOfType<InventoryController>();
         anim = GetComponent<Animator>();
         NewMail = false;
 
@@ -340,7 +338,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
             {
                 SoundEffectManager.Instance.PlayAudio("Confirm");
 
-                inventoryController.LessItem(currentMail.itemType, currentMail.itemID, currentMail.itemQuality, currentMail.itemNeedNumber);
+                InventoryController.Instance.LessItem(currentMail.itemType, currentMail.itemID, currentMail.itemQuality, currentMail.itemNeedNumber);
 
                 //调用函数触发时间，增加成就进度；
                 EventController.TriggerComplete(AchieveCondition.Order, 1);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BedAndSleep : MonoBehaviour, IInteractable
 {
     public bool sleep;
+    public Color fadeColor;
 
     public bool CanInteracte()
     {
@@ -35,13 +36,13 @@ public class BedAndSleep : MonoBehaviour, IInteractable
     //使用异步委托来淡入淡出转场；
     async void SleepFade()
     {
-        await SceenFader.Instance.FadeIn();
+        await SceneFader.Instance.FadeIn(fadeColor);
 
         //睡眠后时间 = 黑夜时长 - （（最终时间 + 天亮时间）% 每日时间）；（180 - （（270 + 90）% 360）；
         TimeController.Instance.currentTime += 12 * TimeController.Instance.oneHour - ((TimeController.Instance.finalTime + (6 * TimeController.Instance.oneHour)) % TimeController.Instance.oneDay);
         sleep = false;
 
-        await SceenFader.Instance.FadeOut();
+        await SceneFader.Instance.FadeOut();
     }
 
 
