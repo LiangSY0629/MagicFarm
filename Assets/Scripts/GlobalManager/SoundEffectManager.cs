@@ -67,8 +67,11 @@ public class SoundEffectManager : MonoBehaviour
 
     private void Start()
     {
-        sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
-        OnValueChanged();
+        if(sfxSlider != null)
+        {
+            sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
+            OnValueChanged();
+        }
     }
 
     public static void SetVolume(float volume)

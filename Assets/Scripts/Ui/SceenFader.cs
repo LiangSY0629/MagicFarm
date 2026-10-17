@@ -42,6 +42,17 @@ public class SceenFader : MonoBehaviour
     }
 
     /// <summary>
+    /// µÈ´ýÁ½Ö¡£»
+    /// </summary>
+    /// <returns></returns>
+    async Task WaitFrame()
+    {
+        await Task.Yield();
+        await Task.Yield();
+    }
+
+
+    /// <summary>
     /// Öð½¥ºÚÆÁ
     /// </summary>
     /// <returns></returns>
@@ -57,6 +68,11 @@ public class SceenFader : MonoBehaviour
     public async Task FadeOut()
     {
         await Fade(0);
+    }
+
+    public async Task FadeOn()
+    {
+        await WaitFrame();
     }
 
 }

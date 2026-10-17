@@ -40,7 +40,10 @@ public class MusicEffectManager : MonoBehaviour
     //绑定滑块，只要滑块发生变化，调用音量改变函数；
     private void Start()
     {
-        MusicSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
+        if(MusicSlider != null)
+        {
+            MusicSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
+        }
     }
 
     //判断该不该有音乐，并用倒计时判断什么时候切歌
@@ -62,6 +65,12 @@ public class MusicEffectManager : MonoBehaviour
     }
     public void OnValueChanged()
     {
+        if(MusicSlider == null)
+        {
+            audioSource.volume = fadeVolume;
+            return;
+        }
+
         //滑块音效，当滑块变化超过0.02，相当于两点音量值，播放一次音效；
         if (!change)
         {

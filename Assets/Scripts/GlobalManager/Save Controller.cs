@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class SaveController : MonoBehaviour
 {
-
+    public static SaveController Instance;
     private string save_localtion;
 
     private InventoryController inventoryController;
@@ -17,20 +17,23 @@ public class SaveController : MonoBehaviour
     public GameObject SaveGamePanel;
     public GameObject LoadGamePanel;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
+
     void Start()
     {
-        SaveGamePanel.SetActive(false);
-        LoadGamePanel.SetActive(false);
 
         save_localtion = Path.Combine(Application.persistentDataPath, "saveData.json");
         inventoryController = FindObjectOfType<InventoryController>();
         itemSaveController = FindObjectOfType<ItemSaveController>();
         plantController = FindObjectOfType<PlantController>();
-
-        if (GameManager.loadFromSave)
-        {
-            LoadGame();
-        }
 
     }
     #region 控制提醒面板开关。

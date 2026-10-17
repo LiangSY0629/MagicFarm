@@ -7,6 +7,7 @@ public class MenuController : MonoBehaviour
     public GameObject menuCanvas;
     public GameObject uiEmotes;
     public TabController tabController;
+    public GameObject enterPanel;
     void Start()
     {
         menuCanvas.SetActive(false);
@@ -111,5 +112,10 @@ public class MenuController : MonoBehaviour
     }
 
 
+    public void EnterButton()
+    {
+        enterPanel.SetActive(true);
+        SoundEffectManager.Instance.PlayAudio("Select");
+    }
 
 }
