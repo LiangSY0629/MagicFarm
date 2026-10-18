@@ -15,7 +15,9 @@ public class AnimalsManager : MonoBehaviour
     public Button[] animalButtons;
 
     public Button[] feedButtons;
-    public GameObject feedChooseText;
+    public GameObject feedGameObject;
+    public TMP_Text feedChooseText,productText;
+    public TMP_Text feedNumberText;
     public Button feedButton;
 
     [Header("设置管理的动物")]
@@ -23,6 +25,7 @@ public class AnimalsManager : MonoBehaviour
     public int animalID;
 
     FeedInformation feedChoose;
+    int currentFeedNumber;
     int feedID;
 
     private void Awake()
@@ -52,7 +55,9 @@ public class AnimalsManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// 打开动物管理面板；
+    /// </summary>
     public void OpenPanel()
     {
         PauseController.SetPause(true);
@@ -70,11 +75,13 @@ public class AnimalsManager : MonoBehaviour
 
         }
 
-        feedButton.gameObject.SetActive(false);
-        feedChooseText.SetActive(false);
+        feedGameObject.SetActive(false);
 
     }
 
+    /// <summary>
+    /// 关闭动物管理面板；
+    /// </summary>
     public void ClosePanel()
     {
         animalPanel.SetActive(false);
@@ -83,25 +90,64 @@ public class AnimalsManager : MonoBehaviour
         SoundEffectManager.Instance.PlayAudio("Cancel");
     }
 
-    //显示当前选择的饲料品种；
+    /// <summary>
+    /// 显示当前选择的饲料品种；
+    /// </summary>
+    /// <param name="ID"></param>
     public void PrepareFeed(int ID)
     {
-        feedButton.gameObject.SetActive(true);
-        feedChooseText.SetActive(true);
-        if (ID < animals[animalID].feeds.Count)
+        feedGameObject.SetActive(true);   //显示喂养的文本及按钮；
+
+        if (ID < animals[animalID].feeds.Count)    //若当前选的饲料可以被索引找到，就赋值
         {
             feedChoose = animals[animalID].feeds[ID];
             feedID = ID;
+            currentFeedNumber = feedChoose.feedNumber;
         }
-
+        //计算当前动物品种所需的营养；
         animals[animalID].needNutrition = (int)(Mathf.Pow(2, (animals[animalID].animalType * animals[animalID].need) + 1));
+        feedChooseText.text = "已选择：" + feedButtons[ID].GetComponentInChildren<TMP_Text>().text;
 
-        feedChooseText.GetComponent<TMP_Text>().text = "已选择：" + feedButtons[ID].GetComponentInChildren<TMP_Text>().text;
-
+        SetFeedText();   //刷新文本内容；
         SoundEffectManager.Instance.PlayAudio("Select");
     }
 
-    //切换动物品种
+    public void AddFeedNumber()
+    {
+        currentFeedNumber++;
+        SetFeedText();
+        SoundEffectManager.Instance.PlayAudio("Select");
+    }
+
+    public void LessFeedNumber()
+    {
+        if (currentFeedNumber > 0)
+        {
+            currentFeedNumber--;
+            SetFeedText();
+        }
+        else
+        {
+            currentFeedNumber = 0;
+            TipsPopupControler.Instance.SetTipsText("喂养数量不可以为零");
+        }
+        SoundEffectManager.Instance.PlayAudio("Select");
+    }
+
+    /// <summary>
+    ///刷新文本内容；
+    /// </summary>
+    public void SetFeedText()
+    {
+        int nutrition = (int)(Mathf.Pow(2, feedID * 2)) * currentFeedNumber;
+        productText.text = "预计产物数量：*" + animals[animalID].FigureProduct(nutrition);
+        feedNumberText.text = currentFeedNumber.ToString();
+    }
+
+    /// <summary>
+    /// 切换动物品种
+    /// </summary>
+    /// <param name="types"></param>
     public void SwitchAnimalType(int types)
     {
         if (animals[animalID].eating)
@@ -137,17 +183,16 @@ public class AnimalsManager : MonoBehaviour
             return;
         }
 
-        int nutrition = (int)(Mathf.Pow(2, feedID * 2)) * feedChoose.feedNumber;
+        int nutrition = (int)(Mathf.Pow(2, feedID * 2)) * currentFeedNumber;
 
         if (animals[animalID].needNutrition > nutrition)
         {
-            TipsPopupControler.Instance.SetTipsText("当前饲料的等级太低了，动物们吃不饱，换个高级的吧！");
+            TipsPopupControler.Instance.SetTipsText("当前饲料的营养值太低了，动物们吃不饱，换个高级的吧！");
             return;
         }
 
-        if (InventoryController.Instance.LessItem(ItemTypes.Crop, feedChoose.feedID, 1, feedChoose.feedNumber))
+        if (InventoryController.Instance.LessItem(ItemTypes.Crop, feedChoose.feedID, 1, currentFeedNumber))
         {
-            
             animals[animalID].SetFeed(feedChoose , nutrition);
         }
         else

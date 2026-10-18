@@ -142,16 +142,7 @@ public class AnimalController : MonoBehaviour,IInteractable
     /// <param name="nutrition"></param>
     public void SetFeed(FeedInformation feed , int nutrition)
     {
-
-        if (nutrition >= needNutrition)
-        {
-            finalProduct = (nutrition / needNutrition) * product;
-        }
-        else
-        {
-
-            return;
-        }
+        finalProduct = FigureProduct(nutrition);
 
         foreach (GameObject animal in animals)
         {
@@ -162,6 +153,28 @@ public class AnimalController : MonoBehaviour,IInteractable
         eating = true;
 
     }
+
+    /// <summary>
+    /// 传入营养值计算当前的产物数量；
+    /// </summary>
+    /// <param name="nutrition"></param>
+    /// <returns></returns>
+    public int FigureProduct(int nutrition)
+    {
+        int finProduct;
+
+        if (nutrition >= needNutrition)
+        {
+            finProduct = (nutrition / needNutrition) * product;
+        }
+        else
+        {
+            finProduct = 0;
+        }
+
+        return finProduct;
+    }
+
 
     /// <summary>
     /// 生成动物产物；
