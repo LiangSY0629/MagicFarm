@@ -23,7 +23,6 @@ public class PlayerCombat : MonoBehaviour
     }
 
     //判断当前使用工具，并根据工具产生相应的效果；
-
     public void Attack(List<Vector3Int> tilePositions)
     {
         //没用工具，返回；
@@ -157,12 +156,15 @@ public class PlayerCombat : MonoBehaviour
             anim.SetFloat("Tool", 1);
             SoundEffectManager.Instance.PlayAudio("Attack");
         }
+
+        Debug.Log("Attack");
         anim.SetBool("Attack", true);
         attack = true;
     }
 
     public void FinalAttack()
     {
+        Debug.Log("Atack      False");
         anim.SetBool("Attack", false);
         attack = false;
     }

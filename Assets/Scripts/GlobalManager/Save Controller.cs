@@ -25,7 +25,6 @@ public class SaveController : MonoBehaviour
     void Start()
     {
         save_localtion = Path.Combine(Application.persistentDataPath, "saveData.json");
-
     }
 
     public void SaveGame()
@@ -52,35 +51,37 @@ public class SaveController : MonoBehaviour
         File.WriteAllText(save_localtion, JsonUtility.ToJson(saveData));
     }
 
-    public bool LoadGame()
+
+    public bool Loading()
     {
+        return File.Exists(save_localtion);
+    }
 
-        if (File.Exists(save_localtion))
+    public void LoadGame()
+    {
+        if (!Loading())
         {
-            SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(save_localtion));
-
-            GameObject.FindGameObjectWithTag("Player").transform.position = saveData.player_position;
-            TimeController.Instance.currentTime = saveData.currentTime;
-            MailBoxManager.Instance.mailInterval = saveData.currentOrderInterval;
-
-            InventoryController.Instance.SetInventoryData(saveData.inventorySaveData);
-            InventoryController.Instance.SetItemNumber(saveData.allItemNumberSaveData);
-            ItemSaveController.Instance.SetItemDate(saveData.itemSaveData);
-            PlantController.Instance.SetPlant(saveData.plantSaveData);
-            TileMapManager.Instance.SetTileData(saveData.tileSaveData);
-            TimeController.Instance.SetTime();
-            StatsManager.Instance.SetGoldCount(0);
-            AnimalsManager.Instance.SetAnimalsSaveData(saveData.animalSaveData);
-            MailBoxManager.Instance.SetMailData(saveData.orderSaveData);
-            AchieveController.Instance.SetAchieveData(saveData.achievementSaveData);
-            StatsManager.Instance.SetSaveData(saveData.statsSaveData);
-            MagicManager.Instance.SetSaveData(saveData.magicSaveData);
-            return true;
+            return;
         }
-        else
-        {
-            return false;
-        }
+
+        SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(save_localtion));
+
+        GameObject.FindGameObjectWithTag("Player").transform.position = saveData.player_position;
+        TimeController.Instance.currentTime = saveData.currentTime;
+        MailBoxManager.Instance.mailInterval = saveData.currentOrderInterval;
+
+        InventoryController.Instance.SetInventoryData(saveData.inventorySaveData);
+        InventoryController.Instance.SetItemNumber(saveData.allItemNumberSaveData);
+        ItemSaveController.Instance.SetItemDate(saveData.itemSaveData);
+        PlantController.Instance.SetPlant(saveData.plantSaveData);
+        TileMapManager.Instance.SetTileData(saveData.tileSaveData);
+        TimeController.Instance.SetTime();
+        StatsManager.Instance.SetGoldCount(0);
+        AnimalsManager.Instance.SetAnimalsSaveData(saveData.animalSaveData);
+        MailBoxManager.Instance.SetMailData(saveData.orderSaveData);
+        AchieveController.Instance.SetAchieveData(saveData.achievementSaveData);
+        StatsManager.Instance.SetSaveData(saveData.statsSaveData);
+        MagicManager.Instance.SetSaveData(saveData.magicSaveData);
 
     }
 

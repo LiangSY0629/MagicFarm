@@ -14,6 +14,11 @@ public class MainMenuController : MonoBehaviour
         buttons[1].onClick.AddListener(() => GameManager.Instance.LoadGame());
         buttons[2].onClick.AddListener(() => GameManager.Instance.CloseGame());
 
+        if (!SaveController.Instance.Loading())
+        {
+            buttons[1].gameObject.SetActive(false);
+        }
+
     }
 
     private void OnDisable()

@@ -21,13 +21,14 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+
     /// <summary>
     /// 创建一个新游戏；
     /// </summary>
     public void CreateNewGame()
     {
         isLoadGame = false;
-        ExitGame();
+        EnterGame();
     }
 
     /// <summary>
@@ -35,14 +36,19 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LoadGame()
     {
+        if (!SaveController.Instance.Loading())
+        {
+            return;
+        }
+
         isLoadGame = true;
-        ExitGame();
+        EnterGame();
     }
 
     public void ReturnMainMenu()
     {
         isLoadGame = false;
-        EnterGame();
+        ExitGame();
     }
 
     public void CloseGame()
@@ -59,7 +65,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    async void ExitGame()
+    async void EnterGame()
     {
         SoundEffectManager.Instance.PlayAudio("Confirm");
         await SceneFader.Instance.FadeIn(fadeColor);
@@ -76,7 +82,7 @@ public class GameManager : MonoBehaviour
         await SceneFader.Instance.FadeOut();
     }
 
-    async void EnterGame()
+    async void ExitGame()
     {
         await SceneFader.Instance.FadeIn(fadeColor);
 

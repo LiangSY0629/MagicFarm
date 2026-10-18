@@ -23,4 +23,10 @@ public class MagicNode : MonoBehaviour
         button.onClick.AddListener(() => MagicManager.Instance.SetDescriptionPanel(ID));
     }
 
+    private void OnDisable()
+    {
+        if(button!=null)
+            button.onClick.RemoveAllListeners();
+    }
+
 }

@@ -209,4 +209,14 @@ public class AchieveController : MonoBehaviour
 
     }
 
+
+    private void OnDisable()
+    {
+        if(EventController.Instance != null)
+        {
+            EventController.OnAchieveComplete -= CompleteAchievement;
+            EventController.OnAchieveConditionComplete -= CompleteAchievement;
+        }
+    }
+
 }

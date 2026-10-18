@@ -100,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
             if (final_dir != direction)
             {
                 anim.SetFloat("Direction", anim_dir);
-                // clothes.anim_switch();
                 final_dir = direction;
             }
 
@@ -113,8 +112,6 @@ public class PlayerMovement : MonoBehaviour
         if (player_combat.attack == false)
         {
             rigid.velocity = direction * StatsManager.Instance.speed;
-
-
         }
         else
         {

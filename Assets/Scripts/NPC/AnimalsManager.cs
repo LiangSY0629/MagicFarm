@@ -193,6 +193,7 @@ public class AnimalsManager : MonoBehaviour
 
         if (InventoryController.Instance.LessItem(ItemTypes.Crop, feedChoose.feedID, 1, currentFeedNumber))
         {
+            TipsPopupControler.Instance.SetTipsText("Î¹Ñø³É¹¦£¡");
             animals[animalID].SetFeed(feedChoose , nutrition);
         }
         else

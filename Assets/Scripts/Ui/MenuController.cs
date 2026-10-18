@@ -7,15 +7,33 @@ public class MenuController : MonoBehaviour
     public GameObject menuCanvas;
     public GameObject uiEmotes;
     public TabController tabController;
+    public GameObject teachingPanel;
+
+    public float openTeachingTime = 5f;
+    bool openFirst = false;
 
     void Start()
     {
         menuCanvas.SetActive(false);
+        teachingPanel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //简易判断是不是第一次进入游戏，如果是，倒计时结束后打开教学面板；
+        if (!GameManager.Instance.isLoadGame && openTeachingTime > 0 && !openFirst)
+        {
+            openTeachingTime -= Time.deltaTime;
+        }
+
+        if(openTeachingTime <= 0 && !openFirst)
+        {
+            teachingPanel.SetActive(true);
+            openFirst = true;
+            PauseController.SetPause(true);
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (menuCanvas.activeSelf == false)
@@ -28,7 +46,7 @@ public class MenuController : MonoBehaviour
             {
                 CloseMenu();
             }
-           
+
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -89,7 +107,7 @@ public class MenuController : MonoBehaviour
         openMenu();
         SoundEffectManager.Instance.PlayAudio("Select");
         tabController.ActivePlayer();
-    } 
+    }
 
     /// <summary>
     /// 按下购物按钮；
@@ -109,6 +127,26 @@ public class MenuController : MonoBehaviour
         openMenu();
         SoundEffectManager.Instance.PlayAudio("Select");
         tabController.ActiveMagic();
+    }
+
+    /// <summary>
+    /// 按下教学按钮；
+    /// </summary>
+    public void TeachingButton()
+    {
+        teachingPanel.SetActive(true);
+        PauseController.SetPause(true);
+        SoundEffectManager.Instance.PlayAudio("Select");
+    }
+
+    /// <summary>
+    /// 关闭教学手册;
+    /// </summary>
+    public void CloseTeachingPanel()
+    {
+        teachingPanel.SetActive(false);
+        PauseController.SetPause(false);
+        SoundEffectManager.Instance.PlayAudio("Cancel");
     }
 
 }

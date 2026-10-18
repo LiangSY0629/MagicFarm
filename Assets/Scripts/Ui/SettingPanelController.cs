@@ -79,14 +79,19 @@ public class SettingPanelController : MonoBehaviour
     /// </summary>
     public void ConfirmLoad()
     {
-        if (SaveController.Instance.LoadGame())
+        if (SaveController.Instance.Loading())
         {
+            SaveController.Instance.LoadGame();
             TipsPopupControler.Instance.SetTipsText("加载成功！");
             LoadGamePanel.SetActive(false);
             SoundEffectManager.Instance.PlayAudio("Confirm");
         }
-        else 
+        else
+        {
             TipsPopupControler.Instance.SetTipsText("没有可供加载的存档，请先保存！");
+            SoundEffectManager.Instance.PlayAudio("Confirm");
+        }
+
     }
 
     /// <summary>
@@ -117,6 +122,7 @@ public class SettingPanelController : MonoBehaviour
     {
         SaveController.Instance.SaveGame();
         enterPanel.SetActive(false);
+        SoundEffectManager.Instance.PlayAudio("Confirm");
         GameManager.Instance.CloseGame();
     }
 

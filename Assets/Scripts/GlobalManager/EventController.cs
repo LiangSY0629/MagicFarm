@@ -5,6 +5,17 @@ using UnityEngine;
 
 public class EventController : MonoBehaviour
 {
+    public static EventController Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else Destroy(gameObject);
+    }
+
 
     //achieve相关的事件
     public static event Action<AchieveCondition, int> OnAchieveConditionComplete;
@@ -13,6 +24,7 @@ public class EventController : MonoBehaviour
     /// <summary>
     /// 传入成就Condition，数量；
     /// </summary>
+    /// <param name="condition"></param>
     /// <param name="condition"></param>
     /// <param name="number"></param>
     public static void TriggerComplete(AchieveCondition condition, int number)

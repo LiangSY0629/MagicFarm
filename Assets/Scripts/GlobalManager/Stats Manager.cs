@@ -198,6 +198,14 @@ public class StatsManager : MonoBehaviour
     }
 
 
+    private void OnDisable()
+    {
+        if (EventController.Instance != null)
+        {
+            EventController.OnAchieveUp -= SetAchieveCount;
+        }
+    }
+
 }
 
 [System.Serializable]
