@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mail;
 using TMPro;
 using UnityEngine;
 
@@ -118,6 +119,9 @@ public class StatsManager : MonoBehaviour
 
         data.goldCount = goldCount;
         data.achieveCount = achieveCompleteCount;
+        data.magicStone = magicStone;
+        data.level = level;
+        data.exp = currentExp;
 
         List<TypeSaveData> saveData = new List<TypeSaveData>();
         foreach(var dic in magicStatDictionary)
@@ -144,6 +148,11 @@ public class StatsManager : MonoBehaviour
         SetGoldCount(0);
         achieveCompleteCount = statsSaveData.achieveCount;
         SetAchieveCount(0);
+        level = statsSaveData.level;
+        currentExp = statsSaveData.exp;
+        MailBoxManager.Instance.SetSliderValue(0);
+        MailBoxManager.Instance.SetLevelText();
+        magicStone = statsSaveData.magicStone;
 
         foreach(TypeSaveData data in statsSaveData.typeSaveDatas)
         {

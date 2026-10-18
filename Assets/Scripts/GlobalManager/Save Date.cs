@@ -129,6 +129,9 @@ public class StatsSaveData
 {
     public int goldCount;
     public int achieveCount;
+    public int magicStone;
+    public int level;
+    public int exp;
 
     public List<TypeSaveData> typeSaveDatas;
 }

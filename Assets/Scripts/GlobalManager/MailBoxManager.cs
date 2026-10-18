@@ -454,6 +454,7 @@ public class MailBoxManager : MonoBehaviour, IInteractable
     /// <param name="value"></param>
     public void SetSliderValue(int exp)
     {
+        StatsManager.Instance.GetEmpiricalValue();
         int expNeed = StatsManager.Instance.expNeed;  //获取当前升级所需的经验值；
         float finExp = exp + StatsManager.Instance.currentExp;
 
