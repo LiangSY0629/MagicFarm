@@ -15,12 +15,17 @@ public class MagicNode : MonoBehaviour
     public Button button;
     public TMP_Text levelText;
 
+
+    private void OnEnable()
+    {
+        button = GetComponent<Button>();
+        button.onClick.AddListener(() => MagicManager.Instance.SetDescriptionPanel(ID));
+    }
+
     private void Start()
     {
         buttonImage = GetComponent<Image>();
-        button = GetComponent<Button>();
         levelText = GetComponentInChildren<TMP_Text>();
-        button.onClick.AddListener(() => MagicManager.Instance.SetDescriptionPanel(ID));
     }
 
     private void OnDisable()

@@ -74,10 +74,13 @@ public class StatsManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         EventController.OnAchieveUp += SetAchieveCount;
+    }
 
+    private void Start()
+    {
         magicStatDictionary = new Dictionary<MagicTypes, Stat>();
 
         //把所有需要修改的属性添加进dictionary；

@@ -30,14 +30,17 @@ public class AchieveController : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Start()
+    private void OnEnable()
     {
-
-        achieveGroupDictionary = new Dictionary<AchieveCondition, List<Achievement>>();
-        achieveDictionary = new Dictionary<int, Achievement>();
-
         EventController.OnAchieveComplete += CompleteAchievement;
         EventController.OnAchieveConditionComplete += CompleteAchievement;
+    }
+
+
+    private void Start()
+    {
+        achieveGroupDictionary = new Dictionary<AchieveCondition, List<Achievement>>();
+        achieveDictionary = new Dictionary<int, Achievement>();
 
         //遍历有等级成就，生成对应的achieveSlot；
         foreach (AchieveGroupSO achieveGroup in achieveGroupSOs)

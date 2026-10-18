@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -132,6 +131,7 @@ public class MagicManager : MonoBehaviour
     /// <param name="ID"></param>
     public void SetDescriptionPanel(string ID)
     {
+        Debug.Log(ID);
         currentID = ID;
         MagicSO magic = magicNodeDictionary[ID].magicSo;
 
