@@ -159,6 +159,11 @@ public class AnimalsManager : MonoBehaviour
         animals[animalID].SetAnimalType(types);
         SoundEffectManager.Instance.PlayAudio("Select");
 
+        if (feedGameObject.activeSelf)
+        {
+            SetFeedText();
+        }
+
     } 
     
     /// <summary>

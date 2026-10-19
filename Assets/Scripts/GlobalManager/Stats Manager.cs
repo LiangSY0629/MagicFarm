@@ -51,9 +51,9 @@ public class StatsManager : MonoBehaviour
 
     (int, float)[] expCurve =
     {
-        (0, 1.25f),
-        (20, 1.15f),
-        (40, 1.07f),
+        (0, 1.20f),
+        (20, 1.12f),
+        (40, 1.05f),
     };
 
     [Header("绑定个人信息面板")]
