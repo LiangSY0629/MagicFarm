@@ -91,7 +91,6 @@ public class AchieveController : MonoBehaviour
 
                 if (achieve.currentValue >= achieve.conditionNumber)
                 {
-                    Debug.Log(achieve.conditionNumber);
                     achieve.currentValue = achieve.conditionNumber;
                     achieve.isLock = false;
                     achieve.achieveIcon.sprite = achieve.completeIcon;

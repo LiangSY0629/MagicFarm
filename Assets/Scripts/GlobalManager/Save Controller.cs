@@ -33,6 +33,7 @@ public class SaveController : MonoBehaviour
         {
             player_position = GameObject.FindGameObjectWithTag("Player").transform.position,
             currentTime = TimeController.Instance.currentTime,
+            currentTruthTime = TimeController.Instance.currentGameTime,
             currentOrderInterval = MailBoxManager.Instance.mailInterval,
 
             inventorySaveData = InventoryController.Instance.GetSaveSlot(),
@@ -68,6 +69,16 @@ public class SaveController : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("Player").transform.position = saveData.player_position;
         TimeController.Instance.currentTime = saveData.currentTime;
+        try
+        {
+            float t = TimeController.Instance.currentGameTime - saveData.currentTruthTime;  //存储两次时间之间的差值；
+
+        }
+        catch
+        {
+
+        }
+        
         MailBoxManager.Instance.mailInterval = saveData.currentOrderInterval;
 
         InventoryController.Instance.SetInventoryData(saveData.inventorySaveData);

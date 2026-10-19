@@ -29,9 +29,6 @@ public class Plant : MonoBehaviour
     private void Awake()
     {
         growth = 0;
-        currentGrowTime = growTime * StatsManager.Instance.plantGrowth.finalValue;
-        currentWaterTime = waterTime * StatsManager.Instance.plantWater.finalValue;
-
         water = false;
     }
 
@@ -45,41 +42,34 @@ public class Plant : MonoBehaviour
         
     }
 
-    private void Update()
+
+    /// <summary>
+    /// 传入plant生长的时间，更新图像以及浇水等；
+    /// </summary>
+    /// <param name="upTime"></param>
+    public void UpdatePlant(float upTime)
     {
-        //天黑后停止生长；
-        if (TimeController.Instance.isNight)
+        if(growth +1 < plantSprite.Count)
         {
-            return;
-        }
+            currentGrowTime += upTime;
 
-        if (mature)
-        {
-            return;
-        }
+            int currentGrowth = 0;
+            currentGrowth = (int)(currentGrowTime / (growTime * StatsManager.Instance.plantGrowth.finalValue));
 
-
-        if (growth + 1 < plantSprite.Count)
-        {
-            if (currentGrowTime > 0)
+            if(currentGrowth != growth)
             {
-                currentGrowTime -= Time.deltaTime;
-            }
-            else
-            {
-                currentGrowTime = growTime * StatsManager.Instance.plantGrowth.finalValue;
-                growth += 1;
+                growth = currentGrowth;
                 PlantGrowth();
-                
             }
 
             if (water)
             {
                 if (currentWaterTime > 0)
                 {
-                    currentWaterTime -= Time.deltaTime;
+                    currentWaterTime -= upTime;
                 }
-                else
+                
+                if(currentWaterTime <= 0)
                 {
                     water = false;
                     waterSprite.SetActive(!water);
@@ -93,8 +83,10 @@ public class Plant : MonoBehaviour
             water = true;
             waterSprite.SetActive(!water);
         }
-        
+
+
     }
+
 
     /// <summary>
     /// 浇水时触发，重置浇水时间，并增加植物生长进度；
@@ -104,7 +96,7 @@ public class Plant : MonoBehaviour
         water = true;
         waterSprite.SetActive(!water);
         currentWaterTime = waterTime * StatsManager.Instance.plantWater.finalValue;
-        currentGrowTime -= growTime * StatsManager.Instance.plantGrowth.finalValue * 0.5f;
+        currentGrowTime += growTime * StatsManager.Instance.plantGrowth.finalValue * 0.5f;
     }
 
     public void HarvestCrop()
@@ -126,12 +118,17 @@ public class Plant : MonoBehaviour
     {
         ID = plantSO.ID;
         plantSprite = plantSO.plantSprite;
+        currentGrowTime = 0;
+        currentWaterTime = 0;
+        growth = 0;
+        mature = false;
+
         if (growth <= 0)
         {
             GetComponent<SpriteRenderer>().sprite = plantSO.plantSprite[0];
         }
         else GetComponent<SpriteRenderer>().sprite = plantSO.plantSprite[growth];
-        
+
         growTime = plantSO.growTime;
         waterTime = plantSO.waterTime;
 

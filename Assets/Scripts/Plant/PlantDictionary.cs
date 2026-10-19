@@ -5,12 +5,22 @@ using UnityEngine;
 
 public class PlantDictionary : MonoBehaviour
 {
+    public static PlantDictionary Instance;
+
     public GameObject plantPrefab;
     public List<PlantSO> plantLibrary;
     public Dictionary<int, PlantSO> plantDictionary;
+    public List<Plant> plantList;
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else Destroy(gameObject);
+
+        plantList = new List<Plant>();
         plantDictionary = new Dictionary<int, PlantSO>();
 
         for(int i = 0; i < plantLibrary.Count; i++)
@@ -45,15 +55,5 @@ public class PlantDictionary : MonoBehaviour
 
         return plantPrefab;
     }
-
-    //public GameObject SetPlantPrefabs(int plantID)
-    //{
-    //    plantDictionary.TryGetValue(plantID, out GameObject plantPrefab);
-    //    if (plantPrefab == null)
-    //    {
-    //        return null;
-    //    }
-    //    return plantPrefab;
-    //}
 
 }

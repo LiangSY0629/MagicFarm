@@ -13,6 +13,7 @@ public class SaveData
 
     public float currentOrderInterval;
     public float currentTime;
+    public float currentTruthTime;
 
     public List<InventorySaveData> inventorySaveData;
     public List<AllItemNumberSaveData> allItemNumberSaveData;

@@ -131,7 +131,6 @@ public class MagicManager : MonoBehaviour
     /// <param name="ID"></param>
     public void SetDescriptionPanel(string ID)
     {
-        Debug.Log(ID);
         currentID = ID;
         MagicSO magic = magicNodeDictionary[ID].magicSo;
 

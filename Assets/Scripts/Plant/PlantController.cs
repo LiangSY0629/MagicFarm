@@ -91,7 +91,7 @@ public class PlantController : MonoBehaviour
                 plant.PlantGrowth();
                 plant.waterSprite.SetActive(!plant.water);
                 TileMapManager.Instance.tilePlantDictionary[plantData.plantPosition] = plant;
-
+                PlantDictionary.Instance.plantList.Add(plant);
             }
 
         }

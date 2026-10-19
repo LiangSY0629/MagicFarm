@@ -38,8 +38,8 @@ public class TimeController : MonoBehaviour
 
     public float finalTime;
     public float dayTime;
-    float updateTime = 0.1f;
-    float waitTruthTime = 0;
+    float updateTime = 0;
+    public float currentGameTime;
     int nightTime;
     int lightTime;
 
@@ -69,19 +69,38 @@ public class TimeController : MonoBehaviour
     private void Update()
     {
         currentTime += Time.deltaTime;
+        currentGameTime += Time.deltaTime;
 
-        updateTime -= Time.deltaTime;
-        waitTruthTime -= Time.deltaTime;
+        updateTime += Time.deltaTime;
 
         finalTime = startTime + currentTime;
 
         dayTime = finalTime % oneDay;
 
         //不需要及时更新放在这里面节省部分性能；
-        if (updateTime <= 0)
+        if (updateTime >= 0.5f)
         {
-            updateTime = 0.2f;
             SetTime();
+
+            if (!isNight)
+            {
+                for (int i = 0; i < PlantDictionary.Instance.plantList.Count; i++)
+                {
+                    Plant plant = PlantDictionary.Instance.plantList[i];
+
+                    if (plant != null)
+                    {
+                        if (!plant.mature)
+                        {
+                            plant.UpdatePlant(updateTime);
+                        }
+                    }
+                    else
+                        PlantDictionary.Instance.plantList.Remove(plant);
+
+                }
+
+            }
 
             if (!isNight && (hour >= 18 || hour < 6))
             {
@@ -101,13 +120,7 @@ public class TimeController : MonoBehaviour
                 
             }
 
-            //每隔60s调用一下函数更新一下显示时间；
-            if(waitTruthTime <= 0)
-            {
-                waitTruthTime = 60;
-                SetTruthTime();
-            }
-
+            SetTruthTime();
 
             //防止修改时间后灯光无法匹配当前时间；
             if ((dayTime > nightTime + targetTime || dayTime < lightTime - targetTime) && light.intensity > 0.5)//大于天黑时间或小于天亮时间；
@@ -120,6 +133,8 @@ public class TimeController : MonoBehaviour
                 light.color = dayColor;
                 light.intensity = 1;
             }
+
+            updateTime = 0;
 
         }
 
@@ -152,20 +167,15 @@ public class TimeController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 设置当前的真实时间；
+    /// </summary>
     public void SetTruthTime()
     {
-        truthMin++;
-        if(truthMin >= 60)
-        {
-            truthMin = 0;
-            truthHour++;
-        }
-
-        if(truthHour >= 24)
-        {
-            truthHour = 0;
-            truthDay++;
-        }
+        truthDay =(int)(currentGameTime / (24 * 60 * 60));
+        int time = (int)(currentGameTime % (24 * 60 * 60));
+        truthHour = (time / (60 * 60));
+        truthMin = (time / 60);
 
         StatsManager.Instance.timeText.text = $"游戏时间：{truthDay:D2}天{truthHour:D2}小时{truthMin:D2}分钟";
 

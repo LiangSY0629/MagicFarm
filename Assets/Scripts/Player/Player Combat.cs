@@ -146,6 +146,7 @@ public class PlayerCombat : MonoBehaviour
                     }
 
                     Plant plant = Instantiate(plantPrefab, PlantController.Instance.transform).GetComponent<Plant>();
+                    PlantDictionary.Instance.plantList.Add(plant);
                     plant.transform.position = position + toolUsed.tilemap.cellSize / 2;
                     TileMapManager.Instance.tilePlantDictionary[position] = plant;
                     TileMapManager.Instance.tileCellDictionary[position] = true;
@@ -157,14 +158,12 @@ public class PlayerCombat : MonoBehaviour
             SoundEffectManager.Instance.PlayAudio("Attack");
         }
 
-        Debug.Log("Attack");
         anim.SetBool("Attack", true);
         attack = true;
     }
 
     public void FinalAttack()
     {
-        Debug.Log("Atack      False");
         anim.SetBool("Attack", false);
         attack = false;
     }
