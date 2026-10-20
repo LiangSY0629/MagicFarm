@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour
     public GameObject teachingPanel;
 
     public float openTeachingTime = 5f;
+    public float updateTime = 30f;
     bool openFirst = false;
 
     void Start()
@@ -55,6 +56,20 @@ public class MenuController : MonoBehaviour
             tabController.ActiveBag();
         }
 
+        if(updateTime > 0)
+        {
+            updateTime -= Time.deltaTime;
+        }
+        else
+        {
+            SaveController.Instance.TotalSave();
+            if (menuCanvas.activeSelf)
+            {
+                SetTotalTime();
+            }
+            updateTime = 30f;
+        }
+
     }
 
     public void openMenu()
@@ -66,7 +81,21 @@ public class MenuController : MonoBehaviour
         menuCanvas.SetActive(!menuCanvas.activeSelf);
         uiEmotes.SetActive(!uiEmotes.activeSelf);
         PauseController.SetPause(menuCanvas.activeSelf);
+
+        SetTotalTime();
     }
+
+    /// <summary>
+    /// 调用函数更新总时间的显示；
+    /// </summary>
+    public void SetTotalTime()
+    {
+        Debug.Log("yes");
+        GameManager.Instance.SetPlayTime();
+        TimeController.Instance.currentGameTime = GameManager.Instance.totalPlayGame;
+        TimeController.Instance.SetTruthTime();
+    }
+
 
     /// <summary>
     /// 按下关闭按钮；

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,7 +14,6 @@ public class SaveData
 
     public float currentOrderInterval;
     public float currentTime;
-    public float currentTruthTime;
 
     public List<InventorySaveData> inventorySaveData;
     public List<AllItemNumberSaveData> allItemNumberSaveData;
@@ -35,6 +35,12 @@ public class SaveData
     public List<MagicSaveData> magicSaveData;
 }
 
+[System.Serializable]
+public class TotalData
+{
+    public double totalPlayTime;
+    public DateTime currentUTC;
+}
 
 
 [System.Serializable]

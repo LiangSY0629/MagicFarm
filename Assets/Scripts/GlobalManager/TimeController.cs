@@ -39,7 +39,7 @@ public class TimeController : MonoBehaviour
     public float finalTime;
     public float dayTime;
     float updateTime = 0;
-    public float currentGameTime;
+    public double currentGameTime;
     int nightTime;
     int lightTime;
 
@@ -69,7 +69,6 @@ public class TimeController : MonoBehaviour
     private void Update()
     {
         currentTime += Time.deltaTime;
-        currentGameTime += Time.deltaTime;
 
         updateTime += Time.deltaTime;
 
@@ -119,8 +118,6 @@ public class TimeController : MonoBehaviour
                 }
                 
             }
-
-            SetTruthTime();
 
             //防止修改时间后灯光无法匹配当前时间；
             if ((dayTime > nightTime + targetTime || dayTime < lightTime - targetTime) && light.intensity > 0.5)//大于天黑时间或小于天亮时间；

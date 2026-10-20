@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class SaveController : MonoBehaviour
 {
     public static SaveController Instance;
 
     private string save_localtion;
+    public string total_save;
 
     private void Awake()
     {
@@ -25,6 +22,11 @@ public class SaveController : MonoBehaviour
     void Start()
     {
         save_localtion = Path.Combine(Application.persistentDataPath, "saveData.json");
+        total_save = Path.Combine(Application.persistentDataPath, "totalData.json");
+
+        GameManager.Instance.currentUTC = System.DateTime.UtcNow;
+        TotalLoad();
+        Debug.Log(GameManager.Instance.totalPlayGame);
     }
 
     public void SaveGame()
@@ -33,7 +35,6 @@ public class SaveController : MonoBehaviour
         {
             player_position = GameObject.FindGameObjectWithTag("Player").transform.position,
             currentTime = TimeController.Instance.currentTime,
-            currentTruthTime = TimeController.Instance.currentGameTime,
             currentOrderInterval = MailBoxManager.Instance.mailInterval,
 
             inventorySaveData = InventoryController.Instance.GetSaveSlot(),
@@ -50,6 +51,18 @@ public class SaveController : MonoBehaviour
         };
 
         File.WriteAllText(save_localtion, JsonUtility.ToJson(saveData));
+    }
+
+    public void TotalSave()
+    {
+        GameManager.Instance.SetPlayTime();
+        TotalData totalData = new TotalData
+        {
+            totalPlayTime = GameManager.Instance.totalPlayGame,
+            currentUTC = System.DateTime.UtcNow,
+        };
+
+        File.WriteAllText(total_save, JsonUtility.ToJson(totalData));
     }
 
 
@@ -69,15 +82,6 @@ public class SaveController : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("Player").transform.position = saveData.player_position;
         TimeController.Instance.currentTime = saveData.currentTime;
-        try
-        {
-            float t = TimeController.Instance.currentGameTime - saveData.currentTruthTime;  //存储两次时间之间的差值；
-
-        }
-        catch
-        {
-
-        }
         
         MailBoxManager.Instance.mailInterval = saveData.currentOrderInterval;
 
@@ -95,5 +99,16 @@ public class SaveController : MonoBehaviour
         MagicManager.Instance.SetSaveData(saveData.magicSaveData);
 
     }
+
+    public void TotalLoad()
+    {
+        if (File.Exists(total_save))
+        {
+            TotalData totalData = JsonUtility.FromJson<TotalData>(File.ReadAllText(total_save));
+            GameManager.Instance.totalPlayGame = totalData.totalPlayTime;
+            
+        }
+    }
+
 
 }
